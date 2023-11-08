@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 public class Protocole extends JPanel {
 
+    private boolean protocolSelection = false;
     private String protocolChoisi;
 
     public Protocole() {
@@ -46,15 +47,24 @@ public class Protocole extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 protocolChoisi = (String) protocolComboBox.getSelectedItem();
-                System.out.println("Numéro de protocole sélectionné : " + protocolChoisi);
+
+                if (protocolChoisi != null) {
+                    protocolSelection = true; // Marquer que le protocole a été sélectionné
+                }
+               //protocolChoisi = (String) protocolComboBox.getSelectedItem();
+                //System.out.println("Numéro de protocole sélectionné : " + protocolChoisi);
                 // Ici, vous pouvez récupérer le protocole sélectionné et continuer le processus de test.
                 // Vous pouvez interagir avec la base de données pour obtenir les détails du protocole.
                 // Puis lancez la suite du test.
                 // N'oubliez pas de gérer les erreurs potentielles liées à la base de données.
+                
             }
         });
     }
     public String getProtocolChoisi() {
         return protocolChoisi;
+    }
+    public boolean isProtocolSelected() {
+        return protocolSelection;
     }
 }

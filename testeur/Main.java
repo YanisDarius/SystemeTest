@@ -11,12 +11,21 @@ public class Main {
         frame.add(protocole); // Ajoute l'instance de Protocole à la JFrame
         
         frame.setVisible(true);
-        //frame.remove(protocole);
-        //frame.revalidate();
-        //frame.repaint();
-        String protocolChoisString = protocole.getProtocolChoisi() ;
-        System.out.println("Protocole sélectionné : " + protocolChoisString);
-
+        
+        
+            if (protocole.isProtocolSelected()) {
+                // Le protocole a été sélectionné, passez à l'étape suivante ici
+                frame.remove(protocole);
+                frame.revalidate();
+                frame.repaint();
+                String protocolChoisiString = protocole.getProtocolChoisi();
+                System.out.println("Protocole sélectionné : " + protocolChoisiString);
+                 
+            }
+        
+   
+    Menu menu = new Menu();
+    frame.add(menu.getTree());
         // Pour fermer la fenêtre lorsque c'est nécessaire
         // Vous pouvez appeler frame.dispose() où vous le souhaitez.
         // Par exemple, lorsque le test est terminé.
