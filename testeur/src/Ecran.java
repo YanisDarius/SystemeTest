@@ -15,8 +15,8 @@ public class Ecran {
         cardPanel = new JPanel();
         cardLayout = new CardLayout();
         cardPanel.setLayout(cardLayout);
-
-
+        
+        //definition de l ecran grace a option ecran
         EcranOption ecran = new EcranOption();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(ecran.getWidth(), ecran.getHeight());
@@ -39,6 +39,7 @@ public class Ecran {
     }
 
     public void revelationEcran() {
+        
         this.Frame().add(cardPanel);
         this.Frame().setVisible(true);
     }

@@ -53,6 +53,7 @@ public class Menu {
 
         // Ajoutez le JTree à un JScrollPane pour la gestion des défilements
         scrollPane = new JScrollPane(tree);
+        
     }
 
     public JScrollPane getTree() {
