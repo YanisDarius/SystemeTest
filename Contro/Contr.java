@@ -7,14 +7,24 @@ import java.util.ArrayList;
 
 public class Contr {
 
-    public static ArrayList<Object> getProtocole(){
+    Connection cnx;
+
+    public Contr() {
+        
+        try {
+            Class.forName("org.mariadb.jdbc.Driver");
+            cnx = DriverManager.getConnection("jdbc:mariadb://dwarves.iut-fbleau.fr/sayebabu",
+            "sayebabu", "kjrzB5S4kqKAwdT");
+            } 
+        catch (Exception e) {
+          System.out.printf("erreur 2");  
+        }
+    }
+
+    public ArrayList<Object> getProtocole(){
 
         ArrayList<Object> protocoleListe = new ArrayList<Object>();
 
-        try {
-            Class.forName("org.mariadb.jdbc.Driver");
-            Connection cnx = DriverManager.getConnection("jdbc:mariadb://dwarves.iut-fbleau.fr/sayebabu",
-            "sayebabu", "kjrzB5S4kqKAwdT");
             try {
 
                 //protocole
@@ -31,19 +41,14 @@ public class Contr {
                     protocole.add(rs.getString(4));
 
                     protocoleListe.add(protocole);
-                }
-                
+                }                
 
             } 
             catch (Exception e) {
-                cnx.close();
                 System.out.printf("erreur 1 :" + e);
                 
             }
-        } 
-        catch (Exception e) {
-          System.out.printf("erreur 2");  
-        }
+        
         
         return protocoleListe;
 
