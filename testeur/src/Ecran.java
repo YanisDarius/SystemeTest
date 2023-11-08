@@ -26,16 +26,24 @@ public class Ecran {
     public JFrame Frame() {
         return frame;
     }
+    public CardLayout getCardLayout(){
+        return cardLayout;
+    }
+    
+    public JPanel getCardJPanel(){
+        return cardPanel;
+    } 
 
     public void ajouterEcran(Component ajoutDesComponent,String nomComponent) {
         cardPanel.add(ajoutDesComponent,nomComponent);
     }
 
-    public void revelationEcran(Component ecranAReveler) {
-        this.Frame().add(ecranAReveler);
+    public void revelationEcran() {
+        this.Frame().add(cardPanel);
         this.Frame().setVisible(true);
     }
 
+    
 
 
 

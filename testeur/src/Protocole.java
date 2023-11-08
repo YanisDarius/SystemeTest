@@ -8,7 +8,8 @@ public class Protocole extends JPanel {
     private boolean protocolSelection = false;
     private String protocolChoisi ;
 
-    public Protocole() {
+    public Protocole(Ecran ecran) {
+        
         setLayout(new GridBagLayout()); // Utilisation de GridBagLayout pour la mise en page
 
         // Titre
@@ -48,9 +49,7 @@ public class Protocole extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 protocolChoisi = (String) protocolComboBox.getSelectedItem();
 
-                if (protocolChoisi != null) {
-                    protocolSelection = true; // Marquer que le protocole a été sélectionné
-                }
+                new ManipulationEcran(ecran,"menu");
             
                 // Ici, vous pouvez récupérer le protocole sélectionné et continuer le processus de test.
                 // Vous pouvez interagir avec la base de données pour obtenir les détails du protocole.
