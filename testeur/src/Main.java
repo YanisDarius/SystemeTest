@@ -2,7 +2,7 @@ import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-        Ecran ecran = new Ecran();
+        EcranOption ecran = new EcranOption();
         JFrame frame = new JFrame("Outil de Test");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(ecran.getWidth(), ecran.getHeight());

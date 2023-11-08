@@ -1,22 +1,23 @@
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.Component;
+
+import javax.swing.JFrame;
 
 public class Ecran {
-    private int screenWidth;
-    private int screenHeight;
 
-    public int getWidth() {
-        return screenWidth;
+    private JFrame frame = new JFrame("test");
+
+    public Ecran(){
+        EcranOption ecran = new EcranOption();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(ecran.getWidth(), ecran.getHeight());
+
     }
 
-    public int getHeight() {
-        return screenHeight;
+    public JFrame Frame() {
+        return frame;
     }
-
-    public Ecran() {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        screenWidth = (int) screenSize.getWidth();
-        screenHeight = (int) screenSize.getHeight();
-
+    public void ajouterEcran(Component component) {
+        this.Frame().add(component);
+        this.Frame().setVisible(true);
     }
 }
