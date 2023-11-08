@@ -4,6 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Protocole extends JPanel {
+
+    private String protocolChoisi;
+
     public Protocole() {
         setLayout(new GridBagLayout()); // Utilisation de GridBagLayout pour la mise en page
 
@@ -42,12 +45,16 @@ public class Protocole extends JPanel {
         startTestButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String selectedProtocol = (String) protocolComboBox.getSelectedItem();
+                protocolChoisi = (String) protocolComboBox.getSelectedItem();
+                System.out.println("Numéro de protocole sélectionné : " + protocolChoisi);
                 // Ici, vous pouvez récupérer le protocole sélectionné et continuer le processus de test.
                 // Vous pouvez interagir avec la base de données pour obtenir les détails du protocole.
                 // Puis lancez la suite du test.
                 // N'oubliez pas de gérer les erreurs potentielles liées à la base de données.
             }
         });
+    }
+    public String getProtocolChoisi() {
+        return protocolChoisi;
     }
 }
