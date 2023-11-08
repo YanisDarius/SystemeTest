@@ -59,10 +59,10 @@ public class Menu {
         return scrollPane;
     }
 
-        public static void main(String[] args) {
-                Ecran ecran = new Ecran();
+        //public static void main(String[] args) {
+        //        Ecran ecran = new Ecran();
                 
-                Menu menu = new Menu();
-                ecran.ajouterEcran(menu.scrollPane);
-        }
+         //       Menu menu = new Menu();
+        //        ecran.ajouterEcran(menu.scrollPane);
+        //}
 }
