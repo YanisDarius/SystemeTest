@@ -84,7 +84,7 @@ public class Menu extends JPanel {
         valideButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                new ManipulationEcran(ecran, "fin");
             }
         });
 
