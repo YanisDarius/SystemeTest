@@ -36,9 +36,9 @@ public class Contr {
 
                     ArrayList<Object> protocole = new ArrayList<Object>();
 
-                    protocole.add(rs.getInt(1));
-                    protocole.add(rs.getString(3));
-                    protocole.add(rs.getString(4));
+                    protocole.add(rs.getInt(1));        // id du protocole
+                    protocole.add(rs.getString(3));     // titre du protocole
+                    protocole.add(rs.getString(4));     // description du protocole
 
                     protocoleListe.add(protocole);
                 }                
@@ -53,4 +53,45 @@ public class Contr {
         return protocoleListe;
 
     }
+
+    public void main(String[] args) {
+        try 
+        {
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+    }
+
+    public ArrayList<Menu> getFils(int id)
+    {
+        ArrayList<Menu> fils = new ArrayList<Menu>();
+
+        try {
+            PreparedStatement pst = this.cnx.prepareStatement("SELECT * FROM `menu` WHERE idpere = ?;");
+            pst.setInt(1, id);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()) 
+            {
+                PreparedStatement pst2 = cnx.prepareStatement("SELECT COUNT(*) FROM `menu` WHERE idpere = ?;");
+                pst2.setInt(1, rs.getInt(1));
+                ResultSet rs2 = pst2.executeQuery();
+                rs2.next();
+                if (rs2.getInt(1) != 0 ) 
+                {
+                                    //TODO
+                }
+                else
+                {
+                    Action output; //TODO
+                }
+
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        
+        return fils;
+    }
+
 }
