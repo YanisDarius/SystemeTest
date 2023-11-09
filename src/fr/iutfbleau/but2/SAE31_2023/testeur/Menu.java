@@ -1,9 +1,13 @@
-import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.DefaultTreeCellRenderer;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
 import java.net.URL;
+
+import javax.swing.ImageIcon;
+import javax.swing.JScrollPane;
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.DefaultTreeModel;
 
 public class Menu {
 
@@ -53,17 +57,17 @@ public class Menu {
 
         // Ajoutez le JTree à un JScrollPane pour la gestion des défilements
         scrollPane = new JScrollPane(tree);
-        
+
     }
 
     public JScrollPane getTree() {
         return scrollPane;
     }
 
-        //public static void main(String[] args) {
-        //        Ecran ecran = new Ecran();
-                
-         //       Menu menu = new Menu();
-        //        ecran.ajouterEcran(menu.scrollPane);
-        //}
+    // public static void main(String[] args) {
+    // Ecran ecran = new Ecran();
+
+    // Menu menu = new Menu();
+    // ecran.ajouterEcran(menu.scrollPane);
+    // }
 }
