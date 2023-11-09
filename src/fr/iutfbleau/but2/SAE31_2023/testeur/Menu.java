@@ -25,7 +25,7 @@ public class Menu extends JPanel {
 
     public Menu(Ecran ecran) {
 
-        Resultat resultat = new Resultat();
+       // Resultat resultat = new Resultat();
 
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Menu Principal");
         DefaultMutableTreeNode menu1 = new DefaultMutableTreeNode("Menu 1");
@@ -80,7 +80,7 @@ public class Menu extends JPanel {
             }
         });
 
-         JButton valideButton = new JButton("valide");
+         JButton valideButton = new JButton("Valider");
         valideButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -98,7 +98,7 @@ public class Menu extends JPanel {
             public void valueChanged(TreeSelectionEvent e) {
                 // Récupérer le chemin sélectionné
                 Object[] path = e.getPath().getPath();
-                resultat.setCheminActuel(path);
+               // resultat.setCheminActuel(path);
                 // Mettre à jour le texte du label avec le chemin
                 StringBuilder chemin = new StringBuilder("Chemin : ");
                 for (Object noeud : path) {
