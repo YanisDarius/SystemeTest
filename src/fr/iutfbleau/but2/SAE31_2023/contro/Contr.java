@@ -9,31 +9,30 @@ public class Contr {
 
     Connection cnx;
 
-    public Contr() {
-        
-        try {
+    public Contr() 
+    { 
+        try 
+        {
             Class.forName("org.mariadb.jdbc.Driver");
-            cnx = DriverManager.getConnection("jdbc:mariadb://dwarves.iut-fbleau.fr/sayebabu",
-            "sayebabu", "kjrzB5S4kqKAwdT");
-            } 
-        catch (Exception e) {
+            cnx = DriverManager.getConnection("jdbc:mariadb://dwarves.iut-fbleau.fr/sayebabu","sayebabu", "kjrzB5S4kqKAwdT");
+        } 
+        catch (Exception e) 
+        {
           System.out.printf("erreur 2");  
         }
     }
 
-    public ArrayList<Object> getProtocole(){
-
+    public ArrayList<Object> getProtocole()
+    {
         ArrayList<Object> protocoleListe = new ArrayList<Object>();
-
-            try {
-
+            try 
+            {
                 //protocole
-                
                 PreparedStatement pst = cnx.prepareStatement("SELECT * FROM `protocole`;");
                 ResultSet rs = pst.executeQuery();
 
-                while(rs.next()) {
-
+                while(rs.next()) 
+                {
                     ArrayList<Object> protocole = new ArrayList<Object>();
 
                     protocole.add(rs.getInt(1));
@@ -44,9 +43,9 @@ public class Contr {
                 }                
 
             } 
-            catch (Exception e) {
+            catch (Exception e) 
+            {
                 System.out.printf("erreur 1 :" + e);
-                
             }
         
         
