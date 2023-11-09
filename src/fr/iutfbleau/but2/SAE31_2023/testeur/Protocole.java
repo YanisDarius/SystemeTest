@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -17,10 +18,14 @@ public class Protocole extends JPanel {
 
     private boolean protocolSelection = false;
     private String protocolChoisi;
+    private String descriptionText = "description" ;
 
-    public Protocole(Ecran ecran) {
+    public Protocole(Ecran ecran,ArrayList<Object> données) {
 
         setLayout(new GridBagLayout()); // Utilisation de GridBagLayout pour la mise en page
+        RessourcesProtocol ressources = new RessourcesProtocol(données);
+        
+
 
         // Titre
         JLabel titleLabel = new JLabel("Sélectionnez un protocole :");
@@ -33,7 +38,7 @@ public class Protocole extends JPanel {
         add(titleLabel, titleConstraints);
 
         // ComboBox pour la sélection du protocole
-        String[] protocols = { "Protocole 1", "Protocole 2", "Protocole 3" };
+        String[] protocols = { données. };
         JComboBox<String> protocolComboBox = new JComboBox<>(protocols);
         protocolComboBox.setPreferredSize(new Dimension(200, 30)); // Taille personnalisée
         GridBagConstraints comboBoxConstraints = new GridBagConstraints();
@@ -43,7 +48,7 @@ public class Protocole extends JPanel {
         comboBoxConstraints.insets = new Insets(0, 10, 10, 10); // Espacement en bas
         add(protocolComboBox, comboBoxConstraints);
 
-        JTextField description = new JTextField("description");
+        JTextField description = new JTextField(descriptionText);
         description.setPreferredSize(new Dimension(200, 30));
         description.setEditable(false);
         description.setHorizontalAlignment(JTextField.CENTER);
@@ -82,6 +87,23 @@ public class Protocole extends JPanel {
 
             }
         });
+
+        protocolComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                protocolChoisi = (String) protocolComboBox.getSelectedItem();
+                descriptionText= protocolChoisi;
+                description.setText(descriptionText);
+                System.out.println(descriptionText);
+
+                
+
+          
+            }
+        });
+
+
+
     }
 
     public String getProtocolChoisi() {
