@@ -3,7 +3,6 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.net.URL;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -22,8 +21,12 @@ public class Menu extends JPanel {
 
     private JScrollPane scrollPane;
     private JLabel cheminLabel;
+    
 
     public Menu(Ecran ecran) {
+
+        Resultat resultat = new Resultat();
+
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Menu Principal");
         DefaultMutableTreeNode menu1 = new DefaultMutableTreeNode("Menu 1");
         DefaultMutableTreeNode menu2 = new DefaultMutableTreeNode("Menu 2");
@@ -77,6 +80,15 @@ public class Menu extends JPanel {
             }
         });
 
+         JButton valideButton = new JButton("valide");
+        valideButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
+
+
         // Créer le label pour afficher le chemin parcouru
         cheminLabel = new JLabel("Chemin : ");
 
@@ -86,18 +98,22 @@ public class Menu extends JPanel {
             public void valueChanged(TreeSelectionEvent e) {
                 // Récupérer le chemin sélectionné
                 Object[] path = e.getPath().getPath();
+                resultat.setCheminActuel(path);
                 // Mettre à jour le texte du label avec le chemin
                 StringBuilder chemin = new StringBuilder("Chemin : ");
-                for (Object node : path) {
-                    chemin.append(node.toString()).append(" > ");
+                for (Object noeud : path) {
+                    chemin.append(noeud.toString()).append(" > ");
                 }
                 cheminLabel.setText(chemin.toString());
             }
         });
 
         setLayout(new BorderLayout());
-        add(scrollPane, BorderLayout.CENTER);
+        JPanel jpanel2 = new JPanel();
 
+        add(scrollPane, BorderLayout.CENTER);
+        jpanel2.add(valideButton);
+        add(jpanel2,BorderLayout.EAST);
         // Utiliser BorderLayout pour le panneau principal
         JPanel jpanel = new JPanel();
         jpanel.setLayout(new BorderLayout());
