@@ -27,9 +27,9 @@ public class Main {
         Contr bdd = new Contr();
         Ecran ecran = new Ecran();
         Protocole protocole = new Protocole(ecran,listeProtocoles);
-        Menu menu = new Menu();
+        Menu menu = new Menu(ecran);
         ecran.ajouterEcran(protocole, "protocole");
-        ecran.ajouterEcran(menu.getTree(), "menu");
+        ecran.ajouterEcran(menu, "menu");
         ecran.revelationEcran();
 
     }

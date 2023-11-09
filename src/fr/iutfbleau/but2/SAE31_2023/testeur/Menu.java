@@ -1,19 +1,29 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 
-public class Menu {
+public class Menu extends JPanel {
 
     private JScrollPane scrollPane;
+    private JLabel cheminLabel;
 
-    public Menu() {
+    public Menu(Ecran ecran) {
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Menu Principal");
         DefaultMutableTreeNode menu1 = new DefaultMutableTreeNode("Menu 1");
         DefaultMutableTreeNode menu2 = new DefaultMutableTreeNode("Menu 2");
@@ -58,16 +68,48 @@ public class Menu {
         // Ajoutez le JTree à un JScrollPane pour la gestion des défilements
         scrollPane = new JScrollPane(tree);
 
+        // Créer le bouton "Retour"
+        JButton retourButton = new JButton("Retour");
+        retourButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ManipulationEcran(ecran, "protocole");
+            }
+        });
+
+        // Créer le label pour afficher le chemin parcouru
+        cheminLabel = new JLabel("Chemin : ");
+
+        // Ajouter un écouteur de sélection pour mettre à jour le cheminLabel
+        tree.addTreeSelectionListener(new TreeSelectionListener() {
+            @Override
+            public void valueChanged(TreeSelectionEvent e) {
+                // Récupérer le chemin sélectionné
+                Object[] path = e.getPath().getPath();
+                // Mettre à jour le texte du label avec le chemin
+                StringBuilder chemin = new StringBuilder("Chemin : ");
+                for (Object node : path) {
+                    chemin.append(node.toString()).append(" > ");
+                }
+                cheminLabel.setText(chemin.toString());
+            }
+        });
+
+        setLayout(new BorderLayout());
+        add(scrollPane, BorderLayout.CENTER);
+
+        // Utiliser BorderLayout pour le panneau principal
+        JPanel jpanel = new JPanel();
+        jpanel.setLayout(new BorderLayout());
+        // Utiliser FlowLayout avec alignement à droite pour le panneau contenant le bouton et le label
+        JPanel flowPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JPanel flowPane2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+        flowPane2.add(cheminLabel);
+        flowPanel.add(retourButton);
+        jpanel.add(flowPanel, BorderLayout.EAST);
+        jpanel.add(flowPane2, BorderLayout.WEST);
+
+        add(jpanel, BorderLayout.SOUTH);
     }
-
-    public JScrollPane getTree() {
-        return scrollPane;
-    }
-
-    // public static void main(String[] args) {
-    // Ecran ecran = new Ecran();
-
-    // Menu menu = new Menu();
-    // ecran.ajouterEcran(menu.scrollPane);
-    // }
 }
