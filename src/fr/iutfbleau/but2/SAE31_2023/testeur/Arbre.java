@@ -52,7 +52,7 @@ public class Arbre extends JTree {
         root.ajouterEnfant(applications);
 
         return root;
-    }
+    } 
 }
 
 
