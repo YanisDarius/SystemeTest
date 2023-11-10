@@ -6,8 +6,11 @@ import javax.swing.tree.DefaultTreeModel;
 
 public class Arbre extends JTree {
 
+    private Noeud root;
+
+
     public Arbre() {
-        Noeud root = this.buildTree();
+        root = this.buildTree();
         DefaultMutableTreeNode rootNode = convertToTreeNode(root);
 
         // Création du modèle du JTree avec la racine
@@ -25,8 +28,13 @@ public class Arbre extends JTree {
         return treeNode;
     }
 
+    public Noeud getRoot() {
+        return root;
+    }
+
+
     
-    private Noeud buildTree() {
+    private static Noeud buildTree() {
         Noeud root = new Noeud("Root",2);
 
         Noeud documents = new Noeud("Documents", 2);
