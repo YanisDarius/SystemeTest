@@ -65,7 +65,7 @@ public class Contr {
                 System.out.println("L'ID de protocole a ete insere avec succes !");
             } else {
                 System.out.println("Erreur lors de l'insertion de l'ID de protocole.");
-            }          
+            }
 
         } catch (SQLIntegrityConstraintViolationException e) {
 
