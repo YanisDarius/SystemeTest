@@ -3,8 +3,10 @@ import java.util.ArrayList;
 public class Resultat {
     private ArrayList<Object> historique;
     private Object[] cheminActuel;
+    
 
     public Resultat(){
+        
 
     }
 

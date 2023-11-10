@@ -15,12 +15,24 @@ public class Noeud {
         this.enfants= new ArrayList<>();
     }
 
+    public Noeud(int ID,String nom,int rang) {
+        this.ID = ID;
+        this.name = nom;
+        this.rang = rang;
+        this.enfants= new ArrayList<>();
+    }
+
+
     public void ajouterEnfant(Noeud enfant) {
         this.enfants.add(enfant);
     }
 
     public int getRang() {
         return rang;
+    }
+
+    public int getID() {
+        return ID;
     }
 
     @Override
