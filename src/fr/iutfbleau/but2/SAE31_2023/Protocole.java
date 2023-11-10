@@ -12,21 +12,20 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class Protocole extends JPanel {
 
-   
     private String protocolChoisi;
-    private String descriptionText  ;
+    private String descriptionText;
     private int ID;
 
-    public Protocole(Ecran ecran,ArrayList<Object> données) {
+    public Protocole(Ecran ecran, ArrayList<Object> données) {
 
         setLayout(new GridBagLayout()); // Utilisation de GridBagLayout pour la mise en page
         RessourcesProtocol ressources = new RessourcesProtocol(données);
         descriptionText = ressources.getFirstDescription();
-
 
         // Titre
         JLabel titleLabel = new JLabel("Sélectionnez un protocole :");
@@ -39,7 +38,7 @@ public class Protocole extends JPanel {
         add(titleLabel, titleConstraints);
 
         // ComboBox pour la sélection du protocole
-        String[] protocols = ressources.getProtocolNom() ;
+        String[] protocols = ressources.getProtocolNom();
         JComboBox<String> protocolComboBox = new JComboBox<>(protocols);
         protocolComboBox.setPreferredSize(new Dimension(200, 30)); // Taille personnalisée
         GridBagConstraints comboBoxConstraints = new GridBagConstraints();
@@ -49,11 +48,16 @@ public class Protocole extends JPanel {
         comboBoxConstraints.insets = new Insets(0, 10, 10, 10); // Espacement en bas
         add(protocolComboBox, comboBoxConstraints);
 
-        JTextField description = new JTextField(descriptionText);
+        JTextArea description = new JTextArea(descriptionText);
         description.setPreferredSize(new Dimension(200, 30));
         description.setEditable(false);
-        description.setHorizontalAlignment(JTextField.CENTER);
+        description.setLineWrap(true);
+        description.setWrapStyleWord(true); // Pour ne pas couper les mots
+        description.setOpaque(false); // Rend le fond transparent
+        description.setAlignmentX(JTextArea.CENTER_ALIGNMENT);
+        description.setAlignmentY(JTextArea.CENTER_ALIGNMENT);
         description.setBorder(BorderFactory.createEmptyBorder());
+        description.setLineWrap(true);
         GridBagConstraints textFieldContraints = new GridBagConstraints();
         textFieldContraints.gridx = 0;
         textFieldContraints.gridy = 2;
@@ -76,11 +80,9 @@ public class Protocole extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 protocolChoisi = (String) protocolComboBox.getSelectedItem();
-                ID=ressources.getProtocolID(protocolChoisi);
+                ID = ressources.getProtocolID(protocolChoisi);
                 System.out.println(ID);
                 new ManipulationEcran(ecran, "menu");
-
-                
 
             }
         });
@@ -89,7 +91,7 @@ public class Protocole extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 protocolChoisi = (String) protocolComboBox.getSelectedItem();
-                descriptionText= ressources.getProtocolDescription(protocolChoisi);
+                descriptionText = ressources.getProtocolDescription(protocolChoisi);
                 description.setText(descriptionText);
                 System.out.println(descriptionText);
             }
@@ -100,8 +102,8 @@ public class Protocole extends JPanel {
         return protocolChoisi;
     }
 
-    public int protocolID () {
-        return  ID;
+    public int protocolID() {
+        return ID;
     }
 
 }
