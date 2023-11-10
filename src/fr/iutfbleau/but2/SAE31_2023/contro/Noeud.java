@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ public class Noeud {
     int rang;
     List<Noeud> enfants;
 
-    public Noeud(String nom,int rang,int ID) {
+    public Noeud(String nom,int rang) {
         this.ID = 0;
         this.name = nom;
         this.rang = rang;
