@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -15,12 +16,17 @@ import javax.swing.JTextField;
 
 public class Protocole extends JPanel {
 
-    private boolean protocolSelection = false;
+   
     private String protocolChoisi;
+    private String descriptionText  ;
+    private int ID;
 
-    public Protocole(Ecran ecran) {
+    public Protocole(Ecran ecran,ArrayList<Object> données) {
 
         setLayout(new GridBagLayout()); // Utilisation de GridBagLayout pour la mise en page
+        RessourcesProtocol ressources = new RessourcesProtocol(données);
+        descriptionText = ressources.getFirstDescription();
+
 
         // Titre
         JLabel titleLabel = new JLabel("Sélectionnez un protocole :");
@@ -33,7 +39,7 @@ public class Protocole extends JPanel {
         add(titleLabel, titleConstraints);
 
         // ComboBox pour la sélection du protocole
-        String[] protocols = { "Protocole 1", "Protocole 2", "Protocole 3" };
+        String[] protocols = ressources.getProtocolNom() ;
         JComboBox<String> protocolComboBox = new JComboBox<>(protocols);
         protocolComboBox.setPreferredSize(new Dimension(200, 30)); // Taille personnalisée
         GridBagConstraints comboBoxConstraints = new GridBagConstraints();
@@ -43,7 +49,7 @@ public class Protocole extends JPanel {
         comboBoxConstraints.insets = new Insets(0, 10, 10, 10); // Espacement en bas
         add(protocolComboBox, comboBoxConstraints);
 
-        JTextField description = new JTextField("description");
+        JTextField description = new JTextField(descriptionText);
         description.setPreferredSize(new Dimension(200, 30));
         description.setEditable(false);
         description.setHorizontalAlignment(JTextField.CENTER);
@@ -70,16 +76,22 @@ public class Protocole extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 protocolChoisi = (String) protocolComboBox.getSelectedItem();
-
+                ID=ressources.getProtocolID(protocolChoisi);
+                System.out.println(ID);
                 new ManipulationEcran(ecran, "menu");
 
-                // Ici, vous pouvez récupérer le protocole sélectionné et continuer le processus
-                // de test.
-                // Vous pouvez interagir avec la base de données pour obtenir les détails du
-                // protocole.
-                // Puis lancez la suite du test.
-                // N'oubliez pas de gérer les erreurs potentielles liées à la base de données.
+                
 
+            }
+        });
+
+        protocolComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                protocolChoisi = (String) protocolComboBox.getSelectedItem();
+                descriptionText= ressources.getProtocolDescription(protocolChoisi);
+                description.setText(descriptionText);
+                System.out.println(descriptionText);
             }
         });
     }
@@ -88,7 +100,8 @@ public class Protocole extends JPanel {
         return protocolChoisi;
     }
 
-    public boolean isProtocolSelected() {
-        return protocolSelection;
+    public int protocolID () {
+        return  ID;
     }
+
 }
