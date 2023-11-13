@@ -66,15 +66,15 @@ public class Protocole extends JPanel {
         description.setOpaque(false); // Rend le fond transparent
         description.setAlignmentX(Component.CENTER_ALIGNMENT);
         description.setAlignmentY(Component.CENTER_ALIGNMENT);
-        description.setBorder(BorderFactory.createEmptyBorder());
+       // description.setBorder(BorderFactory.createEmptyBorder());
         description.setLineWrap(true);
-        
+
 
         GridBagConstraints textFieldContraints = new GridBagConstraints();
         textFieldContraints.gridx = 0;
         textFieldContraints.gridy = 4;
         textFieldContraints.gridwidth = 1;
-        textFieldContraints.anchor = GridBagConstraints.FIRST_LINE_START;
+        textFieldContraints.anchor = GridBagConstraints.CENTER;
         textFieldContraints.insets = new Insets(0, 10, 10, 10);
         add(description, textFieldContraints);
 

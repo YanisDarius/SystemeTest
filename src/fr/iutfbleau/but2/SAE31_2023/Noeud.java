@@ -22,12 +22,7 @@ public class Noeud {
         this.enfants= new ArrayList<>();
     }
 
-    public void setAll(int ID,String nom,int rang) {
-        this.ID = ID;
-        this.name = nom;
-        this.rang = rang;
-    }
-
+  
 
     public void ajouterEnfant(Noeud enfant) {
         this.enfants.add(enfant);
