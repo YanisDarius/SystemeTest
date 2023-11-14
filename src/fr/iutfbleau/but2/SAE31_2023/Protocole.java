@@ -12,8 +12,10 @@ public class Protocole extends JPanel {
     private String descriptionText;
     private int ID;
     private String resultatRecherche; // Variable pour stocker le résultat de la recherche
+
     private JTextField recherche;
     private JComboBox<String> protocolComboBox;
+
 
     public Protocole(Ecran ecran, ArrayList<Object> données) {
 
@@ -44,17 +46,24 @@ public class Protocole extends JPanel {
         recherche.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
+
                 updateRecherche(ressources.getProtocolNom());
+
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
+
                 updateRecherche(ressources.getProtocolNom());
+
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
+
                 updateRecherche(ressources.getProtocolNom());
+
+               
             }
         });
 
@@ -108,6 +117,7 @@ public class Protocole extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 protocolChoisi = (String) protocolComboBox.getSelectedItem();
                 ID = ressources.getProtocolID(protocolChoisi);
+             
                 System.out.println("ID: " + ID);
                 System.out.println("Résultat de la recherche: " + resultatRecherche);
                 new ManipulationEcran(ecran, "menu");
@@ -125,6 +135,7 @@ public class Protocole extends JPanel {
         });
     }
 
+
    
     private void updateRecherche(String[] votreListeOriginale) {
         resultatRecherche = recherche.getText();
@@ -139,6 +150,7 @@ public class Protocole extends JPanel {
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(filteredList.toArray(new String[0]));
         protocolComboBox.setModel(model);
     }
+    // Méthode pour mettre à jour la variable resultatRecherche
 
     public String getProtocolChoisi() {
         return protocolChoisi;
@@ -151,4 +163,5 @@ public class Protocole extends JPanel {
     public String getResultatRecherche() {
         return resultatRecherche;
     }
+  
 }
