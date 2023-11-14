@@ -1,0 +1,111 @@
+Visual Studio Code
+	File
+		New Text File
+		New File...
+		New Window
+		Open File...
+		Open Folder
+		Open Workspace from File...
+		Open Recent
+			Reopen Closed Editor
+			C:\La\DEV\Est\Superieur\A\La\SCR
+			More...
+			Clear Recently Opened
+		Add Folder to Workspace...
+		Save Workspace As...
+		Duplicate Workspace
+		Save
+		Save As...
+		Save All
+		Share
+			Export Profile (Default)...
+			Import Profile...
+		Auto Save
+		Preferences
+			Profiles (Default)
+				Default
+				Show Profile Contents
+				Create Profile...
+				Delete Profile...
+				Export Profile...
+				Import Profile...
+			Settings
+			Extensions
+			Keyboard Shortcuts
+			Configure User Snippets
+			User Tasks
+			Theme
+				Color Theme
+				File Icon Theme
+			Online Services Settings...
+		Revert File
+		Close Editor
+		Close Folder
+		Close Window
+		Exit
+	Edit
+		Undo
+		Redo
+		Cut
+		Copy
+		Paste
+		Find
+		Replace
+		Find in Files
+		Replace in Files
+		Toggle Line Comment
+		Toggle BLock Comment
+		Emmet: Expand Abbreviation
+	Selection
+		Select All
+		Expand Selection
+		Shrink Selection
+		Copy Line Up
+		Copy Line Down
+		Copy Line Selection
+		Add Cursor Above
+		Add Cursor Below
+		Add Cursors to Line Ends
+		Add Next Occurrence
+		Select All Occurrences
+		Switch to Ctrl+Click for Multi-Cursor
+		Column Selection Mode
+	View
+		Command Palette...
+		Open View...
+		Appearance
+			Full Screen
+			Zen Mode
+			Centered Layout
+			Menu Bar
+			Primary Side Bar
+			Secondary Side Bar
+			Status Bar
+			Panel
+			Activity Bar Position
+				Side
+				Top
+				Hidden
+			Move Primary Side Bar Right
+			Panel Position
+				Bottom
+				Left
+				Right
+			Align Panel
+				Center
+				Justify
+				Left
+				Right
+			Tab Bar
+				Multiple Tabs
+				Single Tab
+				Hide
+			Minimap
+			Breakcrumbs
+			Sticky Scroll
+			Render Whitespace
+			Render Controll Characters
+			Zoom In
+			Zoom Out
+			Reset Zoom
+		Edit La
