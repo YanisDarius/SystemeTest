@@ -25,7 +25,7 @@ public class Menu extends JPanel {
 
     public Menu(Ecran ecran, Noeud racine) {
 
-        Arbre arbre = new Arbre();
+        Arbre arbre = new Arbre(racine);
 
         
 

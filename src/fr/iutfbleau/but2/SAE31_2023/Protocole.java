@@ -1,26 +1,17 @@
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
 public class Protocole extends JPanel {
 
     private String protocolChoisi;
     private String descriptionText;
     private int ID;
+    private String resultatRecherche; // Variable pour stocker le résultat de la recherche
 
     public Protocole(Ecran ecran, ArrayList<Object> données) {
 
@@ -46,6 +37,24 @@ public class Protocole extends JPanel {
         rechercheContraints.gridwidth = 1;
         rechercheContraints.insets = new Insets(0, 10, 10, 10);
         add(recherche, rechercheContraints);
+
+        // Ajout d'un écouteur de document au champ de recherche
+        recherche.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateRecherche();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateRecherche();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateRecherche();
+            }
+        });
 
         // ComboBox pour la sélection du protocole
         String[] protocols = ressources.getProtocolNom();
@@ -97,9 +106,9 @@ public class Protocole extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 protocolChoisi = (String) protocolComboBox.getSelectedItem();
                 ID = ressources.getProtocolID(protocolChoisi);
-                System.out.println(ID);
+                System.out.println("ID: " + ID);
+                System.out.println("Résultat de la recherche: " + resultatRecherche);
                 new ManipulationEcran(ecran, "menu");
-
             }
         });
 
@@ -114,6 +123,11 @@ public class Protocole extends JPanel {
         });
     }
 
+    // Méthode pour mettre à jour la variable resultatRecherche
+    private void updateRecherche() {
+        resultatRecherche = recherche.getText();
+    }
+
     public String getProtocolChoisi() {
         return protocolChoisi;
     }
@@ -122,4 +136,7 @@ public class Protocole extends JPanel {
         return ID;
     }
 
+    public String getResultatRecherche() {
+        return resultatRecherche;
+    }
 }
