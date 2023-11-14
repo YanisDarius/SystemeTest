@@ -42,7 +42,7 @@ public class Protocole extends JPanel {
         recherche.setPreferredSize(new Dimension(200, 30));
         GridBagConstraints rechercheContraints = new GridBagConstraints();
         rechercheContraints.gridx = 0;
-        rechercheContraints.gridy = 2;
+        rechercheContraints.gridy = 1;
         rechercheContraints.gridwidth = 1;
         rechercheContraints.insets = new Insets(0, 10, 10, 10);
         add(recherche, rechercheContraints);
@@ -53,7 +53,7 @@ public class Protocole extends JPanel {
         protocolComboBox.setPreferredSize(new Dimension(200, 30)); // Taille personnalisée
         GridBagConstraints comboBoxConstraints = new GridBagConstraints();
         comboBoxConstraints.gridx = 0;
-        comboBoxConstraints.gridy = 3;
+        comboBoxConstraints.gridy = 2;
         comboBoxConstraints.gridwidth = 1;
         comboBoxConstraints.insets = new Insets(0, 10, 10, 10); // Espacement en bas
         add(protocolComboBox, comboBoxConstraints);
@@ -62,19 +62,22 @@ public class Protocole extends JPanel {
         description.setPreferredSize(new Dimension(300, 50));
         description.setEditable(false);
         description.setLineWrap(true);
-        description.setWrapStyleWord(true); // Pour ne pas couper les mots
-        description.setOpaque(false); // Rend le fond transparent
+        description.setWrapStyleWord(true);
+        description.setOpaque(false);
         description.setAlignmentX(Component.CENTER_ALIGNMENT);
         description.setAlignmentY(Component.CENTER_ALIGNMENT);
-       // description.setBorder(BorderFactory.createEmptyBorder());
+        description.setBorder(BorderFactory.createEmptyBorder());
         description.setLineWrap(true);
 
+        description.setAlignmentX(JTextArea.CENTER_ALIGNMENT);
+        description.setAlignmentY(JTextArea.CENTER_ALIGNMENT);
 
         GridBagConstraints textFieldContraints = new GridBagConstraints();
         textFieldContraints.gridx = 0;
-        textFieldContraints.gridy = 4;
+        textFieldContraints.gridy = 3;
         textFieldContraints.gridwidth = 1;
-        textFieldContraints.anchor = GridBagConstraints.CENTER;
+        textFieldContraints.fill = GridBagConstraints.HORIZONTAL;
+        //textFieldContraints.anchor = GridBagConstraints.CENTER;
         textFieldContraints.insets = new Insets(0, 10, 10, 10);
         add(description, textFieldContraints);
 
@@ -83,7 +86,7 @@ public class Protocole extends JPanel {
         startTestButton.setPreferredSize(new Dimension(150, 40)); // Taille personnalisée
         GridBagConstraints buttonConstraints = new GridBagConstraints();
         buttonConstraints.gridx = 0;
-        buttonConstraints.gridy = 5;
+        buttonConstraints.gridy = 4;
         buttonConstraints.gridwidth = 1;
         buttonConstraints.insets = new Insets(0, 10, 10, 10); // Espacement en bas
         add(startTestButton, buttonConstraints);

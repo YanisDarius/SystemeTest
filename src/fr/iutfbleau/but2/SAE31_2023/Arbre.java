@@ -1,13 +1,15 @@
+import java.awt.Color;
+import java.awt.Font;
+import java.net.URL;
+import javax.swing.ImageIcon;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
-
-
 
 public class Arbre extends JTree {
 
     private Noeud root;
-
 
     public Arbre() {
         root = this.buildTree();
@@ -15,9 +17,49 @@ public class Arbre extends JTree {
 
         // Création du modèle du JTree avec la racine
         DefaultTreeModel treeModel = new DefaultTreeModel(rootNode);
-
-        // Appeler le constructeur de la classe parent avec le modèle
         super.setModel(treeModel);
+
+        // Personnalisez le rendu pour améliorer l'esthétique
+        DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
+        renderer.setFont(new Font("Arial", Font.PLAIN, 14));
+        renderer.setBackgroundSelectionColor(Color.LIGHT_GRAY);
+        renderer.setBorderSelectionColor(Color.LIGHT_GRAY);
+        renderer.setTextSelectionColor(Color.BLACK);
+
+        // Définissez une icône personnalisée pour les nœuds
+        URL customIconURL = Menu.class.getResource("custom_icon.png");
+        if (customIconURL != null) {
+            ImageIcon customIcon = new ImageIcon(customIconURL);
+            renderer.setLeafIcon(customIcon);
+            renderer.setOpenIcon(customIcon);
+            renderer.setClosedIcon(customIcon);
+        }
+        this.setCellRenderer(renderer);
+    }
+
+    public Arbre(Noeud racine) {
+        root = racine;
+        DefaultMutableTreeNode rootNode = convertToTreeNode(root);
+        DefaultTreeModel treeModel = new DefaultTreeModel(rootNode);
+        super.setModel(treeModel);
+
+        DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
+        renderer.setFont(new Font("Arial", Font.PLAIN, 14));
+        renderer.setBackgroundSelectionColor(Color.LIGHT_GRAY);
+        renderer.setBorderSelectionColor(Color.LIGHT_GRAY);
+        renderer.setTextSelectionColor(Color.BLACK);
+
+        //personalisation des noeuds
+        URL customIconURL = Menu.class.getResource("custom_icon.png");
+        if (customIconURL != null) {
+            ImageIcon customIcon = new ImageIcon(customIconURL);
+            renderer.setLeafIcon(customIcon);
+            renderer.setOpenIcon(customIcon);
+            renderer.setClosedIcon(customIcon);
+        }
+        this.setCellRenderer(renderer);
+
+
     }
 
     private DefaultMutableTreeNode convertToTreeNode(Noeud node) {
@@ -28,14 +70,8 @@ public class Arbre extends JTree {
         return treeNode;
     }
 
-    public Noeud getRoot() {
-        return root;
-    }
-
-
-    
     private static Noeud buildTree() {
-        Noeud root = new Noeud("Root",2);
+        Noeud root = new Noeud("Root", 2);
 
         Noeud documents = new Noeud("Documents", 2);
         documents.ajouterEnfant(new Noeud("Images", 1));
@@ -58,6 +94,5 @@ public class Arbre extends JTree {
         root.ajouterEnfant(applications);
 
         return root;
-    } 
+    }
 }
-

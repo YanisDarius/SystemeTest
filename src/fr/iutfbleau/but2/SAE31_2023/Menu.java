@@ -23,27 +23,11 @@ public class Menu extends JPanel {
     private JLabel cheminLabel;
     
 
-    public Menu(Ecran ecran) {
+    public Menu(Ecran ecran, Noeud racine) {
 
         Arbre arbre = new Arbre();
 
-        // Personnalisez le rendu pour améliorer l'esthétique
-        DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
-        renderer.setFont(new Font("Arial", Font.PLAIN, 14)); // Définissez la police
-        renderer.setBackgroundSelectionColor(Color.LIGHT_GRAY); // Couleur de fond en sélection
-        renderer.setBorderSelectionColor(Color.LIGHT_GRAY); // Couleur de bordure en sélection
-        renderer.setTextSelectionColor(Color.BLACK); // Couleur du texte en sélection
-
-        // Définissez une icône personnalisée pour les nœuds
-        URL customIconURL = Menu.class.getResource("custom_icon.png");
-        if (customIconURL != null) {
-            ImageIcon customIcon = new ImageIcon(customIconURL);
-            renderer.setLeafIcon(customIcon); // Icône pour les feuilles
-            renderer.setOpenIcon(customIcon); // Icône pour les nœuds ouverts
-            renderer.setClosedIcon(customIcon); // Icône pour les nœuds fermés
-        }
-
-        arbre.setCellRenderer(renderer);
+        
 
         // Ajoutez le JTree à un JScrollPane pour la gestion des défilements
         scrollPane = new JScrollPane(arbre);
