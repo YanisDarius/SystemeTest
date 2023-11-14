@@ -12,7 +12,7 @@ public class Protocole extends JPanel {
     private String descriptionText;
     private int ID;
     private String resultatRecherche; // Variable pour stocker le résultat de la recherche
-
+    private RessourcesProtocol ressources;
     private JTextField recherche;
     private JComboBox<String> protocolComboBox;
 
@@ -20,7 +20,7 @@ public class Protocole extends JPanel {
     public Protocole(Ecran ecran, ArrayList<Object> données) {
 
         setLayout(new GridBagLayout()); // Utilisation de GridBagLayout pour la mise en page
-        RessourcesProtocol ressources = new RessourcesProtocol(données);
+        ressources = new RessourcesProtocol(données);
         descriptionText = ressources.getFirstDescription();
 
         // Titre
@@ -119,7 +119,6 @@ public class Protocole extends JPanel {
                 ID = ressources.getProtocolID(protocolChoisi);
              
                 System.out.println("ID: " + ID);
-                System.out.println("Résultat de la recherche: " + resultatRecherche);
                 new ManipulationEcran(ecran, "menu");
             }
         });
@@ -162,6 +161,10 @@ public class Protocole extends JPanel {
 
     public String getResultatRecherche() {
         return resultatRecherche;
+    }
+
+    public int getIDProtocolChoisi() {
+        return ressources.getProtocolID(protocolChoisi);
     }
   
 }

@@ -5,12 +5,12 @@
     import java.sql.SQLIntegrityConstraintViolationException;
     import java.util.ArrayList;
 
-    public class Contr {
+    public class BD {
 
         Connection cnx;
         PreparedStatement pst;
 
-        public Contr() {
+        public BD() {
 
             try {
                 Class.forName("org.mariadb.jdbc.Driver");

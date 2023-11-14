@@ -1,17 +1,9 @@
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.Font;
-import java.net.URL;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTree;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeCellRenderer;
-import javax.swing.tree.DefaultTreeModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.event.TreeSelectionEvent;
@@ -21,15 +13,12 @@ public class Menu extends JPanel {
 
     private JScrollPane scrollPane;
     private JLabel cheminLabel;
-    
+    private Resultat resultat;  
 
     public Menu(Ecran ecran, Noeud racine) {
+        resultat = new Resultat();  // Initialiser l'instance de Resultat
 
-        Arbre arbre = new Arbre(racine);
-
-        
-
-        // Ajoutez le JTree à un JScrollPane pour la gestion des défilements
+        Arbre arbre = new Arbre();  // Utiliser le constructeur d'Arbre avec la racine
         scrollPane = new JScrollPane(arbre);
 
         // Créer le bouton "Retour"
@@ -49,17 +38,16 @@ public class Menu extends JPanel {
             }
         });
 
-
         // Créer le label pour afficher le chemin parcouru
         cheminLabel = new JLabel("Chemin : ");
 
-        // Ajouter un écouteur de sélection pour mettre à jour le cheminLabel
+        // Ajouter un écouteur de sélection pour mettre à jour le cheminLabel et enregistrer la sélection
         arbre.addTreeSelectionListener(new TreeSelectionListener() {
             @Override
             public void valueChanged(TreeSelectionEvent e) {
                 // Récupérer le chemin sélectionné
                 Object[] path = e.getPath().getPath();
-               // resultat.setCheminActuel(path);
+                resultat.ajouterSelection(path);  // Enregistrer la sélection dans l'historique
                 // Mettre à jour le texte du label avec le chemin
                 StringBuilder chemin = new StringBuilder("Chemin : ");
                 for (Object noeud : path) {
@@ -74,7 +62,8 @@ public class Menu extends JPanel {
 
         add(scrollPane, BorderLayout.CENTER);
         jpanel2.add(valideButton);
-        add(jpanel2,BorderLayout.EAST);
+        add(jpanel2, BorderLayout.EAST);
+
         // Utiliser BorderLayout pour le panneau principal
         JPanel jpanel = new JPanel();
         jpanel.setLayout(new BorderLayout());
