@@ -1,26 +1,19 @@
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
 public class Protocole extends JPanel {
 
     private String protocolChoisi;
     private String descriptionText;
     private int ID;
+    private String resultatRecherche; // Variable pour stocker le résultat de la recherche
+    private JTextField recherche;
+    private JComboBox<String> protocolComboBox;
 
     public Protocole(Ecran ecran, ArrayList<Object> données) {
 
@@ -38,7 +31,7 @@ public class Protocole extends JPanel {
         titleConstraints.insets = new Insets(10, 10, 20, 10); // Espacement en bas
         add(titleLabel, titleConstraints);
 
-        JTextField recherche = new JTextField();
+        recherche = new JTextField();
         recherche.setPreferredSize(new Dimension(200, 30));
         GridBagConstraints rechercheContraints = new GridBagConstraints();
         rechercheContraints.gridx = 0;
@@ -47,9 +40,27 @@ public class Protocole extends JPanel {
         rechercheContraints.insets = new Insets(0, 10, 10, 10);
         add(recherche, rechercheContraints);
 
+        // Ajout d'un écouteur de document au champ de recherche
+        recherche.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateRecherche(ressources.getProtocolNom());
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateRecherche(ressources.getProtocolNom());
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateRecherche(ressources.getProtocolNom());
+            }
+        });
+
         // ComboBox pour la sélection du protocole
         String[] protocols = ressources.getProtocolNom();
-        JComboBox<String> protocolComboBox = new JComboBox<>(protocols);
+        protocolComboBox = new JComboBox<>(protocols);
         protocolComboBox.setPreferredSize(new Dimension(200, 30)); // Taille personnalisée
         GridBagConstraints comboBoxConstraints = new GridBagConstraints();
         comboBoxConstraints.gridx = 0;
@@ -97,9 +108,9 @@ public class Protocole extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 protocolChoisi = (String) protocolComboBox.getSelectedItem();
                 ID = ressources.getProtocolID(protocolChoisi);
-                System.out.println(ID);
+                System.out.println("ID: " + ID);
+                System.out.println("Résultat de la recherche: " + resultatRecherche);
                 new ManipulationEcran(ecran, "menu");
-
             }
         });
 
@@ -114,6 +125,21 @@ public class Protocole extends JPanel {
         });
     }
 
+   
+    private void updateRecherche(String[] votreListeOriginale) {
+        resultatRecherche = recherche.getText();
+        ArrayList<String>  listeFiltree;
+         listeFiltree = Recherche.filtrerListe(votreListeOriginale, resultatRecherche);
+        for (String element : listeFiltree) {
+            System.out.println(element);
+        }
+        updateComboBoxModel(listeFiltree);
+    }
+    private void updateComboBoxModel(ArrayList<String> filteredList) {
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(filteredList.toArray(new String[0]));
+        protocolComboBox.setModel(model);
+    }
+
     public String getProtocolChoisi() {
         return protocolChoisi;
     }
@@ -122,4 +148,7 @@ public class Protocole extends JPanel {
         return ID;
     }
 
+    public String getResultatRecherche() {
+        return resultatRecherche;
+    }
 }
