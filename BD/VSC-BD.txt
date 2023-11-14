@@ -4,7 +4,7 @@ Visual Studio Code
 		New File...
 		New Window
 		Open File...
-		Open Folder
+		Open Folder...
 		Open Workspace from File...
 		Open Recent
 			Reopen Closed Editor
@@ -37,7 +37,9 @@ Visual Studio Code
 			Theme
 				Color Theme
 				File Icon Theme
+				Product Icon Theme
 			Online Services Settings...
+			Backup and Sync Settings...
 		Revert File
 		Close Editor
 		Close Folder
@@ -62,11 +64,14 @@ Visual Studio Code
 		Shrink Selection
 		Copy Line Up
 		Copy Line Down
-		Copy Line Selection
+		Move Line Up
+		Move Line Down
+		Duplicate Selection
 		Add Cursor Above
 		Add Cursor Below
 		Add Cursors to Line Ends
 		Add Next Occurrence
+		Add Previous Occurrence
 		Select All Occurrences
 		Switch to Ctrl+Click for Multi-Cursor
 		Column Selection Mode
@@ -101,11 +106,126 @@ Visual Studio Code
 				Single Tab
 				Hide
 			Minimap
-			Breakcrumbs
+			Breadcrumbs
 			Sticky Scroll
 			Render Whitespace
-			Render Controll Characters
+			Render Control Characters
 			Zoom In
 			Zoom Out
 			Reset Zoom
-		Edit La
+		Edit Layout
+			Split Up
+			Split Down
+			Split Left
+			Split Right
+			Split in Group
+			Single
+			Two Columns
+			Three Columns
+			Two Rows
+			Three Rows
+			Grid (2x2)
+			Two Rows Right
+			Two Columns Bottom
+			Flip Layout
+		Explorer
+		Search
+		Source Control
+		Run
+		Extensions
+		Problems
+		Output
+		Debug Console
+		Terminal
+		Word Wrap
+	Go
+		Back
+		Forward
+		Last Edit Location
+		Switch Editor
+			Next Editor
+			Previous Editor
+			Next Used Editor
+			Previous Used Editor
+			Next Editor in Group
+			Previous Editor in Group
+			Next Used Editor in Group
+			Previous Used Editor in Group
+		Switch Group
+			Group 1
+			Group 2
+			Group 3
+			Group 4
+			Group 5
+			Next Group
+			Previous Group
+			Group Left
+			Group Right
+			Group Above
+			Group Below
+		Go to File...
+		Go to Symbol in Workspace...
+		Go to Symbol in Editor...
+		Go to Definition
+		Go to Declaration
+		Go to Type Definition
+		Go to Implementations
+		Go to References
+		Go to Line/Column...
+		Go to Bracket
+		Next Problem
+		Previous Problem
+		Next Change
+		Previous Change
+	Run
+		Start Debugging
+		Run Without Debugging
+		Stop Debugging
+		Restart Debugging
+		Open Configurations
+		Add Configuration...
+		Step Over
+		Step Into
+		Step Out
+		Continue
+		Toggle Breakpoint
+		New Breakpoint
+			Conditional Breakpoint...
+			Edit Breakpoint
+			Inline Breakpoint
+			Function Breakpoint...
+			Logpoint...
+		Enable All Breakpoints
+		Disable All Breakpoints
+		Remove All Breakpoints
+		Install additional Debuggers...
+	Terminal
+		New Terminal
+		Split Terminal
+		Run Task...
+		RUn Build Task...
+		Run Active File
+		Run Selected Text
+		Show Running Tasks...
+		Restart Running Task...
+		Terminate Task...
+		Configure Tasks...
+		Configure Default Build Task...
+	Help
+		Welcome
+		Show All Commands
+		Documentation
+		Editor Playground
+		Show Release Notes
+		Keyboard Shortcuts Reference
+		Video Tutorials
+		Tips and Tricks
+		Join Us on YouTube
+		Search Feature Requests
+		Report Issue
+		View License
+		Privacy Statement
+		Toggle Developer Tools
+		Open Process Explorer
+		Check for Updates...
+		About
