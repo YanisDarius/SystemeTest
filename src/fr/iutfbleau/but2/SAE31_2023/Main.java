@@ -24,10 +24,10 @@ public class Main {
         listeProtocoles.add(protocole2);
         listeProtocoles.add(protocole3);
 
-        Contr bdd = new Contr();
+        BD bdd = new BD();
         Ecran ecran = new Ecran();
-        Protocole protocole = new Protocole(ecran,bdd.getProtocole());
-        Menu menu = new Menu(ecran,bdd.getFils(1));
+        Protocole protocole = new Protocole(ecran,listeProtocoles);
+        Menu menu = new Menu(ecran,null);
         Fin fin = new Fin(ecran);
         ecran.ajouterEcran(protocole, "protocole");
         ecran.ajouterEcran(menu, "menu");
