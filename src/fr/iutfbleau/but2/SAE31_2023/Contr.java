@@ -112,6 +112,7 @@
 
             try {
                 cnx.close();
+                System.out.println("Base de données fermer !");
             } catch (Exception e) {
                 System.out.printf("erreur fermerRessource :" + e);
             }
