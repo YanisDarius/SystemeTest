@@ -123,7 +123,7 @@
             try 
             { 
                 //recup la racine
-                PreparedStatement pst = this.cnx.prepareStatement("SELECT * FROM `menu` WHERE idmenu = ?;");
+                PreparedStatement pst = this.cnx.prepareStatement("SELECT * FROM `menu` WHERE idmenu = ? ORDER BY poids;");
                 pst.setInt(1, id); 
                 ResultSet rs = pst.executeQuery();
             
@@ -131,7 +131,7 @@
                 {
                     //recup les enfants
                     root = new Noeud(rs.getInt(1), rs.getString(2), rs.getInt(4)); 
-                    PreparedStatement pst2 = cnx.prepareStatement("SELECT * FROM `menu` WHERE idpere = ?;");
+                    PreparedStatement pst2 = cnx.prepareStatement("SELECT * FROM `menu` WHERE idpere = ? ORDER BY poids;");
                     pst2.setInt(1, id);
                     ResultSet rs2 = pst2.executeQuery();
                     while (rs2.next()) 
