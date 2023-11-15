@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 
+
 public class Menu extends JPanel {
 
     private JScrollPane scrollPane;
@@ -45,7 +46,7 @@ public class Menu extends JPanel {
         arbre.addTreeSelectionListener(new TreeSelectionListener() {
             @Override
             public void valueChanged(TreeSelectionEvent e) {
-                
+               
                 Object[] path = e.getPath().getPath();
                 resultat.ajouterSelection(path);  // Enregistrer la sélection dans l'historique
                 // Mettre à jour le texte du label avec le chemin
