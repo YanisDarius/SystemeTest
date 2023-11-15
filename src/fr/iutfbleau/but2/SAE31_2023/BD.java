@@ -61,7 +61,7 @@ public class BD {
 
                 ArrayList<Object> protocole = new ArrayList<Object>();
 
-                protocole.add(rs.getInt(1)); // id du protocole
+                protocole.add(rs.getInt(2)); // id du menu
                 protocole.add(rs.getString(3)); // titre du protocole
                 protocole.add(rs.getString(4)); // description du protocole
 
@@ -76,21 +76,21 @@ public class BD {
 
     }
 
-    public void setTest(int IdTest, int ref) {
+    public void setTest(int ref, int idMenu) {
 
         ArrayList<Integer> tabIdTest = new ArrayList<Integer>();
         ArrayList<Integer> tabRef = new ArrayList<Integer>();
 
         try {
 
-            pst = cnx.prepareStatement("INSERT INTO test (IdTest, ref) Values (?, ?)");
-            pst.setInt(1, IdTest);
-            pst.setInt(2, ref);
+            pst = cnx.prepareStatement("INSERT INTO test (IdTest, ref, idMenu) Values (null, ?, ?)");
+            pst.setInt(1, ref);
+            pst.setInt(2, idMenu);
 
             int insertion = pst.executeUpdate();
 
             if (insertion > 0) {
-                System.out.println("L'ID de protocole a ete insere avec succes !");
+                System.out.println("L'ID du protocole a été inséré avec succès !");
             } else {
                 System.out.println("Erreur lors de l'insertion de l'ID de protocole.");
             }
@@ -98,7 +98,7 @@ public class BD {
         } catch (SQLIntegrityConstraintViolationException e) {
 
             try {
-                pst = cnx.prepareStatement("SELECT IdTest FROM `test`");
+                pst = cnx.prepareStatement("SELECT idMenu FROM `test`");
                 ResultSet rs = pst.executeQuery();
 
                 pst = cnx.prepareStatement("SELECT ref FROM `protocole`");
@@ -106,7 +106,7 @@ public class BD {
 
                 while (rs.next()) {
 
-                    tabIdTest.add(rs.getInt("IdTest"));
+                    tabIdTest.add(rs.getInt("idMenu"));
                 }
 
                 while (rs2.next()) {
@@ -114,17 +114,17 @@ public class BD {
                 }
 
                 for (int i = 0; i < tabIdTest.size(); i++) {
-                    if (tabIdTest.contains(IdTest)) {
+                    if (!tabIdTest.contains(idMenu)) {
                         System.out.println(
-                                "La cle primaire \"IdTest\" de la table \"test\" que vous essayez d'ajouter existe deja.");
+                                "La clé référentielle \"idMenu\" de la table \"test\" sur laquelle vous voulez faire votre test n'existe pas.\nVeuillez choisir un \"idMenu\" existant.");
                         if (!tabRef.contains(ref)) {
-                            System.out.println("La cle referentielle \"ref\" de la table \"protcole\" n'existe pas.");
+                            System.out.println("La clé référentielle \"ref\" de la table \"protcole\" n'existe pas.");
                             break;
                         }
                         break;
                     }
                     if (!tabRef.contains(ref)) {
-                        System.out.println("La cle referentielle \"ref\" de la table \"protcole\" n'existe pas.");
+                        System.out.println("La clé référentielle \"ref\" de la table \"protcole\" n'existe pas.");
                         break;
                     }
                 }
@@ -133,7 +133,7 @@ public class BD {
             }
 
         } catch (Exception e) {
-            System.out.printf("Erreur IdTest : " + e);
+            System.out.printf("Erreur fonction setTest : \n" + e);
         }
     }
 
@@ -156,9 +156,9 @@ public class BD {
 
         try {
             cnx.close();
-            System.out.println("Base de données fermer !");
+            System.out.println("Base de données fermée !");
         } catch (Exception e) {
-            System.out.printf("erreur fermerRessource :" + e);
+            System.out.printf("erreur fonction fermerRessource :\n" + e);
         }
     }
 
@@ -166,14 +166,14 @@ public class BD {
         Noeud root = null;
         try {
             // recup la racine
-            PreparedStatement pst = this.cnx.prepareStatement("SELECT * FROM `menu` WHERE idmenu = ? ORDER BY poids;");
+            PreparedStatement pst = this.cnx.prepareStatement("SELECT * FROM `menu` WHERE idMenu = ? ORDER BY poids;");
             pst.setInt(1, id);
             ResultSet rs = pst.executeQuery();
 
             if (rs.next()) {
                 // recup les enfants
                 root = new Noeud(rs.getInt(1), rs.getString(2), rs.getInt(4));
-                PreparedStatement pst2 = cnx.prepareStatement("SELECT * FROM `menu` WHERE idpere = ? ORDER BY poids;");
+                PreparedStatement pst2 = cnx.prepareStatement("SELECT * FROM `menu` WHERE idPere = ? ORDER BY poids;");
                 pst2.setInt(1, id);
                 ResultSet rs2 = pst2.executeQuery();
                 while (rs2.next()) {
@@ -182,7 +182,7 @@ public class BD {
                 }
             }
         } catch (Exception e) {
-            // TODO
+            System.out.println("Erreur fonction getFils :\n" + e);
         }
         return root;
     }
