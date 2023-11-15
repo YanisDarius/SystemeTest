@@ -10,7 +10,7 @@ public class Protocole extends JPanel {
 
     private String protocolChoisi;
     private String descriptionText;
-    private int ID;
+   
     private String resultatRecherche; // Variable pour stocker le résultat de la recherche
     private RessourcesProtocol ressources;
     private JTextField recherche;
@@ -114,9 +114,9 @@ public class Protocole extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 protocolChoisi = (String) protocolComboBox.getSelectedItem();
-                ID = ressources.getProtocolID(protocolChoisi);
+                
 
-                System.out.println("ID: " + ID);
+                System.out.println("ID: " + ressources.getProtocolID(protocolChoisi));
                 new ManipulationEcran(ecran, "menu");
             }
         });
@@ -152,9 +152,7 @@ public class Protocole extends JPanel {
         return protocolChoisi;
     }
 
-    public int protocolID() {
-        return ID;
-    }
+    
 
     public String getResultatRecherche() {
         return resultatRecherche;

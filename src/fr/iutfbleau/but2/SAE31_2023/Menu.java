@@ -6,20 +6,24 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.event.TreeExpansionEvent;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-
+import javax.swing.event.TreeWillExpandListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.ExpandVetoException;
 
 public class Menu extends JPanel {
 
     private JScrollPane scrollPane;
     private JLabel cheminLabel;
-    private Resultat resultat;  
+    private Resultat resultat;
 
     public Menu(Ecran ecran, Noeud racine) {
-        resultat = new Resultat();  // Initialiser l'instance de Resultat
+        resultat = new Resultat(); // Initialiser l'instance de Resultat
 
-        Arbre arbre = new Arbre(racine);  // Utiliser le constructeur d'Arbre avec la racine
+        Arbre arbre = new Arbre(racine); // Utiliser le constructeur d'Arbre avec la racine
         scrollPane = new JScrollPane(arbre);
 
         // Créer le bouton "Retour"
@@ -31,7 +35,7 @@ public class Menu extends JPanel {
             }
         });
 
-         JButton valideButton = new JButton("Valider");
+        JButton valideButton = new JButton("Valider");
         valideButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -42,19 +46,39 @@ public class Menu extends JPanel {
         // Créer le label pour afficher le chemin parcouru
         cheminLabel = new JLabel("Chemin : ");
 
-        // Ajouter un écouteur de sélection pour mettre à jour le cheminLabel et enregistrer la sélection
+        // Ajouter un écouteur de sélection pour mettre à jour le cheminLabel et
+        // enregistrer la sélection
         arbre.addTreeSelectionListener(new TreeSelectionListener() {
             @Override
             public void valueChanged(TreeSelectionEvent e) {
-               
+
                 Object[] path = e.getPath().getPath();
-                resultat.ajouterSelection(path);  // Enregistrer la sélection dans l'historique
+                resultat.ajouterSelection(path); // Enregistrer la sélection dans l'historique
                 // Mettre à jour le texte du label avec le chemin
                 StringBuilder chemin = new StringBuilder("Chemin : ");
                 for (Object noeud : path) {
                     chemin.append(noeud.toString()).append(" > ");
                 }
                 cheminLabel.setText(chemin.toString());
+            }
+        });
+
+        arbre.addTreeWillExpandListener(new TreeWillExpandListener() {
+            @Override
+            public void treeWillExpand(TreeExpansionEvent event) throws ExpandVetoException {
+                
+                Object[] path = event.getPath().getPath();
+                resultat.ajouterSelection(path); // Enregistrer la sélection dans l'historique
+                StringBuilder chemin = new StringBuilder("Chemin : ");
+                for (Object noeud : path) {
+                    chemin.append(noeud.toString()).append(" > ");
+                }
+                cheminLabel.setText(chemin.toString());
+            }
+
+            @Override
+            public void treeWillCollapse(TreeExpansionEvent event) throws ExpandVetoException {
+                // Code à exécuter avant la réduction du nœud
             }
         });
 
@@ -68,7 +92,8 @@ public class Menu extends JPanel {
         // Utiliser BorderLayout pour le panneau principal
         JPanel jpanel = new JPanel();
         jpanel.setLayout(new BorderLayout());
-        // Utiliser FlowLayout avec alignement à droite pour le panneau contenant le bouton et le label
+        // Utiliser FlowLayout avec alignement à droite pour le panneau contenant le
+        // bouton et le label
         JPanel flowPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JPanel flowPane2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
