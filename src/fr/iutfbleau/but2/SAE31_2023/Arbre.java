@@ -62,8 +62,8 @@ public class Arbre extends JTree {
 
     }
 
-    private DefaultMutableTreeNode convertToTreeNode(Noeud node) {
-        DefaultMutableTreeNode treeNode = new DefaultMutableTreeNode(node.name);
+    private ConstruireArbre convertToTreeNode(Noeud node) {
+        ConstruireArbre treeNode = new ConstruireArbre(node.name,node.ID);
         for (Noeud child : node.enfants) {
             treeNode.add(convertToTreeNode(child));
         }
