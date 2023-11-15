@@ -14,7 +14,7 @@ public class ConstruireArbre extends DefaultMutableTreeNode {
 
     @Override
     public String toString() {
-        return super.toString() + " (ID: " + ID + ")";
+        return super.toString();
     }
     
 }
