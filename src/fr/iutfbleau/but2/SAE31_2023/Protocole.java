@@ -16,11 +16,10 @@ public class Protocole extends JPanel {
     private JTextField recherche;
     private JComboBox<String> protocolComboBox;
 
-
-    public Protocole(Ecran ecran, ArrayList<Object> données) {
+    public Protocole(Ecran ecran, ArrayList<Object> donnees) {
 
         setLayout(new GridBagLayout()); // Utilisation de GridBagLayout pour la mise en page
-        ressources = new RessourcesProtocol(données);
+        ressources = new RessourcesProtocol(donnees);
         descriptionText = ressources.getFirstDescription();
 
         // Titre
@@ -63,7 +62,6 @@ public class Protocole extends JPanel {
 
                 updateRecherche(ressources.getProtocolNom());
 
-               
             }
         });
 
@@ -97,7 +95,7 @@ public class Protocole extends JPanel {
         textFieldContraints.gridy = 3;
         textFieldContraints.gridwidth = 1;
         textFieldContraints.fill = GridBagConstraints.HORIZONTAL;
-        //textFieldContraints.anchor = GridBagConstraints.CENTER;
+        // textFieldContraints.anchor = GridBagConstraints.CENTER;
         textFieldContraints.insets = new Insets(0, 10, 10, 10);
         add(description, textFieldContraints);
 
@@ -117,7 +115,7 @@ public class Protocole extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 protocolChoisi = (String) protocolComboBox.getSelectedItem();
                 ID = ressources.getProtocolID(protocolChoisi);
-             
+
                 System.out.println("ID: " + ID);
                 new ManipulationEcran(ecran, "menu");
             }
@@ -134,17 +132,16 @@ public class Protocole extends JPanel {
         });
     }
 
-
-   
     private void updateRecherche(String[] votreListeOriginale) {
         resultatRecherche = recherche.getText();
-        ArrayList<String>  listeFiltree;
-         listeFiltree = Recherche.filtrerListe(votreListeOriginale, resultatRecherche);
+        ArrayList<String> listeFiltree;
+        listeFiltree = Recherche.filtrerListe(votreListeOriginale, resultatRecherche);
         for (String element : listeFiltree) {
             System.out.println(element);
         }
         updateComboBoxModel(listeFiltree);
     }
+
     private void updateComboBoxModel(ArrayList<String> filteredList) {
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(filteredList.toArray(new String[0]));
         protocolComboBox.setModel(model);
@@ -166,5 +163,5 @@ public class Protocole extends JPanel {
     public int getIDProtocolChoisi() {
         return ressources.getProtocolID(protocolChoisi);
     }
-  
+
 }
