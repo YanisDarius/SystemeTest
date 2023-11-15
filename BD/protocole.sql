@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : mer. 15 nov. 2023 à 15:25
+-- Généré le : mer. 15 nov. 2023 à 15:54
 -- Version du serveur : 10.8.3-MariaDB
 -- Version de PHP : 8.1.7
 
@@ -43,7 +43,8 @@ INSERT INTO `protocole` (`ref`, `idmenu`, `titre`, `description`, `idaction`) VA
 (1, 1, 'Cut', 'Dans ce test, je souhaite trouver Cut.', 51),
 (2, 1, 'Right', 'Dans ce test, je souhaite trouver Right.', 98),
 (3, 1, 'Function Breakpoint...', 'Dans ce test, je souhaite trouver Function Breakpoint....', 196),
-(4, 1, 'Next Problem', 'Dans ce test, je souhaite trouver Next Problem.', 176);
+(4, 1, 'Next Problem', 'Dans ce test, je souhaite trouver Next Problem.', 176),
+(8, 2, 'More...', 'Dans ce test, je souhaite trouver \"More...\".', 12);
 
 --
 -- Index pour les tables déchargées
@@ -65,7 +66,7 @@ ALTER TABLE `protocole`
 -- AUTO_INCREMENT pour la table `protocole`
 --
 ALTER TABLE `protocole`
-  MODIFY `ref` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ref` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Contraintes pour les tables déchargées
