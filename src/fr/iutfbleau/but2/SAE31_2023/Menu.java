@@ -18,7 +18,7 @@ public class Menu extends JPanel {
     public Menu(Ecran ecran, Noeud racine) {
         resultat = new Resultat();  // Initialiser l'instance de Resultat
 
-        Arbre arbre = new Arbre();  // Utiliser le constructeur d'Arbre avec la racine
+        Arbre arbre = new Arbre(racine);  // Utiliser le constructeur d'Arbre avec la racine
         scrollPane = new JScrollPane(arbre);
 
         // Créer le bouton "Retour"
@@ -45,7 +45,7 @@ public class Menu extends JPanel {
         arbre.addTreeSelectionListener(new TreeSelectionListener() {
             @Override
             public void valueChanged(TreeSelectionEvent e) {
-                // Récupérer le chemin sélectionné
+                
                 Object[] path = e.getPath().getPath();
                 resultat.ajouterSelection(path);  // Enregistrer la sélection dans l'historique
                 // Mettre à jour le texte du label avec le chemin

@@ -16,7 +16,7 @@ public class BD {
 
     public BD() {
 
-        String cheminFichier = "login.txt";
+        String cheminFichier = "src\\fr\\iutfbleau\\but2\\SAE31_2023\\login.txt";
 
         List<String> valeurLogin = lireValeurLogin(cheminFichier);
 
