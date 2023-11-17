@@ -15,19 +15,17 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.ExpandVetoException;
 
 public class Menu extends JPanel {
-    
+
     private JScrollPane scrollPane;
     private JLabel cheminLabel;
-    private Resultat resultat;  
-    
+    private Resultat resultat;
+    private int id;
 
-    public Menu(Ecran ecran,Noeud racine) {
+    public Menu(Ecran ecran, Noeud racine, BD bdd, Protocole protocole) {
         Arbre arbre = new Arbre(racine);
-       
-        resultat = new Resultat();  // Initialiser l'instance de Resultat
 
-        
-        
+        resultat = new Resultat(); // Initialiser l'instance de Resultat
+
         scrollPane = new JScrollPane(arbre);
 
         // Créer le bouton "Retour"
@@ -35,7 +33,8 @@ public class Menu extends JPanel {
         retourButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ecran.ecranSuivant("protocole");;
+                ecran.ecranSuivant("protocole");
+                
             }
         });
 
@@ -43,7 +42,10 @@ public class Menu extends JPanel {
         valideButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ecran.ecranSuivant("fin");;
+                bdd.setTest(protocole.getIDProtocolChoisi(), resultat.getIDDernierChoisi());
+                
+                ecran.ecranSuivant("fin");
+              
             }
         });
 
@@ -57,22 +59,33 @@ public class Menu extends JPanel {
             public void valueChanged(TreeSelectionEvent e) {
 
                 Object[] path = e.getPath().getPath();
-                resultat.ajouterSelection(path); // Enregistrer la sélection dans l'historique
-                // Mettre à jour le texte du label avec le chemin
-                StringBuilder chemin = new StringBuilder("Chemin : ");
-                for (Object noeud : path) {
-                    chemin.append(noeud.toString()).append(" > ");
+                Object dernierNoeud = path[path.length - 1];
+
+                // Vérifier si le nœud est une instance de ConstruireArbre
+                if (dernierNoeud instanceof ConstruireArbre) {
+                    ConstruireArbre construireArbre = (ConstruireArbre) dernierNoeud;
+                     id = construireArbre.getID();
+                    resultat.setIDDernierChoisi(id);
+                    System.out.println("ID du nœud sélectionné : " + id);
+                    resultat.ajouterSelection(id);
+
+                    StringBuilder chemin = new StringBuilder("Chemin : ");
+                    for (Object noeud : path) {
+                        chemin.append(noeud.toString()).append(" > ");
+                    }
+                    cheminLabel.setText(chemin.toString());
                 }
-                cheminLabel.setText(chemin.toString());
             }
         });
 
         arbre.addTreeWillExpandListener(new TreeWillExpandListener() {
             @Override
             public void treeWillExpand(TreeExpansionEvent event) throws ExpandVetoException {
-                
+
                 Object[] path = event.getPath().getPath();
-                resultat.ajouterSelection(path); // Enregistrer la sélection dans l'historique
+                Object dernierNoeud = path[path.length - 1];
+
+                resultat.ajouterSelection(id); // Enregistrer la sélection dans l'historique
                 StringBuilder chemin = new StringBuilder("Chemin : ");
                 for (Object noeud : path) {
                     chemin.append(noeud.toString()).append(" > ");
@@ -88,9 +101,9 @@ public class Menu extends JPanel {
 
         setLayout(new BorderLayout());
         JPanel jpanel2 = new JPanel();
-
+        jpanel2.setLayout(new BorderLayout());
         add(scrollPane, BorderLayout.CENTER);
-        jpanel2.add(valideButton);
+        jpanel2.add(valideButton, BorderLayout.SOUTH);
         add(jpanel2, BorderLayout.EAST);
 
         // Utiliser BorderLayout pour le panneau principal
@@ -109,5 +122,4 @@ public class Menu extends JPanel {
         add(jpanel, BorderLayout.SOUTH);
     }
 
-  
 }

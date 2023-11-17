@@ -3,7 +3,7 @@ import java.awt.Font;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
-import javax.swing.tree.DefaultMutableTreeNode;
+
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -12,7 +12,7 @@ public class Arbre extends JTree {
     private Noeud root;
     public Arbre(Noeud racine) {
         root = racine;
-        DefaultMutableTreeNode rootNode = convertToTreeNode(root);
+        ConstruireArbre rootNode = convertToTreeNode(root);
         DefaultTreeModel treeModel = new DefaultTreeModel(rootNode);
         super.setModel(treeModel);
 
