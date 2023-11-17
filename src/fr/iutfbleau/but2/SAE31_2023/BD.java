@@ -108,8 +108,11 @@ public class BD {
             insertion = pst.executeUpdate();
 
             if (insertion > 0) {
-                System.out.println("L'ID du protocole a été inséré avec succès !");
-                return insertion;
+                ResultSet generatedKeys = pst.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    insertion = generatedKeys.getInt(1);
+                    System.out.println("L'ID du protocole a été inséré avec succès ! (ID : " + insertion + ")");
+                }
             } else {
                 System.out.println("Erreur lors de l'insertion de l'ID de protocole.");
             }
