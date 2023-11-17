@@ -15,15 +15,19 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.ExpandVetoException;
 
 public class Menu extends JPanel {
-
+    
     private JScrollPane scrollPane;
     private JLabel cheminLabel;
-    private Resultat resultat;
+    private Resultat resultat;  
+    
 
-    public Menu(Ecran ecran, Noeud racine) {
-        resultat = new Resultat(); // Initialiser l'instance de Resultat
+    public Menu(Ecran ecran,Noeud racine) {
+        Arbre arbre = new Arbre(racine);
+       
+        resultat = new Resultat();  // Initialiser l'instance de Resultat
 
-        Arbre arbre = new Arbre(racine); // Utiliser le constructeur d'Arbre avec la racine
+        
+        
         scrollPane = new JScrollPane(arbre);
 
         // Créer le bouton "Retour"
@@ -39,7 +43,7 @@ public class Menu extends JPanel {
         valideButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ManipulationEcran(ecran, "fin");
+                ecran.ecranSuivant("fin");;
             }
         });
 
@@ -104,4 +108,6 @@ public class Menu extends JPanel {
 
         add(jpanel, BorderLayout.SOUTH);
     }
+
+  
 }

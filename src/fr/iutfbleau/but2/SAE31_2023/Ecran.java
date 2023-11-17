@@ -1,5 +1,7 @@
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -10,7 +12,7 @@ public class Ecran {
     private JPanel cardPanel;
     private CardLayout cardLayout;
 
-    public Ecran() {
+    public Ecran(BD bdd) {
         cardPanel = new JPanel();
         cardLayout = new CardLayout();
         cardPanel.setLayout(cardLayout);
@@ -18,6 +20,12 @@ public class Ecran {
         // definition de l ecran grace a option ecran
         EcranOption ecran = new EcranOption();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                bdd.fermerRessource();
+            }
+        });
         frame.setSize(ecran.getWidth(), ecran.getHeight());
 
     }
@@ -43,5 +51,23 @@ public class Ecran {
         this.Frame().add(cardPanel);
         this.Frame().setVisible(true);
     }
+
+    public void ecranSuivant(String nomEcran) {
+        this.getCardLayout().show(this.getCardJPanel(), nomEcran);
+    
+    
+        if (nomEcran == "TERMINER"){
+               this.Frame().dispose();
+        }
+    }
+
+    public void rafraichirEcran() {
+        frame.revalidate();
+        frame.repaint();
+    }
+
+
+
+
 
 }

@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 
 public class Fin extends JPanel {
 
-    public Fin(Ecran ecran) {
+    public Fin(Ecran ecran,BD bdd) {
         setLayout(new GridBagLayout());
 
         // Ajoutez une étiquette de remerciement
@@ -25,7 +25,8 @@ public class Fin extends JPanel {
         quitter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ManipulationEcran(ecran, "TERMINER");
+                bdd.fermerRessource();
+                ecran.ecranSuivant("TERMINER");
             }
         });
 

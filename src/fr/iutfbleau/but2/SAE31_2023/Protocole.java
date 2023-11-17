@@ -15,11 +15,16 @@ public class Protocole extends JPanel {
     private RessourcesProtocol ressources;
     private JTextField recherche;
     private JComboBox<String> protocolComboBox;
-    private int id ;
-    private boolean feux = false;
+    private int id;
+    private Ecran ecran;
+    private BD bdd;
 
-    public Protocole(Ecran ecran, ArrayList<Object> donnees) {
-        id=2;
+    public Protocole(Ecran ecran,BD bdd ) {
+        this.ecran=ecran;
+        this.bdd=bdd;
+
+
+        ArrayList<Object> donnees = bdd.getProtocole();
         setLayout(new GridBagLayout()); // Utilisation de GridBagLayout pour la mise en page
         ressources = new RessourcesProtocol(donnees);
         descriptionText = ressources.getFirstDescription();
@@ -80,7 +85,7 @@ public class Protocole extends JPanel {
         add(protocolComboBox, comboBoxConstraints);
 
         JTextArea description = new JTextArea(descriptionText);
-        description.setPreferredSize(new Dimension(300, 50));
+        description.setPreferredSize(new Dimension(200, 30));
         description.setEditable(false);
         description.setLineWrap(true);
         description.setWrapStyleWord(true);
@@ -120,8 +125,9 @@ public class Protocole extends JPanel {
                 
 
                 System.out.println("ID: " + ressources.getProtocolID(protocolChoisi));
-                feux = true;
-                new ManipulationEcran(ecran, "menu");
+                
+             
+                afficheMenu();
             }
         });
 
@@ -168,8 +174,12 @@ public class Protocole extends JPanel {
         return id;
     }
 
-    public boolean getFeux() {
-        return feux;
+    
+    
+    private void afficheMenu() {
+         Menu menu = new Menu(ecran,bdd.getFils(this.getIDProtocolChoisi()));
+                ecran.ajouterEcran(menu,"menu");
+                ecran.ecranSuivant("menu");
     }
 
 }
