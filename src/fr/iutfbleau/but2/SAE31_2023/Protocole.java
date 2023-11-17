@@ -177,7 +177,7 @@ public class Protocole extends JPanel {
     
     
     private void afficheMenu() {
-         Menu menu = new Menu(ecran,bdd.getFils(this.getIDProtocolChoisi()));
+         Menu menu = new Menu(ecran,bdd.getFils(this.getIDProtocolChoisi()),bdd,this);
                 ecran.ajouterEcran(menu,"menu");
                 ecran.ecranSuivant("menu");
     }

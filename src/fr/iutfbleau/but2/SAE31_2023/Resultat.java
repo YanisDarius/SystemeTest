@@ -1,32 +1,41 @@
 import java.util.ArrayList;
 
 public class Resultat {
-    private ArrayList<Object[]> historique;
-    private Object[] dernierChoisi;
+    private ArrayList<Integer> historique;
+    private int dernierChoisi;
     private int dernierID;
 
     public Resultat() {
         historique = new ArrayList<>();
-        dernierChoisi = null;
+        dernierChoisi = 0;
         
     }
 
     // Méthode pour enregistrer une nouvelle sélection dans l'historique
-    public void ajouterSelection(Object[] chemin) {
-        for(Object element : chemin) {
-          System.out.println(element);
-        }
+    public void ajouterSelection(int chemin) {
+        
+          System.out.println(chemin);
+        
 
         System.out.println("\n");
-        historique.add(chemin.clone());  // Cloner le tableau pour éviter les modifications ultérieures
+        historique.add(chemin);  // Cloner le tableau pour éviter les modifications ultérieures
         dernierChoisi = chemin;
     }
 
-    public ArrayList<Object[]> getHistorique() {
+    public ArrayList<Integer> getHistorique() {
         return historique;
     }
 
-    public Object[] getDernierChoisi() {
+    public int getDernierChoisi() {
         return dernierChoisi;
     }
+    public void setIDDernierChoisi(int id) {
+     dernierID = id;
+    }
+
+    public int getIDDernierChoisi() {
+     return dernierID;
+    }
+
+    
 }
