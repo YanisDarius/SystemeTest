@@ -7,12 +7,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BD {
 
-    Connection cnx;
-    PreparedStatement pst;
+    private Connection cnx;
+    private PreparedStatement pst;
+    private ArrayList<Object> actionList = new ArrayList<Object>();;
 
     public BD() {
 
@@ -27,6 +30,20 @@ public class BD {
         try {
             Class.forName("org.mariadb.jdbc.Driver");
             cnx = DriverManager.getConnection(url, user, password);
+            pst = cnx.prepareStatement("SELECT * FROM `menu` ORDER BY `menu`.`idmenu` ASC, `menu`.`idpere` ASC, `menu`.`poids` ASC");
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+
+                ArrayList<Object> act = new ArrayList<Object>();
+
+                act.add(rs.getInt(1));      // id 
+                act.add(rs.getString(2));   // titre
+                act.add(rs.getInt(3));      // pid
+                act.add(rs.getInt(4));      // poids
+
+                actionList.add(act);
+            }
+
         } catch (Exception e) {
             System.out.printf("Pas de connexion" + e);
         }
@@ -139,8 +156,7 @@ public class BD {
 
     public void setHistorique(int idTest, int idMenu, int rank) {
         try {
-            pst = cnx.prepareStatement(
-                    "INSERT INTO `historique` (`idhist`, `idtest`, `idmenu`, `rank`) VALUES (NULL, ?, ?, ?)");
+            pst = cnx.prepareStatement("INSERT INTO `historique` (`idhist`, `idtest`, `idmenu`, `rank`) VALUES (NULL, ?, ?, ?)");
             pst.setInt(1, idTest);
             pst.setInt(2, idMenu);
             pst.setInt(2, rank);
@@ -160,8 +176,8 @@ public class BD {
         } catch (Exception e) {
             System.out.printf("erreur fonction fermerRessource :\n" + e);
         }
-    }
-
+    } 
+    /*
     public Noeud getFils(int id) {
         Noeud root = null;
         try {
@@ -185,6 +201,37 @@ public class BD {
             System.out.println("Erreur fonction getFils :\n" + e);
         }
         return root;
+    }
+     */
+    
+    public Noeud getFils(int idRacine) {
+        Noeud racine = null;
+        Map<Integer, Noeud> mapNoeuds = new HashMap<>();        //dico id/noeud
+    
+        for (Object action : actionList) {
+            if (action instanceof ArrayList) {
+                ArrayList<Object> act = (ArrayList<Object>) action;
+                //les cast parce que c'est dans des Objects
+                int id = (int) act.get(0);
+                String titre = (String) act.get(1);
+                int pid = (int) act.get(2);
+                int poids = (int) act.get(3);
+    
+                Noeud noeud = new Noeud(id, titre, poids);
+                mapNoeuds.put(id, noeud);
+    
+                if (id == idRacine) {
+                    racine = noeud;
+                } else {                        //enfant
+                    Noeud parent = mapNoeuds.get(pid);
+                    if (parent != null) {
+                        parent.ajouterEnfant(noeud);
+                    }
+                }
+            }
+        }
+    
+        return racine;
     }
 
 }
