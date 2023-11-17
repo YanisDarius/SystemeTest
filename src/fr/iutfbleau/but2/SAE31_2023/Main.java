@@ -5,14 +5,14 @@ public class Main {
        
         BD bdd = new BD();
         Ecran ecran = new Ecran();
-        Protocole protocole = new Protocole(ecran, bdd.getProtocole());
-        Menu menu = new Menu(ecran,bdd.getFils(1));
-        Fin fin = new Fin(ecran);
+        Protocole protocole = new Protocole(ecran, bdd);
+        
+        Fin fin = new Fin(ecran,bdd);
         ecran.ajouterEcran(protocole, "protocole");
-        ecran.ajouterEcran(menu, "menu");
+        
         ecran.ajouterEcran(fin, "fin");
         ecran.revelationEcran();
-        bdd.fermerRessource();
+       
 
     }
 }

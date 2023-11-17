@@ -15,9 +15,15 @@ public class Protocole extends JPanel {
     private RessourcesProtocol ressources;
     private JTextField recherche;
     private JComboBox<String> protocolComboBox;
+    private Ecran ecran;
+    private BD bdd;
 
-    public Protocole(Ecran ecran, ArrayList<Object> donnees) {
+    public Protocole(Ecran ecran,BD bdd ) {
+        this.ecran=ecran;
+        this.bdd=bdd;
 
+
+        ArrayList<Object> donnees = bdd.getProtocole();
         setLayout(new GridBagLayout()); // Utilisation de GridBagLayout pour la mise en page
         ressources = new RessourcesProtocol(donnees);
         descriptionText = ressources.getFirstDescription();
@@ -77,7 +83,7 @@ public class Protocole extends JPanel {
         add(protocolComboBox, comboBoxConstraints);
 
         JTextArea description = new JTextArea(descriptionText);
-        description.setPreferredSize(new Dimension(300, 50));
+        description.setPreferredSize(new Dimension(200, 30));
         description.setEditable(false);
         description.setLineWrap(true);
         description.setWrapStyleWord(true);
@@ -117,7 +123,8 @@ public class Protocole extends JPanel {
                 ID = ressources.getProtocolID(protocolChoisi);
 
                 System.out.println("ID: " + ID);
-                new ManipulationEcran(ecran, "menu");
+             
+                afficheMenu();
             }
         });
 
@@ -162,6 +169,11 @@ public class Protocole extends JPanel {
 
     public int getIDProtocolChoisi() {
         return ressources.getProtocolID(protocolChoisi);
+    }
+    private void afficheMenu() {
+         Menu menu = new Menu(ecran,bdd.getFils(this.getIDProtocolChoisi()));
+                ecran.ajouterEcran(menu,"menu");
+                ecran.ecranSuivant("menu");
     }
 
 }

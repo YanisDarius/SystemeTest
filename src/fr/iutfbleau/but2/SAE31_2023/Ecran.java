@@ -44,4 +44,22 @@ public class Ecran {
         this.Frame().setVisible(true);
     }
 
+    public void ecranSuivant(String nomEcran) {
+        this.getCardLayout().show(this.getCardJPanel(), nomEcran);
+    
+    
+        if (nomEcran == "TERMINER"){
+               this.Frame().dispose();
+        }
+    }
+
+    public void rafraichirEcran() {
+        frame.revalidate();
+        frame.repaint();
+    }
+
+
+
+
+
 }
