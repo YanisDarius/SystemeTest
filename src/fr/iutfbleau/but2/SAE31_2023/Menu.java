@@ -16,7 +16,7 @@ public class Menu extends JPanel {
     private JLabel cheminLabel;
     private Resultat resultat;  
 
-    public Menu(Ecran ecran, Noeud racine) {
+    public Menu(Ecran ecran,Noeud racine) {
         resultat = new Resultat();  // Initialiser l'instance de Resultat
 
         Arbre arbre = new Arbre(racine);  // Utiliser le constructeur d'Arbre avec la racine

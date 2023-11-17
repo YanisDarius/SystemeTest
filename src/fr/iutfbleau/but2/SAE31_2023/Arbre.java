@@ -36,6 +36,10 @@ public class Arbre extends JTree {
     }
 
     private ConstruireArbre convertToTreeNode(Noeud node) {
+
+        if (node == null) {
+            return null;
+        }
         ConstruireArbre treeNode = new ConstruireArbre(node.name,node.ID);
         for (Noeud child : node.enfants) {
             treeNode.add(convertToTreeNode(child));
