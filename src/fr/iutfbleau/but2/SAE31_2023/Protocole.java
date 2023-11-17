@@ -174,6 +174,13 @@ public class Protocole extends JPanel {
         return id;
     }
 
+    public String getProtocolNom(){
+       return ressources.getProtoclIDNom(id);
+    }
+
+    public String getProtocolDescription(){
+       return ressources.getProtocolDescription(protocolChoisi);
+    }
     
     
     private void afficheMenu() {

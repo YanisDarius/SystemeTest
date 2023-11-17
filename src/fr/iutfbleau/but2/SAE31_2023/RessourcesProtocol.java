@@ -50,6 +50,16 @@ public class RessourcesProtocol {
         }
         return "il n'y a pas de description";
     }
+    
+    public String getProtoclIDNom(int id) {
+         for (int i = 0; i < taille; i++) {
+            if (protocolID[i] == id) {
+
+                return protocolNom[i];
+            }
+        }
+        return "il n'y a pas de description";
+    }
 
     public int getProtocolID(String nomprotocol) {
         int id = 0;

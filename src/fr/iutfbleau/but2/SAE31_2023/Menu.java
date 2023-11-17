@@ -1,9 +1,13 @@
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Font;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -23,7 +27,8 @@ public class Menu extends JPanel {
 
     public Menu(Ecran ecran, Noeud racine, BD bdd, Protocole protocole) {
         Arbre arbre = new Arbre(racine);
-
+        String nomtext = protocole.getName();
+        String descriptiontext = protocole.getProtocolDescription();
         resultat = new Resultat(); // Initialiser l'instance de Resultat
 
         scrollPane = new JScrollPane(arbre);
@@ -34,7 +39,7 @@ public class Menu extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ecran.ecranSuivant("protocole");
-                
+
             }
         });
 
@@ -42,12 +47,18 @@ public class Menu extends JPanel {
         valideButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                bdd.setTest(protocole.getIDProtocolChoisi(), resultat.getIDDernierChoisi());
-                
+
+                resultat.finTest(bdd, protocole);
                 ecran.ecranSuivant("fin");
-              
+
             }
         });
+
+        JLabel nom = new JLabel(nomtext);
+        nom.setFont(new Font("Arial", Font.BOLD, 20));
+
+        JTextArea description = new JTextArea(descriptiontext);
+        description.setEditable(false);
 
         // Créer le label pour afficher le chemin parcouru
         cheminLabel = new JLabel("Chemin : ");
@@ -64,9 +75,9 @@ public class Menu extends JPanel {
                 // Vérifier si le nœud est une instance de ConstruireArbre
                 if (dernierNoeud instanceof ConstruireArbre) {
                     ConstruireArbre construireArbre = (ConstruireArbre) dernierNoeud;
-                     id = construireArbre.getID();
+                    id = construireArbre.getID();
                     resultat.setIDDernierChoisi(id);
-                    System.out.println("ID du nœud sélectionné : " + id);
+
                     resultat.ajouterSelection(id);
 
                     StringBuilder chemin = new StringBuilder("Chemin : ");
@@ -81,16 +92,22 @@ public class Menu extends JPanel {
         arbre.addTreeWillExpandListener(new TreeWillExpandListener() {
             @Override
             public void treeWillExpand(TreeExpansionEvent event) throws ExpandVetoException {
-
                 Object[] path = event.getPath().getPath();
                 Object dernierNoeud = path[path.length - 1];
 
-                resultat.ajouterSelection(id); // Enregistrer la sélection dans l'historique
-                StringBuilder chemin = new StringBuilder("Chemin : ");
-                for (Object noeud : path) {
-                    chemin.append(noeud.toString()).append(" > ");
+                if (dernierNoeud instanceof ConstruireArbre) {
+                    ConstruireArbre construireArbre = (ConstruireArbre) dernierNoeud;
+                    id = construireArbre.getID();
+                    resultat.setIDDernierChoisi(id);
+
+                    resultat.ajouterSelection(id);
+
+                    StringBuilder chemin = new StringBuilder("Chemin : ");
+                    for (Object noeud : path) {
+                        chemin.append(noeud.toString()).append(" > ");
+                    }
+                    cheminLabel.setText(chemin.toString());
                 }
-                cheminLabel.setText(chemin.toString());
             }
 
             @Override
@@ -104,6 +121,8 @@ public class Menu extends JPanel {
         jpanel2.setLayout(new BorderLayout());
         add(scrollPane, BorderLayout.CENTER);
         jpanel2.add(valideButton, BorderLayout.SOUTH);
+        jpanel2.add(nom, BorderLayout.NORTH);
+        jpanel2.add(description, BorderLayout.CENTER);
         add(jpanel2, BorderLayout.EAST);
 
         // Utiliser BorderLayout pour le panneau principal
