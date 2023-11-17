@@ -19,6 +19,7 @@ public class Ecran {
 
         // definition de l ecran grace a option ecran
         EcranOption ecran = new EcranOption();
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.addWindowListener(new WindowAdapter() {
             @Override
@@ -26,7 +27,8 @@ public class Ecran {
                 bdd.fermerRessource();
             }
         });
-        frame.setSize(ecran.getWidth(), ecran.getHeight());
+        //frame.setSize(ecran.getWidth(), ecran.getHeight());
+        
 
     }
 

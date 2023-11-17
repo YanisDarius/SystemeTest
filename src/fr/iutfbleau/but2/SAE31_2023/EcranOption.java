@@ -1,6 +1,8 @@
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
+import javax.swing.JFrame;
+
 public class EcranOption {
     private int screenWidth;
     private int screenHeight;
@@ -20,4 +22,8 @@ public class EcranOption {
         screenHeight = (int) screenSize.getHeight() - reduireEcran;
 
     }
+    public void setFullScreen(JFrame frame) {
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    }
+
 }

@@ -35,7 +35,7 @@ public class Menu extends JPanel {
         retourButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ManipulationEcran(ecran, "protocole");
+                ecran.ecranSuivant("protocole");;
             }
         });
 
