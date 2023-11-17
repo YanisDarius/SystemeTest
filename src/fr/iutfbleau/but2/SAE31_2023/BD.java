@@ -154,7 +154,7 @@ public class BD {
         } catch (Exception e) {
             System.out.printf("Erreur fonction setTest : \n" + e);
         }
-        
+
         return insertion;
     }
 
@@ -164,7 +164,7 @@ public class BD {
             pst = cnx.prepareStatement("INSERT INTO `historique` (`idhist`, `idtest`, `idmenu`, `rank`) VALUES (NULL, ?, ?, ?)");
             pst.setInt(1, idTest);
             pst.setInt(2, idMenu);
-            pst.setInt(2, rank);
+            pst.setInt(3, rank);
 
             pst.executeUpdate();
 
