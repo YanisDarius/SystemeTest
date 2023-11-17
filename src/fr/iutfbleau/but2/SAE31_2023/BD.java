@@ -156,8 +156,7 @@ public class BD {
 
     public void setHistorique(int idTest, int idMenu, int rank) {
         try {
-            pst = cnx.prepareStatement(
-                    "INSERT INTO `historique` (`idhist`, `idtest`, `idmenu`, `rank`) VALUES (NULL, ?, ?, ?)");
+            pst = cnx.prepareStatement("INSERT INTO `historique` (`idhist`, `idtest`, `idmenu`, `rank`) VALUES (NULL, ?, ?, ?)");
             pst.setInt(1, idTest);
             pst.setInt(2, idMenu);
             pst.setInt(2, rank);
