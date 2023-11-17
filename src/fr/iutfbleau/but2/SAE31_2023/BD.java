@@ -93,21 +93,23 @@ public class BD {
 
     }
 
-    public void setTest(int ref, int idMenu) {
+    public int setTest(int ref, int idMenu) {
 
         ArrayList<Integer> tabIdTest = new ArrayList<Integer>();
         ArrayList<Integer> tabRef = new ArrayList<Integer>();
+        int insertion = -1;
 
         try {
 
-            pst = cnx.prepareStatement("INSERT INTO test (IdTest, ref, idMenu) Values (null, ?, ?)");
+            pst = cnx.prepareStatement("INSERT INTO test (IdTest, ref, idMenu) Values (null, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             pst.setInt(1, ref);
             pst.setInt(2, idMenu);
 
-            int insertion = pst.executeUpdate();
+            insertion = pst.executeUpdate();
 
             if (insertion > 0) {
                 System.out.println("L'ID du protocole a été inséré avec succès !");
+                return insertion;
             } else {
                 System.out.println("Erreur lors de l'insertion de l'ID de protocole.");
             }
@@ -152,7 +154,10 @@ public class BD {
         } catch (Exception e) {
             System.out.printf("Erreur fonction setTest : \n" + e);
         }
+        
+        return insertion;
     }
+
 
     public void setHistorique(int idTest, int idMenu, int rank) {
         try {
