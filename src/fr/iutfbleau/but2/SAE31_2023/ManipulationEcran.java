@@ -9,4 +9,9 @@ public class ManipulationEcran {
                ecran.Frame().dispose();
         }
     }
+    public ManipulationEcran(boolean bloqueur){
+        while (bloqueur == false) {
+            
+        }
+    }
 }

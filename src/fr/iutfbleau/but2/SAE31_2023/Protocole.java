@@ -15,12 +15,15 @@ public class Protocole extends JPanel {
     private RessourcesProtocol ressources;
     private JTextField recherche;
     private JComboBox<String> protocolComboBox;
+    private int id ;
+    private boolean feux = false;
 
     public Protocole(Ecran ecran, ArrayList<Object> donnees) {
-
+        id=2;
         setLayout(new GridBagLayout()); // Utilisation de GridBagLayout pour la mise en page
         ressources = new RessourcesProtocol(donnees);
         descriptionText = ressources.getFirstDescription();
+        
 
         // Titre
         JLabel titleLabel = new JLabel("Sélectionnez un protocole :");
@@ -117,6 +120,7 @@ public class Protocole extends JPanel {
                 
 
                 System.out.println("ID: " + ressources.getProtocolID(protocolChoisi));
+                feux = true;
                 new ManipulationEcran(ecran, "menu");
             }
         });
@@ -128,6 +132,7 @@ public class Protocole extends JPanel {
                 descriptionText = ressources.getProtocolDescription(protocolChoisi);
                 description.setText(descriptionText);
                 System.out.println(descriptionText);
+                id = ressources.getProtocolID(protocolChoisi);
             }
         });
     }
@@ -140,6 +145,7 @@ public class Protocole extends JPanel {
             System.out.println(element);
         }
         updateComboBoxModel(listeFiltree);
+        
     }
 
     private void updateComboBoxModel(ArrayList<String> filteredList) {
@@ -159,7 +165,11 @@ public class Protocole extends JPanel {
     }
 
     public int getIDProtocolChoisi() {
-        return ressources.getProtocolID(protocolChoisi);
+        return id;
+    }
+
+    public boolean getFeux() {
+        return feux;
     }
 
 }

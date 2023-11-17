@@ -8,12 +8,7 @@ public class Noeud {
     int rang;
     ArrayList<Noeud> enfants;
 
-    public Noeud(String nom,int rang) {
-        this.ID = 0;
-        this.name = nom;
-        this.rang = rang;
-        this.enfants= new ArrayList<Noeud>();
-    }
+  
 
     public Noeud(int ID,String nom,int rang) {
         this.ID = ID;
@@ -28,9 +23,7 @@ public class Noeud {
         this.enfants.add(enfant);
     }
 
-    public int getRang() {
-        return rang;
-    }
+   
 
     public ArrayList<Noeud> getEnfant() {
         return enfants;
