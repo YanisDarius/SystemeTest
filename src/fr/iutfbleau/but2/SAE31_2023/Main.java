@@ -7,9 +7,10 @@ public class Main {
         Ecran ecran = new Ecran(bdd);
         Protocole protocole = new Protocole(ecran, bdd);
         
+        
         Fin fin = new Fin(ecran,bdd);
         ecran.ajouterEcran(protocole, "protocole");
-        
+       
         ecran.ajouterEcran(fin, "fin");
         ecran.revelationEcran();
        

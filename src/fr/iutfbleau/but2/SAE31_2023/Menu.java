@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 
@@ -15,7 +16,7 @@ import javax.swing.event.TreeExpansionEvent;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.event.TreeWillExpandListener;
-import javax.swing.tree.DefaultMutableTreeNode;
+
 import javax.swing.tree.ExpandVetoException;
 
 public class Menu extends JPanel {
@@ -27,9 +28,9 @@ public class Menu extends JPanel {
 
     public Menu(Ecran ecran, Noeud racine, BD bdd, Protocole protocole) {
         Arbre arbre = new Arbre(racine);
-        String nomtext = protocole.getName();
+        String nomtext = protocole.getProtocolNom();
         String descriptiontext = protocole.getProtocolDescription();
-        resultat = new Resultat(); // Initialiser l'instance de Resultat
+        resultat = new Resultat();
 
         scrollPane = new JScrollPane(arbre);
 
@@ -55,16 +56,16 @@ public class Menu extends JPanel {
         });
 
         JLabel nom = new JLabel(nomtext);
-        nom.setFont(new Font("Arial", Font.BOLD, 20));
+        nom.setFont(new Font("Arial", Font.BOLD, 12)); // Taille de police augmentée
 
         JTextArea description = new JTextArea(descriptiontext);
+        description.setLineWrap(true);
+        description.setWrapStyleWord(true);
         description.setEditable(false);
 
         // Créer le label pour afficher le chemin parcouru
         cheminLabel = new JLabel("Chemin : ");
 
-        // Ajouter un écouteur de sélection pour mettre à jour le cheminLabel et
-        // enregistrer la sélection
         arbre.addTreeSelectionListener(new TreeSelectionListener() {
             @Override
             public void valueChanged(TreeSelectionEvent e) {
@@ -112,17 +113,19 @@ public class Menu extends JPanel {
 
             @Override
             public void treeWillCollapse(TreeExpansionEvent event) throws ExpandVetoException {
-                // Code à exécuter avant la réduction du nœud
+
             }
         });
 
         setLayout(new BorderLayout());
         JPanel jpanel2 = new JPanel();
         jpanel2.setLayout(new BorderLayout());
+        jpanel2.setPreferredSize(new Dimension(200, 0)); // Largeur fixe, hauteur par défaut
+
         add(scrollPane, BorderLayout.CENTER);
         jpanel2.add(valideButton, BorderLayout.SOUTH);
         jpanel2.add(nom, BorderLayout.NORTH);
-        jpanel2.add(description, BorderLayout.CENTER);
+        jpanel2.add(new JScrollPane(description), BorderLayout.CENTER);
         add(jpanel2, BorderLayout.EAST);
 
         // Utiliser BorderLayout pour le panneau principal
@@ -140,5 +143,4 @@ public class Menu extends JPanel {
 
         add(jpanel, BorderLayout.SOUTH);
     }
-
 }

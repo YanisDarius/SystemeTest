@@ -51,14 +51,14 @@ public class RessourcesProtocol {
         return "il n'y a pas de description";
     }
     
-    public String getProtoclIDNom(int id) {
+    public String getProtoclIDNom(String id) {
          for (int i = 0; i < taille; i++) {
-            if (protocolID[i] == id) {
+            if (protocolNom[i] == id) {
 
                 return protocolNom[i];
             }
         }
-        return "il n'y a pas de description";
+        return "il n'y a pas d id ";
     }
 
     public int getProtocolID(String nomprotocol) {
@@ -75,7 +75,7 @@ public class RessourcesProtocol {
         if (taille > 0) {
             return protocolDescription[0];
         } else {
-            return "Aucune description disponible";
+            return "Aucune description disponible il y a surement une erreur dans la base de donnée";
         }
     }
     

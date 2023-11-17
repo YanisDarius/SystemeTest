@@ -15,7 +15,8 @@ public class Protocole extends JPanel {
     private RessourcesProtocol ressources;
     private JTextField recherche;
     private JComboBox<String> protocolComboBox;
-    private int id = 1;
+    private int id ;
+    private int idchoise;
     private Ecran ecran;
     private BD bdd;
 
@@ -122,7 +123,7 @@ public class Protocole extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 protocolChoisi = (String) protocolComboBox.getSelectedItem();
-                
+                idchoise = id;
 
                 System.out.println("ID: " + ressources.getProtocolID(protocolChoisi));
                 
@@ -171,11 +172,11 @@ public class Protocole extends JPanel {
     }
 
     public int getIDProtocolChoisi() {
-        return id;
+        return idchoise;
     }
 
     public String getProtocolNom(){
-       return ressources.getProtoclIDNom(id);
+       return ressources.getProtoclIDNom(protocolChoisi);
     }
 
     public String getProtocolDescription(){
