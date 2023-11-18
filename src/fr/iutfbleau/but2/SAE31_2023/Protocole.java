@@ -1,35 +1,75 @@
-import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import java.awt.*;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
+/**
+ * La classe Protocole représente un panneau Swing permettant la sélection et l'affichage de protocoles.
+ * Elle inclut une fonction de recherche, une liste déroulante pour la sélection des protocoles et une zone de description.
+ * La classe fournit également des méthodes pour récupérer des informations sur le protocole sélectionné.
+ */
 public class Protocole extends JPanel {
 
+    /** Le nom du protocole actuellement sélectionné */
     private String protocolChoisi;
+
+    /** La description du protocole actuellement sélectionné */
     private String descriptionText;
-   
-    private String resultatRecherche; // Variable pour stocker le résultat de la recherche
+
+    /** Le résultat de la recherche */
+    private String resultatRecherche;
+
+    /** Les ressources de protocoles utilisées pour la construction du panneau */
     private RessourcesProtocol ressources;
+
+    /** Le champ de recherche */
     private JTextField recherche;
+
+    /** La liste déroulante pour la sélection des protocoles */
     private JComboBox<String> protocolComboBox;
-    private int id ;
+
+    /** L'identifiant du protocole actuellement sélectionné */
+    private int id;
+
+    /** L'identifiant du protocole choisi */
     private int idchoise;
+
+    /** L'écran associé à ce panneau */
     private Ecran ecran;
+
+    /** La base de données associée à ce panneau */
     private BD bdd;
 
-    public Protocole(Ecran ecran,BD bdd ) {
-        this.ecran=ecran;
-        this.bdd=bdd;
-
+    /**
+     * Construit un panneau Protocole avec l'écran et la base de données spécifiés.
+     *
+     * @param ecran L'écran associé à ce panneau.
+     * @param bdd La base de données associée à ce panneau.
+     */
+    public Protocole(Ecran ecran, BD bdd) {
+        this.ecran = ecran;
+        this.bdd = bdd;
 
         ArrayList<Object> donnees = bdd.getProtocole();
         setLayout(new GridBagLayout()); // Utilisation de GridBagLayout pour la mise en page
         ressources = new RessourcesProtocol(donnees);
         descriptionText = ressources.getFirstDescription();
-        
 
         // Titre
         JLabel titleLabel = new JLabel("Sélectionnez un protocole :");
@@ -126,8 +166,7 @@ public class Protocole extends JPanel {
                 idchoise = id;
 
                 System.out.println("ID: " + ressources.getProtocolID(protocolChoisi));
-                
-             
+
                 afficheMenu();
             }
         });
@@ -144,6 +183,11 @@ public class Protocole extends JPanel {
         });
     }
 
+    /**
+     * Met à jour les résultats de la recherche en fonction de la liste originale spécifiée.
+     *
+     * @param votreListeOriginale La liste originale des noms de protocoles.
+     */
     private void updateRecherche(String[] votreListeOriginale) {
         resultatRecherche = recherche.getText();
         ArrayList<String> listeFiltree;
@@ -152,38 +196,67 @@ public class Protocole extends JPanel {
             System.out.println(element);
         }
         updateComboBoxModel(listeFiltree);
-        
+
     }
 
+    /**
+     * Met à jour le modèle de la liste déroulante avec la liste filtrée des noms de protocoles.
+     *
+     * @param filteredList La liste filtrée des noms de protocoles.
+     */
     private void updateComboBoxModel(ArrayList<String> filteredList) {
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(filteredList.toArray(new String[0]));
         protocolComboBox.setModel(model);
     }
-    // Méthode pour mettre à jour la variable resultatRecherche
 
+    /**
+     * Obtient le nom du protocole sélectionné.
+     *
+     * @return Le nom du protocole sélectionné.
+     */
     public String getProtocolChoisi() {
         return protocolChoisi;
     }
 
-    
-
+    /**
+     * Obtient le résultat de la recherche.
+     *
+     * @return Le résultat de la recherche.
+     */
     public String getResultatRecherche() {
         return resultatRecherche;
     }
 
+    /**
+     * Obtient l'ID du protocole sélectionné.
+     *
+     * @return L'ID du protocole sélectionné.
+     */
     public int getIDProtocolChoisi() {
         return idchoise;
     }
 
-    public String getProtocolNom(){
-       return ressources.getProtoclIDNom(protocolChoisi);
+    /**
+     * Obtient le nom du protocole sélectionné.
+     *
+     * @return Le nom du protocole sélectionné.
+     */
+    public String getProtocolNom() {
+        return ressources.getProtoclIDNom(protocolChoisi);
     }
 
+    /**
+     * Obtient la description du protocole sélectionné.
+     *
+     * @return La description du protocole sélectionné.
+     */
     public String getProtocolDescription(){
        return ressources.getProtocolDescription(protocolChoisi);
     }
     
-    
+    /**
+     * Affiche le menu pour le protocole sélectionné.
+     */
     private void afficheMenu() {
          Menu menu = new Menu(ecran,bdd.getFils(this.getIDProtocolChoisi()),bdd,this);
                 ecran.ajouterEcran(menu,"menu");
