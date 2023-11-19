@@ -1,4 +1,3 @@
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridBagLayout;
@@ -36,7 +35,6 @@ public class Reussite extends JPanel {
         jpanel.add(titre, titre.getContraint());
 
         // Créer le camembert
-        Color[] couleurs ;
         Camembert camembert = new Camembert(donnee.getReussite());
         jpanel.add(camembert, camembert.getConstraints());
 
@@ -45,6 +43,5 @@ public class Reussite extends JPanel {
 
         add(jpanel, BorderLayout.CENTER);
         add(pieddepage, BorderLayout.SOUTH);
-
     }
 }

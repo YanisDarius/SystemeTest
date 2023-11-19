@@ -1,7 +1,7 @@
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+
 import java.util.Map;
 
 import javax.swing.JPanel;
@@ -19,12 +19,12 @@ public class Camembert extends JPanel {
     /**
      * Construit un objet Camembert avec les données spécifiées pour créer le diagramme.
      *
-     * @param donnees Les données pour créer le diagramme camembert.
+     * @param donnee Les données pour créer le diagramme camembert.
      */
     public Camembert(Map<String, Object[]> donnee) {
+
         setLayout(new GridBagLayout());
               
-
         // Ajoute le diagramme camembert
         ConstructionCamembert constructionCamembert = new ConstructionCamembert(donnee);
         GridBagConstraints constructionCamembertContraints = new GridBagConstraints();

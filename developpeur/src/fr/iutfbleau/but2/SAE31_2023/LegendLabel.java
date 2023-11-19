@@ -17,6 +17,7 @@ public class LegendLabel extends JLabel {
      * @param color La couleur associée à l'étiquette.
      */
     public LegendLabel(String label, int value, Color color) {
+        
         setText(label + ": " + value);
         setHorizontalAlignment(SwingConstants.CENTER);
         setForeground(color); // Définissez la couleur du texte

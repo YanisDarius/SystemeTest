@@ -22,6 +22,7 @@ public class Titre extends JLabel {
      * @param titreText Le texte du titre.
      */
     public Titre(String titreText) {
+        
         super(titreText);
         setFont(new Font("Arial", Font.BOLD, 20));
         titreConstraints = new GridBagConstraints();

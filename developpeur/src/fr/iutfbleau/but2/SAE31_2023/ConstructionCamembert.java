@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+
 import java.util.Map;
 
 import javax.swing.JPanel;
@@ -14,14 +15,13 @@ public class ConstructionCamembert extends JPanel {
     /** Les données pour créer le diagramme camembert */
     private Map<String, Object[]> donnee;
 
-    /** Les couleurs des segments du camembert */
-
     /**
      * Construit un objet ConstructionCamembert avec les données et les couleurs spécifiées.
      *
-     * @param donnees Les données pour créer le diagramme camembert.
+     * @param donnee Les données pour créer le diagramme camembert.
      */
     public ConstructionCamembert(Map<String, Object[]> donnee) {
+        
         this.donnee = donnee;
         setPreferredSize(new Dimension(400, 400));
     }
@@ -33,12 +33,19 @@ public class ConstructionCamembert extends JPanel {
      */
     @Override
     protected void paintComponent(Graphics g) {
+
         super.paintComponent(g);
         System.out.println("Painting CamembertPanel");
         drawCamembert(g);
     }
 
+    /**
+     * Dessine un diagramme camembert basé sur les données spécifiées.
+     *
+     * @param g L'objet Graphics utilisé pour dessiner.
+     */
     private void drawCamembert(Graphics g) {
+
         int width = getWidth();
         int height = getHeight();
         System.out.println("Width: " + width + ", Height: " + height);
@@ -50,7 +57,7 @@ public class ConstructionCamembert extends JPanel {
         int startAngle = 0;
 
         for (Object[] entry : this.donnee.values()) {
-            
+
             int value = (Integer) entry[0];
             int arcAngle = (int) Math.round((double) value / total * 360);
 
@@ -61,8 +68,13 @@ public class ConstructionCamembert extends JPanel {
         }
     }
 
-    private int total()
-    {
+    /**
+     * Calcule et retourne la somme des valeurs dans les données du camembert.
+     *
+     * @return La somme totale des valeurs dans les données du camembert.
+     */
+    private int total() {
+
         int total = 0;
         for (Object[] tab: this.donnee.values())
         {

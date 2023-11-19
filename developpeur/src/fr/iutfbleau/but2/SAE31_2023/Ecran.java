@@ -22,6 +22,11 @@ public class Ecran {
     /** Le gestionnaire de mise en page pour le cardPanel */
     private CardLayout cardLayout;
 
+    /**
+     * L'objet représentant la gestion de la base de données (BD).
+     * Cette classe permet la connexion à une base de données MariaDB, la récupération de données à partir de requêtes SQL,
+     * et l'exécution d'opérations sur la base de données.
+     */
     private BD bdd;
 
     /**
@@ -30,6 +35,7 @@ public class Ecran {
      * @param bdd Une instance de la classe BD pour la gestion de la base de données.
      */
     public Ecran(BD bdd) {
+
         cardPanel = new JPanel();
         cardLayout = new CardLayout();
         cardPanel.setLayout(cardLayout);
@@ -104,12 +110,12 @@ public class Ecran {
      * @param nomEcran Le nom de l'écran à afficher.
      */
     public void ecranSuivant(String nomEcran) {
+
         this.getCardLayout().show(this.getCardJPanel(), nomEcran);
 
         if (nomEcran == "TERMINER") {
             bdd.fermerRessource();
             this.Frame().dispose();
-            
         }
     }
 
@@ -117,13 +123,18 @@ public class Ecran {
      * Rafraîchit le cadre en validant et redessinant tous ses composants.
      */
     public void rafraichirEcran() {
+
         frame.revalidate();
         frame.repaint();
     }
 
-  
-
+    /**
+     * Obtient le nom de l'écran actuellement affiché dans le panneau (cardPanel).
+     *
+     * @return Le nom de l'écran actuel, ou null si aucun écran n'est actuellement visible.
+     */
     public String obtenirEcranActuel() {
+
         Component[] composants = cardPanel.getComponents();
         for (Component composant : composants) {
             if (composant.isVisible() && cardPanel.getComponentZOrder(composant) != -1) {
@@ -134,7 +145,4 @@ public class Ecran {
             }
             return null;
         }
-        
-    }
-
-
+}

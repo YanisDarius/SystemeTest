@@ -1,10 +1,12 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,6 +88,7 @@ public class BD {
     /**
      * Récupère la liste des protocoles depuis la table 'protocole'.
      *
+     * @param id L'identifiant du protocole.
      * @return Une liste d'objets représentant les protocoles (titre et description du protocole ainsi que l'ID du fichier a tester).
      */
     public ArrayList<Object> getProtocole(int id) {

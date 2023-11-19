@@ -20,6 +20,7 @@ public class Legend extends JPanel {
      * @param couleurs Les couleurs associées à chaque entrée de la légende.
      */
     public Legend(Map<String, Object[]> donnee) {
+        
         this.donnee = donnee;
         setLayout(new GridLayout(donnee.size(), 1));
 

@@ -14,6 +14,7 @@ public class Main {
      * @param args Les arguments de la ligne de commande. L'identifiant du protocole doit être fourni en tant qu'argument.
      */
     public static void main(String[] args) {
+        
         if (args.length > 0) {
             
             try {

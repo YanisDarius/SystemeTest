@@ -38,6 +38,7 @@ public class EcranOption {
      * Initialise la largeur et la hauteur de l'écran en utilisant les dimensions de l'écran par défaut.
      */
     public EcranOption() {
+        
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         screenWidth = (int) screenSize.getWidth()/2 +50;
         screenHeight = (int) screenSize.getHeight()/2 +50;
