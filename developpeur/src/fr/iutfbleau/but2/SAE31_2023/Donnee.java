@@ -17,6 +17,7 @@ public class Donnee {
         this.titreprotocole = (String) bdddonnee.get(0); 
         this.descriptionprotocole = (String) bdddonnee.get(1);
         this.reponse = (int) bdddonnee.get(2);
+        System.out.println(reponse);
         this.reponsetest=bdd.getTest(id);
     }
 
@@ -24,6 +25,8 @@ public class Donnee {
         Map<String, Integer> data = new HashMap<>();
         int reussie = 0;
         int echoue = 0;
+        data.put("réussie",reussie);
+        data.put("échoue",echoue);
         for (Integer element : reponsetest ) {
             if( element == reponse ) {
                 data.put("réussie",reussie++);

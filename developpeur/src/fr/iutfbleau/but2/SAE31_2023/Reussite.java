@@ -1,6 +1,7 @@
 
 
 
+import java.awt.Color;
 import java.awt.GridBagLayout;
 
 import javax.swing.JPanel;
@@ -18,9 +19,8 @@ public class Reussite extends JPanel{
        
 
         // Créer le  camembert
-        Camembert camembert = new Camembert(donnee.getReussite());
-
-        
+        Color[] couleurs= {Color.GREEN, Color.RED};
+        Camembert camembert = new Camembert(donnee.getReussite(),couleurs);
         add(camembert, camembert.getConstraints());
 
     }

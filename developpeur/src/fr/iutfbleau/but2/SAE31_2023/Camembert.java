@@ -11,11 +11,11 @@ public class Camembert extends JPanel {
     /**
      * @param donnee les donnee pour creer le camenbert
      */
-    public Camembert(Map<String, Integer> donnee) {
+    public Camembert(Map<String, Integer> donnee,Color[] couleurs) {
         setLayout(new GridBagLayout());
-        
-        Color[] couleurs = generateRandomColors(donnee.size());
-
+        if (couleurs.length < 1) {
+            couleurs = generateRandomColors(donnee.size());
+        }
         ConstructionCamembert constructionCamembert = new ConstructionCamembert(donnee,couleurs);
         GridBagConstraints  constructionCamembertContraints = new GridBagConstraints();
         constructionCamembertContraints.gridx = 0;
