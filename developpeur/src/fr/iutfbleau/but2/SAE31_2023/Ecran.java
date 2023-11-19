@@ -1,4 +1,5 @@
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -43,6 +44,7 @@ public class Ecran {
         });
         frame.setSize(ecran.getWidth(), ecran.getHeight());
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frame.setBackground(new Color(220,220,220));
 
     }
 

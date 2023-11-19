@@ -45,7 +45,7 @@ public class Protocole extends JPanel {
     private JComboBox<String> protocolComboBox;
 
     /** L'identifiant du protocole actuellement sélectionné */
-    private int id = 1;
+    private int id ;
 
     /** L'identifiant du protocole choisi */
     private int idchoise;
@@ -65,7 +65,7 @@ public class Protocole extends JPanel {
     public Protocole(Ecran ecran, BD bdd) {
         this.ecran = ecran;
         this.bdd = bdd;
-
+        id=1;
         ArrayList<Object> donnees = bdd.getProtocole();
         setLayout(new GridBagLayout()); // Utilisation de GridBagLayout pour la mise en page
         ressources = new RessourcesProtocol(donnees);
@@ -165,7 +165,7 @@ public class Protocole extends JPanel {
                 protocolChoisi = (String) protocolComboBox.getSelectedItem();
                 idchoise = id;
 
-                System.out.println("ID: " + ressources.getProtocolID(protocolChoisi));
+                System.out.println("protocol ID: " + getIDProtocolchoisie() +"\n"+ "Menu ID:"+ getIDMenuChoisi());
 
                 afficheMenu();
             }
@@ -177,8 +177,8 @@ public class Protocole extends JPanel {
                 protocolChoisi = (String) protocolComboBox.getSelectedItem();
                 descriptionText = ressources.getProtocolDescription(protocolChoisi);
                 description.setText(descriptionText);
-                System.out.println(descriptionText);
-                id = ressources.getProtocolID(protocolChoisi);
+                id = ressources.getMenuID(protocolChoisi);
+                System.out.println(descriptionText+"\n"+getIDProtocolchoisie());
             }
         });
     }
@@ -232,7 +232,7 @@ public class Protocole extends JPanel {
      *
      * @return L'ID du protocole sélectionné.
      */
-    public int getIDProtocolChoisi() {
+    public int getIDMenuChoisi() {
         return idchoise;
     }
 
@@ -253,12 +253,16 @@ public class Protocole extends JPanel {
     public String getProtocolDescription(){
        return ressources.getProtocolDescription(protocolChoisi);
     }
+
+    public int getIDProtocolchoisie(){
+        return ressources.getProtocolID(protocolChoisi);
+    }
     
     /**
      * Affiche le menu pour le protocole sélectionné.
      */
     private void afficheMenu() {
-         Menu menu = new Menu(ecran,bdd.getFils(this.getIDProtocolChoisi()),bdd,this);
+         Menu menu = new Menu(ecran,bdd.getFils(this.getIDMenuChoisi()),bdd,this);
                 ecran.ajouterEcran(menu,"menu");
                 ecran.ecranSuivant("menu");
     }

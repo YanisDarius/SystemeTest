@@ -12,11 +12,14 @@ public class RessourcesProtocol {
     /** Les descriptions des protocoles */
     private String[] protocolDescription;
 
-    /** Les identifiants des protocoles */
-    private int[] protocolID;
+    /** Les identifiants des menu */
+    private int[] menuID;
 
     /** La taille de la collection de ressources */
     private int taille;
+
+    /** id de protocole  **/
+    private int[] protocolID;
 
     /**
      * Constructeur de la classe RessourcesProtocol.
@@ -27,6 +30,7 @@ public class RessourcesProtocol {
         taille = donnees.size();
         protocolNom = new String[taille];
         protocolDescription = new String[taille];
+        menuID = new int[taille];
         protocolID = new int[taille];
 
         int i = 0;
@@ -36,7 +40,8 @@ public class RessourcesProtocol {
                 if (element.get(1) instanceof String && element.get(2) instanceof String && element.get(0) instanceof Integer) {
                     protocolNom[i] = (String) element.get(1);
                     protocolDescription[i] = (String) element.get(2);
-                    protocolID[i] = (int) element.get(0);
+                    menuID[i] = (int) element.get(0);
+                    protocolID[i] = (int) element.get(3);
                 } else {
                     // Gérer le cas où l'élément n'est pas une chaîne
                     protocolNom[i] = "Non défini";
@@ -98,6 +103,16 @@ public class RessourcesProtocol {
      * @param nomprotocol Le nom du protocole.
      * @return L'identifiant du protocole ou 0 si l'identifiant n'est pas trouvé.
      */
+    public int getMenuID(String nomprotocol) {
+        int id = 0;
+        for (int i = 0; i < taille; i++) {
+            if (protocolNom[i] == nomprotocol) {
+                id = menuID[i];
+            }
+        }
+        return id;
+    }
+
     public int getProtocolID(String nomprotocol) {
         int id = 0;
         for (int i = 0; i < taille; i++) {
@@ -107,6 +122,7 @@ public class RessourcesProtocol {
         }
         return id;
     }
+
 
     /**
      * Obtient la première description de la collection de protocoles.

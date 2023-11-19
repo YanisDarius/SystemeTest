@@ -107,6 +107,7 @@ public class BD {
                 protocole.add(rs.getInt(2)); // id du menu
                 protocole.add(rs.getString(3)); // titre du protocole
                 protocole.add(rs.getString(4)); // description du protocole
+                protocole.add(rs.getInt(1));// id protocole
 
                 protocoleListe.add(protocole);
             }

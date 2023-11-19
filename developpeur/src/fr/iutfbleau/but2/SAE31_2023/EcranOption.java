@@ -15,8 +15,7 @@ public class EcranOption {
     /** La hauteur de l'écran */
     private int screenHeight;
 
-    /** La marge utilisée pour réduire la hauteur de l'écran */
-    private int reduireEcran = 10;
+   
 
     /**
      * Obtient la largeur de l'écran.
@@ -42,8 +41,8 @@ public class EcranOption {
      */
     public EcranOption() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        screenWidth = (int) screenSize.getWidth();
-        screenHeight = (int) screenSize.getHeight() - reduireEcran;
+        screenWidth = (int) screenSize.getWidth()/2;
+        screenHeight = (int) screenSize.getHeight()/2;
 
     }
     
