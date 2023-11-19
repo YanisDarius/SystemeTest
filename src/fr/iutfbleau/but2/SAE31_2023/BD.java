@@ -259,4 +259,44 @@ public class BD {
         return racine;
     }
 
+    public ArrayList<Integer> getTest(int refProt)
+    {
+        ArrayList<Integer> testRes = new ArrayList<Integer>();
+
+        try {
+            //recup de tous les test du protocole choisie
+            pst = cnx.prepareStatement("SELECT * FROM `test` WHERE ref = ? ORDER BY `test`.`idmenu`;");
+            pst.setInt(1, refProt);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                //ajout de l'id de l'action chosie a la fin du test
+                testRes.add(rs.getInt(3));
+            }
+
+        } catch (Exception e) {
+            System.out.printf("erreur getTest :" + e);
+        }
+        return testRes;
+    }
+
+    public String getActionLabel(int idAction)
+    {
+        String label = "erreur";
+        
+        try {
+            //recup de tous les test du protocole choisie
+            pst = cnx.prepareStatement("SELECT nom FROM `menu` where idmenu = ?;");
+            pst.setInt(1, idAction);
+            ResultSet rs = pst.executeQuery();
+            label = rs.getString(1);
+
+        } catch (Exception e) {
+            System.out.printf("erreur getTest :" + e);
+        }
+
+        return label;
+    }
+
+
 }
