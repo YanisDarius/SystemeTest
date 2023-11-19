@@ -169,7 +169,7 @@ public class BD {
 
             while (rs.next()) {
                 //Ajout de l'id de tous les différents click à travers les tests
-                histRes.add(rs.getInt(3));
+                histRes.add(rs.getInt(1));
             }
 
         } catch (Exception e) {
