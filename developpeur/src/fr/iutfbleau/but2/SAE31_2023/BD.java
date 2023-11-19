@@ -102,7 +102,6 @@ public class BD {
             ResultSet rs = pst.executeQuery();
             rs.next();
 
-            protocole.add(rs.getInt(1));    // ref du protocole
             protocole.add(rs.getString(3)); // titre du protocole
             protocole.add(rs.getString(4)); // description du protocole
             protocole.add(rs.getInt(5));    // id de l'action correcte    
@@ -114,98 +113,9 @@ public class BD {
         return protocole;
     }
 
-    /**
-     * Insère un test dans la table 'test' avec les références spécifiées.
-     *
-     * @param ref La référence du test.
-     * @param idMenu L'ID du menu associé au test.
-     * @return L'ID généré lors de l'insertion du test.
-     */
-    public int setTest(int ref, int idMenu) {
+   
 
-        ArrayList<Integer> tabIdTest = new ArrayList<Integer>();
-        ArrayList<Integer> tabRef = new ArrayList<Integer>();
-        int insertion = -1;
-
-        try {
-
-            pst = cnx.prepareStatement("INSERT INTO test (IdTest, ref, idMenu) Values (null, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-            pst.setInt(1, ref);
-            pst.setInt(2, idMenu);
-
-            insertion = pst.executeUpdate();
-
-            if (insertion > 0) {
-                ResultSet generatedKeys = pst.getGeneratedKeys();
-                if (generatedKeys.next()) {
-                    insertion = generatedKeys.getInt(1);
-                    System.out.println("L'ID du protocole a été inséré avec succès ! (ID : " + insertion + ")");
-                }
-            } else {
-                System.out.println("Erreur lors de l'insertion de l'ID de protocole.");
-            }
-
-        } catch (SQLIntegrityConstraintViolationException e) {
-            try {
-                pst = cnx.prepareStatement("SELECT idMenu FROM `test`");
-                ResultSet rs = pst.executeQuery();
-
-                pst = cnx.prepareStatement("SELECT ref FROM `protocole`");
-                ResultSet rs2 = pst.executeQuery();
-
-                while (rs.next()) {
-
-                    tabIdTest.add(rs.getInt("idMenu"));
-                }
-
-                while (rs2.next()) {
-                    tabRef.add(rs2.getInt("ref"));
-                }
-
-                for (int i = 0; i < tabIdTest.size(); i++) {
-                    if (!tabIdTest.contains(idMenu)) {
-                        System.out.println(
-                                "La clé référentielle \"idMenu\" de la table \"test\" sur laquelle vous voulez faire votre test n'existe pas.\nVeuillez choisir un \"idMenu\" existant.");
-                        if (!tabRef.contains(ref)) {
-                            System.out.println("La clé référentielle \"ref\" de la table \"protcole\" n'existe pas.");
-                            break;
-                        }
-                        break;
-                    }
-                    if (!tabRef.contains(ref)) {
-                        System.out.println("La clé référentielle \"ref\" de la table \"protcole\" n'existe pas.");
-                        break;
-                    }
-                }
-            } catch (Exception ex) {
-                System.out.println(ex);
-            }
-        } catch (Exception e) {
-            System.out.printf("Erreur fonction setTest : \n" + e);
-        }
-        return insertion;
-    }
-
-    /**
-     * Insère une entrée dans la table 'historique'.
-     *
-     * @param idTest L'ID du test.
-     * @param idMenu L'ID du menu associé.
-     * @param rank Le rang de l'historique.
-     */
-    public void setHistorique(int idTest, int idMenu, int rank) {
-        try {
-            pst = cnx.prepareStatement("INSERT INTO `historique` (`idhist`, `idtest`, `idmenu`, `rank`) VALUES (NULL, ?, ?, ?)");
-            pst.setInt(1, idTest);
-            pst.setInt(2, idMenu);
-            pst.setInt(3, rank);
-
-            pst.executeUpdate();
-
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
+    
 
     /**
      * Ferme la connexion à la base de données.
