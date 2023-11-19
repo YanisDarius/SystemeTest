@@ -18,7 +18,7 @@ public class Main {
 
         // Initialise le protocole et l'écran de fin
         Protocole protocole = new Protocole(ecran, bdd);       
-        Fin fin = new Fin(ecran, bdd);
+        Fin fin = new Fin(ecran);
         
         // Ajoute le protocole et l'écran de fin à l'écran principal
         ecran.ajouterEcran(protocole, "protocole");     

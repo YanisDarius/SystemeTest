@@ -22,7 +22,7 @@ public class Ecran {
     /** Le gestionnaire de mise en page pour le cardPanel */
     private CardLayout cardLayout;
 
-    private String[] ecranactuel;
+    private BD bdd;
 
     /**
      * Constructeur de la classe Ecran.
@@ -33,6 +33,7 @@ public class Ecran {
         cardPanel = new JPanel();
         cardLayout = new CardLayout();
         cardPanel.setLayout(cardLayout);
+        this.bdd = bdd;
 
         // Définition de l'écran grâce à l'option écran
         EcranOption ecran = new EcranOption();
@@ -106,7 +107,9 @@ public class Ecran {
         this.getCardLayout().show(this.getCardJPanel(), nomEcran);
 
         if (nomEcran == "TERMINER") {
+            bdd.fermerRessource();
             this.Frame().dispose();
+            
         }
     }
 
