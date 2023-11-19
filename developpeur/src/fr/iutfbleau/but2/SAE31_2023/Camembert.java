@@ -83,6 +83,6 @@ public class Camembert extends JPanel {
      * @return Une couleur aléatoire.
      */
     private Color generateRandomColor() {
-        return new Color((int) (Math.random() * 256), (int) (Math.random() * 256), (int) (Math.random() * 256));
+        return new Color((int) (Math.random() * 256), (int) (Math.random() * 50), (int) (Math.random() * 256));
     }
 }
