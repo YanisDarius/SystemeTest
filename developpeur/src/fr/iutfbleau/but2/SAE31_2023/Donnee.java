@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.awt.Color;
 
 /**
  * La classe Donnee représente les données associées à un protocole, notamment son identifiant, son titre, sa description,
@@ -48,17 +49,18 @@ public class Donnee {
      * @param reponsetest Les résultats des tests.
      * @return Une carte (Map) avec les clés "réussie" et "échoue" associées au nombre correspondant de réussites et d'échecs.
      */
-    private Map<String, Integer> reussite(ArrayList<Integer> reponsetest,BD bdd) {
-        Map<String, Integer> data = new HashMap<>();
-        int reussie = 0;
+    private Map<String, Object[]> reussite(ArrayList<Integer> reponsetest,BD bdd) {
+        Map<String,Object[]> data = new HashMap<>();
+        int valeurs = 0;
         int echoue = 0;
+        Object[] reussie = {valeurs,Color.green} ;
         data.put("réussie",reussie);
       
         for (Integer element : reponsetest ) {
             System.out.println(element);
             if( element == reponse ) {
-                data.put("réussie",++reussie);
-                System.out.println(reussie);
+                data.put("réussie",++reussie[0]);
+                System.out.println(valeurs);
             }else{
                 data.put(bdd.getActionLabel(element), ++echoue);
                 System.out.println(echoue);

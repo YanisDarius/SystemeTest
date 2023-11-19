@@ -71,6 +71,7 @@ public class Camembert extends JPanel {
      */
     private Color[] generateRandomColors(int count) {
         Color[] colors = new Color[count];
+        colors[0] = Color.GREEN;
         for (int i = 1; i < count; i++) {
             colors[i] = generateRandomColor();
         }
