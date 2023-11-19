@@ -22,6 +22,8 @@ public class Ecran {
     /** Le gestionnaire de mise en page pour le cardPanel */
     private CardLayout cardLayout;
 
+    private String[] ecranactuel;
+
     /**
      * Constructeur de la classe Ecran.
      *
@@ -83,6 +85,7 @@ public class Ecran {
      */
     public void ajouterEcran(Component ajoutDesComponent, String nomComponent) {
         cardPanel.add(ajoutDesComponent, nomComponent);
+
     }
 
     /**
@@ -114,4 +117,21 @@ public class Ecran {
         frame.revalidate();
         frame.repaint();
     }
-}
+
+  
+
+    public String obtenirEcranActuel() {
+        Component[] composants = cardPanel.getComponents();
+        for (Component composant : composants) {
+            if (composant.isVisible() && cardPanel.getComponentZOrder(composant) != -1) {
+                    return cardLayout.toString();
+                } else {
+                    return null;
+                }
+            }
+            return null;
+        }
+        
+    }
+
+
