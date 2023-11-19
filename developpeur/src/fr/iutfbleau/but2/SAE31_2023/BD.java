@@ -96,7 +96,8 @@ public class BD {
 
         try {
 
-            pst = cnx.prepareStatement("SELECT * FROM `protocole`;");
+            pst = cnx.prepareStatement("SELECT * FROM `protocole` WHERE ?;");
+            pst.setInt(1, id);
             ResultSet rs = pst.executeQuery();
             rs.next();
 
