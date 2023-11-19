@@ -7,9 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * La classe BD (Base de Données) gère la connexion à une base de données MariaDB,
@@ -111,11 +109,7 @@ public class BD {
             System.out.printf("erreur getProtocole :" + e);
         }
         return protocole;
-    }
-
-   
-
-    
+    }    
 
     /**
      * Ferme la connexion à la base de données.
@@ -130,7 +124,6 @@ public class BD {
         }
     } 
     
-
     public ArrayList<Integer> getTest(int refProt)
     {
         ArrayList<Integer> testRes = new ArrayList<Integer>();
@@ -152,6 +145,27 @@ public class BD {
         return testRes;
     }
 
+    public ArrayList<Integer> getHist(int refProt)
+    {
+        ArrayList<Integer> histRes = new ArrayList<Integer>();
+
+        try {
+            //recup de tous les test du protocole choisie
+            pst = cnx.prepareStatement("SELECT h.idmenu FROM historique h JOIN test t ON t.idtest = h.idtest where ref = ?;");
+            pst.setInt(1, refProt);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                //ajout de l'id de tout les different click a travers les test
+                histRes.add(rs.getInt(3));
+            }
+
+        } catch (Exception e) {
+            System.out.printf("erreur getHist :" + e);
+        }
+        return histRes;
+    }
+
     public String getActionLabel(int idAction)
     {
         String label = "erreur";
@@ -165,7 +179,7 @@ public class BD {
             label = rs.getString(1);
 
         } catch (Exception e) {
-            System.out.printf("erreur getTest :" + e);
+            System.out.printf("erreur getActionLabel :" + e);
         }
 
         return label;
