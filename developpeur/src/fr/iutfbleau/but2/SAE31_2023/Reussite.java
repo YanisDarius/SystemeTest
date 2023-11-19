@@ -37,5 +37,7 @@ public class Reussite extends JPanel {
         Color[] couleurs= {Color.GREEN, Color.RED};
         Camembert camembert = new Camembert(donnee.getReussite(),couleurs);
         add(camembert, camembert.getConstraints());
+
+        
     }
 }
