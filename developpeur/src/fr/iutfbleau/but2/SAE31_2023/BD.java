@@ -91,31 +91,27 @@ public class BD {
      *
      * @return Une liste d'objets représentant les protocoles (titre et description du protocole ainsi que l'ID du fichier a tester).
      */
-    public ArrayList<Object> getProtocole() {
+    public ArrayList<Object> getProtocole(int id) {
 
-        ArrayList<Object> protocoleListe = new ArrayList<Object>();
+        
+        ArrayList<Object> protocole = new ArrayList<Object>();
 
         try {
 
             pst = cnx.prepareStatement("SELECT * FROM `protocole`;");
             ResultSet rs = pst.executeQuery();
+            rs.next();
 
-            while (rs.next()) {
+            protocole.add(rs.getInt(1));    // ref du protocole
+            protocole.add(rs.getString(3)); // titre du protocole
+            protocole.add(rs.getString(4)); // description du protocole
+            protocole.add(rs.getInt(5));    // id de l'action correcte    
 
-                ArrayList<Object> protocole = new ArrayList<Object>();
-
-                protocole.add(rs.getInt(1));    // ref du protocole
-                protocole.add(rs.getString(3)); // titre du protocole
-                protocole.add(rs.getString(4)); // description du protocole
-                protocole.add(rs.getInt(5));    // id de l'action correcte    
-
-                protocoleListe.add(protocole);
-            }
 
         } catch (Exception e) {
             System.out.printf("erreur getProtocole :" + e);
         }
-        return protocoleListe;
+        return protocole;
     }
 
     /**
@@ -255,6 +251,7 @@ public class BD {
             pst = cnx.prepareStatement("SELECT nom FROM `menu` where idmenu = ?;");
             pst.setInt(1, idAction);
             ResultSet rs = pst.executeQuery();
+            rs.next();
             label = rs.getString(1);
 
         } catch (Exception e) {
