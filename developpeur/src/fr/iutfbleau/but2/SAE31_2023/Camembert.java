@@ -23,10 +23,9 @@ public class Camembert extends JPanel {
      */
     public Camembert(Map<String, Integer> donnee,Color[] couleurs) {
         setLayout(new GridBagLayout());
-        if (couleurs.length < 1) {
-            couleurs = generateRandomColors(donnee.size());
-        }
-       
+        
+        couleurs = generateRandomColors(donnee.size());
+        
 
         
 
@@ -72,7 +71,7 @@ public class Camembert extends JPanel {
      */
     private Color[] generateRandomColors(int count) {
         Color[] colors = new Color[count];
-        for (int i = 0; i < count; i++) {
+        for (int i = 1; i < count; i++) {
             colors[i] = generateRandomColor();
         }
         return colors;

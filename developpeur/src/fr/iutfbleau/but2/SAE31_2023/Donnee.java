@@ -23,6 +23,8 @@ public class Donnee {
     /** Les résultats des tests effectués pour le protocole */
     private ArrayList<Integer> reponsetest;
 
+    private BD bdd;
+
     /**
      * Construit un objet Donnee en récupérant les informations associées à un protocole depuis la base de données.
      *
@@ -31,7 +33,7 @@ public class Donnee {
      */
     public Donnee(BD bdd, int id) {
         ArrayList<Object> bdddonnee = bdd.getProtocole(id);
-
+        this.bdd = bdd;
         this.idprotocole = id;
         this.titreprotocole = (String) bdddonnee.get(0);
         this.descriptionprotocole = (String) bdddonnee.get(1);
@@ -46,19 +48,19 @@ public class Donnee {
      * @param reponsetest Les résultats des tests.
      * @return Une carte (Map) avec les clés "réussie" et "échoue" associées au nombre correspondant de réussites et d'échecs.
      */
-    private Map<String, Integer> reussite(ArrayList<Integer> reponsetest) {
+    private Map<String, Integer> reussite(ArrayList<Integer> reponsetest,BD bdd) {
         Map<String, Integer> data = new HashMap<>();
         int reussie = 0;
         int echoue = 0;
         data.put("réussie",reussie);
-        data.put("échoue",echoue);
+      
         for (Integer element : reponsetest ) {
             System.out.println(element);
             if( element == reponse ) {
                 data.put("réussie",++reussie);
                 System.out.println(reussie);
             }else{
-                data.put("échoue", ++echoue);
+                data.put(bdd.getActionLabel(element), ++echoue);
                 System.out.println(echoue);
             }
         }
@@ -71,7 +73,7 @@ public class Donnee {
      * @return Une carte (Map) avec les clés "réussie" et "échoue" associées au nombre correspondant de réussites et d'échecs.
      */
     public Map<String, Integer> getReussite() {
-        return reussite(reponsetest);
+        return reussite(reponsetest,bdd);
     }
 
     /**

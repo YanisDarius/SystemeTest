@@ -34,10 +34,10 @@ public class Reussite extends JPanel {
        
 
         // Créer le  camembert
-        Color[] couleurs= {Color.GREEN, Color.RED};
+        Color[] couleurs= {Color.GREEN};
         Camembert camembert = new Camembert(donnee.getReussite(),couleurs);
         add(camembert, camembert.getConstraints());
 
-        
+
     }
 }
