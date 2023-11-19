@@ -262,9 +262,9 @@ public class Protocole extends JPanel {
      * Affiche le menu pour le protocole sélectionné.
      */
     private void afficheMenu() {
-         Menu menu = new Menu(ecran,bdd.getFils(this.getIDMenuChoisi()),bdd,this);
-                ecran.ajouterEcran(menu,"menu");
-                ecran.ecranSuivant("menu");
+        Menu menu = new Menu(ecran,bdd.getFils(this.getIDMenuChoisi()),bdd,this);
+        ecran.ajouterEcran(menu,"menu");
+        ecran.ecranSuivant("menu");
     }
 
 }
