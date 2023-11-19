@@ -1,6 +1,5 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,6 +42,7 @@ public class Menu extends JPanel {
      * @param protocole L'instance de la classe Protocole pour la gestion du protocole en cours.
      */
     public Menu(Ecran ecran, Noeud racine, BD bdd, Protocole protocole) {
+        
         Arbre arbre = new Arbre(racine);
         String nomtext = protocole.getProtocolNom();
         String descriptiontext = protocole.getProtocolDescription();
@@ -56,7 +56,6 @@ public class Menu extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ecran.ecranSuivant("protocole");
-
             }
         });
 
@@ -65,10 +64,8 @@ public class Menu extends JPanel {
         valideButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 resultat.finTest(bdd, protocole);
                 ecran.ecranSuivant("fin");
-
             }
         });
 
@@ -86,7 +83,6 @@ public class Menu extends JPanel {
         arbre.addTreeSelectionListener(new TreeSelectionListener() {
             @Override
             public void valueChanged(TreeSelectionEvent e) {
-
                 updateCheminLabel(e);
             }
         });
@@ -137,6 +133,7 @@ public class Menu extends JPanel {
      * @param event L'événement TreeSelectionEvent ou TreeExpansionEvent.
      */
     private void updateCheminLabel(Object event) {
+
         Object[] path;
         if (event instanceof TreeSelectionEvent) {
             path = ((TreeSelectionEvent) event).getPath().getPath();

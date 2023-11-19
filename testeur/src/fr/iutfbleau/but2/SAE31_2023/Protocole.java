@@ -63,10 +63,13 @@ public class Protocole extends JPanel {
      * @param bdd La base de données associée à ce panneau.
      */
     public Protocole(Ecran ecran, BD bdd) {
+
         this.ecran = ecran;
         this.bdd = bdd;
+
         id=1;
         ArrayList<Object> donnees = bdd.getProtocole();
+        
         setLayout(new GridBagLayout()); // Utilisation de GridBagLayout pour la mise en page
         ressources = new RessourcesProtocol(donnees);
         descriptionText = ressources.getFirstDescription();
@@ -75,18 +78,22 @@ public class Protocole extends JPanel {
         JLabel titleLabel = new JLabel("Sélectionnez un protocole :");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 20)); // Augmentez la taille de la police
         GridBagConstraints titleConstraints = new GridBagConstraints();
+
         titleConstraints.gridx = 0;
         titleConstraints.gridy = 0;
         titleConstraints.gridwidth = 1;
+
         titleConstraints.insets = new Insets(10, 10, 20, 10); // Espacement en bas
         add(titleLabel, titleConstraints);
 
         recherche = new JTextField();
         recherche.setPreferredSize(new Dimension(200, 30));
         GridBagConstraints rechercheContraints = new GridBagConstraints();
+
         rechercheContraints.gridx = 0;
         rechercheContraints.gridy = 1;
         rechercheContraints.gridwidth = 1;
+
         rechercheContraints.insets = new Insets(0, 10, 10, 10);
         add(recherche, rechercheContraints);
 
@@ -94,23 +101,17 @@ public class Protocole extends JPanel {
         recherche.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-
                 updateRecherche(ressources.getProtocolNom());
-
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-
                 updateRecherche(ressources.getProtocolNom());
-
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-
                 updateRecherche(ressources.getProtocolNom());
-
             }
         });
 
@@ -119,20 +120,26 @@ public class Protocole extends JPanel {
         protocolComboBox = new JComboBox<>(protocols);
         protocolComboBox.setPreferredSize(new Dimension(200, 30)); // Taille personnalisée
         GridBagConstraints comboBoxConstraints = new GridBagConstraints();
+
         comboBoxConstraints.gridx = 0;
         comboBoxConstraints.gridy = 2;
         comboBoxConstraints.gridwidth = 1;
+
         comboBoxConstraints.insets = new Insets(0, 10, 10, 10); // Espacement en bas
         add(protocolComboBox, comboBoxConstraints);
 
         JTextArea description = new JTextArea(descriptionText);
+
         description.setPreferredSize(new Dimension(200, 30));
         description.setEditable(false);
         description.setLineWrap(true);
+
         description.setWrapStyleWord(true);
         description.setOpaque(false);
+
         description.setAlignmentX(Component.CENTER_ALIGNMENT);
         description.setAlignmentY(Component.CENTER_ALIGNMENT);
+
         description.setBorder(BorderFactory.createEmptyBorder());
         description.setLineWrap(true);
 
@@ -162,11 +169,10 @@ public class Protocole extends JPanel {
         startTestButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 protocolChoisi = (String) protocolComboBox.getSelectedItem();
                 idchoise = id;
-
                 System.out.println("protocol ID: " + getIDProtocolchoisie() +"\n"+ "Menu ID:"+ getIDMenuChoisi());
-
                 afficheMenu();
             }
         });
@@ -174,6 +180,7 @@ public class Protocole extends JPanel {
         protocolComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 protocolChoisi = (String) protocolComboBox.getSelectedItem();
                 descriptionText = ressources.getProtocolDescription(protocolChoisi);
                 description.setText(descriptionText);
@@ -189,6 +196,7 @@ public class Protocole extends JPanel {
      * @param votreListeOriginale La liste originale des noms de protocoles.
      */
     private void updateRecherche(String[] votreListeOriginale) {
+
         resultatRecherche = recherche.getText();
         ArrayList<String> listeFiltree;
         listeFiltree = Recherche.filtrerListe(votreListeOriginale, resultatRecherche);
@@ -196,7 +204,6 @@ public class Protocole extends JPanel {
             System.out.println(element);
         }
         updateComboBoxModel(listeFiltree);
-
     }
 
     /**
@@ -205,6 +212,7 @@ public class Protocole extends JPanel {
      * @param filteredList La liste filtrée des noms de protocoles.
      */
     private void updateComboBoxModel(ArrayList<String> filteredList) {
+
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(filteredList.toArray(new String[0]));
         protocolComboBox.setModel(model);
     }
@@ -254,6 +262,11 @@ public class Protocole extends JPanel {
        return ressources.getProtocolDescription(protocolChoisi);
     }
 
+    /**
+     * Obtient l'ID du protocole sélectionné.
+     *
+     * @return L'ID du protocole sélectionné.
+     */
     public int getIDProtocolchoisie(){
         return ressources.getProtocolID(protocolChoisi);
     }
@@ -262,9 +275,9 @@ public class Protocole extends JPanel {
      * Affiche le menu pour le protocole sélectionné.
      */
     private void afficheMenu() {
+
         Menu menu = new Menu(ecran,bdd.getFils(this.getIDMenuChoisi()),bdd,this);
         ecran.ajouterEcran(menu,"menu");
         ecran.ecranSuivant("menu");
     }
-
 }

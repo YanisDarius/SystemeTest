@@ -1,8 +1,9 @@
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
- * La classe ConstruireArbre étend DefaultMutableTreeNode et représente un nœud d'un arbre.
- * Chaque nœud a un nom (représenté par la classe parente DefaultMutableTreeNode) et un identifiant unique.
+ * La classe ConstruireArbre étend DefaultMutableTreeNode et représente un nœud
+ * d'un arbre. Chaque nœud a un nom (représenté par la classe parente
+ * DefaultMutableTreeNode) et un identifiant unique.
  */
 public class ConstruireArbre extends DefaultMutableTreeNode {
 
@@ -13,9 +14,10 @@ public class ConstruireArbre extends DefaultMutableTreeNode {
      * Constructeur de la classe ConstruireArbre.
      *
      * @param nomNoeud Le nom du nœud.
-     * @param ID L'identifiant unique du nœud.
+     * @param ID       L'identifiant unique du nœud.
      */
     public ConstruireArbre(String nomNoeud, int ID) {
+        
         super(nomNoeud);
         this.ID = ID;
     }
@@ -38,5 +40,4 @@ public class ConstruireArbre extends DefaultMutableTreeNode {
     public String toString() {
         return super.toString();
     }
-    
 }

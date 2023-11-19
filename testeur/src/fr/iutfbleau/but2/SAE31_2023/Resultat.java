@@ -21,6 +21,7 @@ public class Resultat {
      * Construit un objet Resultat avec un historique vide.
      */
     public Resultat() {
+
         historique = new ArrayList<>();
         dernierChoisi = 0;
         
@@ -82,7 +83,8 @@ public class Resultat {
      * @param bdd La base de données utilisée pour enregistrer les résultats.
      * @param protocole L'instance de la classe Protocole pour récupérer l'ID du protocole en cours.
      */
-    public void finTest(BD bdd,Protocole protocole) {
+    public void finTest(BD bdd, Protocole protocole) {
+        
         int idtest = bdd.setTest(protocole.getIDProtocolchoisie(), this.getIDDernierChoisi());
         System.out.println(idtest+"  id test");
         int rang = 0;
