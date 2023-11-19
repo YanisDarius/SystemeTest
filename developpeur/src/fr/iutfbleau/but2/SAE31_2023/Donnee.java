@@ -51,16 +51,18 @@ public class Donnee {
      */
     private Map<String, Object[]> reussite(ArrayList<Integer> reponsetest,BD bdd) {
         Map<String,Object[]> data = new HashMap<>();
-        int valeurs = 0;
+        int val = 0;
         int echoue = 0;
-        Object[] reussie = {valeurs,Color.green} ;
+        Object[] reussie = {val,Color.green};
         data.put("réussie",reussie);
       
         for (Integer element : reponsetest ) {
             System.out.println(element);
             if( element == reponse ) {
-                data.put("réussie",++reussie[0]);
-                System.out.println(valeurs);
+                val++;
+                reussie[0] = val;
+                data.put("réussie",reussie);
+                System.out.println(val);
             }else{
                 data.put(bdd.getActionLabel(element), ++echoue);
                 System.out.println(echoue);
