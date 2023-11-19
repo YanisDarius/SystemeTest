@@ -84,7 +84,7 @@ public class Resultat {
      */
     public void finTest(BD bdd,Protocole protocole) {
         int idtest = bdd.setTest(protocole.getIDProtocolChoisi(), this.getIDDernierChoisi());
-        System.out.println(idtest+"id test");
+        System.out.println(idtest+"  id test");
         int rang = 0;
         for(int i : historique) {
             bdd.setHistorique(idtest, i, rang);
