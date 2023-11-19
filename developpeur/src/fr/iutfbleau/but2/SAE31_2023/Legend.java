@@ -11,10 +11,7 @@ import javax.swing.JPanel;
 public class Legend extends JPanel {
 
     /** Les données à afficher dans la légende */
-    private Map<String, Integer> donnee;
-
-    /** Les couleurs associées à chaque entrée de la légende */
-    private Color[] couleurs;
+    private Map<String, Object[]> donnee;
 
     /**
      * Construit un objet Legend avec les données et les couleurs spécifiées.
@@ -22,19 +19,16 @@ public class Legend extends JPanel {
      * @param donnee Les données à afficher dans la légende.
      * @param couleurs Les couleurs associées à chaque entrée de la légende.
      */
-    public Legend(Map<String, Integer> donnee, Color[] couleurs) {
+    public Legend(Map<String, Object[]> donnee) {
         this.donnee = donnee;
-        this.couleurs = couleurs; 
         setLayout(new GridLayout(donnee.size(), 1));
 
-        int i = 0;
-        for (Map.Entry<String, Integer> entree : donnee.entrySet()) {
+        for (Map.Entry<String, Object[]> entree : donnee.entrySet()) {
             String label = entree.getKey();
-            int value = entree.getValue();
+            int value = (int) entree.getValue()[0];
 
-            LegendLabel legendLabel = new LegendLabel(label, value, couleurs[i]);
+            LegendLabel legendLabel = new LegendLabel(label, value, (Color) entree.getValue()[1]);
             add(legendLabel);
-            i++;
         }
     }
 }

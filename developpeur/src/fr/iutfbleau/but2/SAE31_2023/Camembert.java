@@ -21,23 +21,19 @@ public class Camembert extends JPanel {
      *
      * @param donnees Les données pour créer le diagramme camembert.
      */
-    public Camembert(Map<String, Integer> donnee,Color[] couleurs) {
+    public Camembert(Map<String, Object[]> donnee,Color[] couleurs) {
         setLayout(new GridBagLayout());
-        
-        couleurs = generateRandomColors(donnee.size());
-        
-
-        
+              
 
         // Ajoute le diagramme camembert
-        ConstructionCamembert constructionCamembert = new ConstructionCamembert(donnee, couleurs);
+        ConstructionCamembert constructionCamembert = new ConstructionCamembert(donnee);
         GridBagConstraints constructionCamembertContraints = new GridBagConstraints();
         constructionCamembertContraints.gridx = 0;
         constructionCamembertContraints.gridy = 0;
         add(constructionCamembert, constructionCamembertContraints);
 
         // Ajoute la légende
-        Legend legend = new Legend(donnee, couleurs);
+        Legend legend = new Legend(donnee);
         GridBagConstraints legencConstraints = new GridBagConstraints();
         legencConstraints.gridx = 1;
         legencConstraints.gridy = 0;
@@ -62,28 +58,5 @@ public class Camembert extends JPanel {
     public GridBagConstraints getConstraints() {
         return camenbertConstraints;
     }
-
-    /**
-     * Génère un tableau de couleurs aléatoires en fonction du nombre spécifié.
-     *
-     * @param count Le nombre de couleurs à générer.
-     * @return Un tableau de couleurs aléatoires.
-     */
-    private Color[] generateRandomColors(int count) {
-        Color[] colors = new Color[count];
-        colors[0] = Color.GREEN;
-        for (int i = 1; i < count; i++) {
-            colors[i] = generateRandomColor();
-        }
-        return colors;
-    }
-
-    /**
-     * Génère une couleur aléatoire.
-     *
-     * @return Une couleur aléatoire.
-     */
-    private Color generateRandomColor() {
-        return new Color((int) (Math.random() * 256), (int) (Math.random() * 50), (int) (Math.random() * 256));
-    }
+    
 }

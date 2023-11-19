@@ -52,7 +52,6 @@ public class Donnee {
     private Map<String, Object[]> reussite(ArrayList<Integer> reponsetest,BD bdd) {
         Map<String,Object[]> data = new HashMap<>();
         int val = 0;
-        int echoue = 0;
         Object[] reussie = {val,Color.green};
         data.put("réussie",reussie);
       
@@ -64,11 +63,29 @@ public class Donnee {
                 data.put("réussie",reussie);
                 System.out.println(val);
             }else{
-                data.put(bdd.getActionLabel(element), ++echoue);
-                System.out.println(echoue);
+                if (data.containsKey(bdd.getActionLabel(element))) {
+                    int temp = (Integer) data.get(bdd.getActionLabel(element))[0];
+                    temp++;
+                    Object[] echoue = {temp,generateRandomColor()};
+                    data.replace(bdd.getActionLabel(element),echoue);
+                }
+                else
+                {
+                    Object[] echoue = {1,generateRandomColor()};
+                    data.put(bdd.getActionLabel(element), echoue);
+                }
             }
         }
         return data;
+    }
+
+    /**
+     * Génère une couleur aléatoire.
+     *
+     * @return Une couleur aléatoire.
+     */
+    private Color generateRandomColor() {
+        return new Color((int) (Math.random() * 256), (int) (Math.random() * 50), (int) (Math.random() * 256));
     }
 
     /**
@@ -76,7 +93,7 @@ public class Donnee {
      *
      * @return Une carte (Map) avec les clés "réussie" et "échoue" associées au nombre correspondant de réussites et d'échecs.
      */
-    public Map<String, Integer> getReussite() {
+    public Map<String, Object[]> getReussite() {
         return reussite(reponsetest,bdd);
     }
 
