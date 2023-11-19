@@ -2,30 +2,46 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.event.TreeExpansionEvent;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.event.TreeWillExpandListener;
-
 import javax.swing.tree.ExpandVetoException;
 
+/**
+ * La classe Menu représente un panneau Swing affichant un arbre (JTree) avec des options de navigation,
+ * un bouton de retour, un bouton de validation, et des informations sur le protocole en cours.
+ */
 public class Menu extends JPanel {
 
+    /** Le JScrollPane contenant l'arbre (JTree) */
     private JScrollPane scrollPane;
+
+    /** Le JLabel affichant le chemin parcouru */
     private JLabel cheminLabel;
+
+    /** Le panneau d'affichage des résultats du test */
     private Resultat resultat;
+
+    /** L'identifiant du nœud sélectionné dans l'arbre */
     private int id;
 
+    /**
+     * Constructeur de la classe Menu.
+     *
+     * @param ecran L'instance de la classe Ecran utilisée pour la gestion des écrans.
+     * @param racine La racine de l'arbre (Noeud).
+     * @param bdd L'instance de la classe BD pour la gestion de la base de données.
+     * @param protocole L'instance de la classe Protocole pour la gestion du protocole en cours.
+     */
     public Menu(Ecran ecran, Noeud racine, BD bdd, Protocole protocole) {
         Arbre arbre = new Arbre(racine);
         String nomtext = protocole.getProtocolNom();
@@ -44,6 +60,7 @@ public class Menu extends JPanel {
             }
         });
 
+        // Créer le bouton de validation
         JButton valideButton = new JButton("Valider");
         valideButton.addActionListener(new ActionListener() {
             @Override
@@ -70,50 +87,19 @@ public class Menu extends JPanel {
             @Override
             public void valueChanged(TreeSelectionEvent e) {
 
-                Object[] path = e.getPath().getPath();
-                Object dernierNoeud = path[path.length - 1];
-
-                // Vérifier si le nœud est une instance de ConstruireArbre
-                if (dernierNoeud instanceof ConstruireArbre) {
-                    ConstruireArbre construireArbre = (ConstruireArbre) dernierNoeud;
-                    id = construireArbre.getID();
-                    resultat.setIDDernierChoisi(id);
-
-                    resultat.ajouterSelection(id);
-
-                    StringBuilder chemin = new StringBuilder("Chemin : ");
-                    for (Object noeud : path) {
-                        chemin.append(noeud.toString()).append(" > ");
-                    }
-                    cheminLabel.setText(chemin.toString());
-                }
+                updateCheminLabel(e);
             }
         });
 
         arbre.addTreeWillExpandListener(new TreeWillExpandListener() {
             @Override
             public void treeWillExpand(TreeExpansionEvent event) throws ExpandVetoException {
-                Object[] path = event.getPath().getPath();
-                Object dernierNoeud = path[path.length - 1];
-
-                if (dernierNoeud instanceof ConstruireArbre) {
-                    ConstruireArbre construireArbre = (ConstruireArbre) dernierNoeud;
-                    id = construireArbre.getID();
-                    resultat.setIDDernierChoisi(id);
-
-                    resultat.ajouterSelection(id);
-
-                    StringBuilder chemin = new StringBuilder("Chemin : ");
-                    for (Object noeud : path) {
-                        chemin.append(noeud.toString()).append(" > ");
-                    }
-                    cheminLabel.setText(chemin.toString());
-                }
+                updateCheminLabel(event);
             }
 
             @Override
             public void treeWillCollapse(TreeExpansionEvent event) throws ExpandVetoException {
-
+                // Ne rien faire lors de la fermeture de l'arbre
             }
         });
 
@@ -142,5 +128,38 @@ public class Menu extends JPanel {
         jpanel.add(flowPane2, BorderLayout.WEST);
 
         add(jpanel, BorderLayout.SOUTH);
+    }
+
+    /**
+     * Met à jour le label du chemin parcouru en fonction de la sélection ou de l'expansion
+     * d'un nœud dans l'arbre.
+     *
+     * @param event L'événement TreeSelectionEvent ou TreeExpansionEvent.
+     */
+    private void updateCheminLabel(Object event) {
+        Object[] path;
+        if (event instanceof TreeSelectionEvent) {
+            path = ((TreeSelectionEvent) event).getPath().getPath();
+        } else if (event instanceof TreeExpansionEvent) {
+            path = ((TreeExpansionEvent) event).getPath().getPath();
+        } else {
+            return;
+        }
+
+        Object dernierNoeud = path[path.length - 1];
+
+        // Vérifier si le nœud est une instance de ConstruireArbre
+        if (dernierNoeud instanceof ConstruireArbre) {
+            ConstruireArbre construireArbre = (ConstruireArbre) dernierNoeud;
+            id = construireArbre.getID();
+            resultat.setIDDernierChoisi(id);
+            resultat.ajouterSelection(id);
+
+            StringBuilder chemin = new StringBuilder("Chemin : ");
+            for (Object noeud : path) {
+                chemin.append(noeud.toString()).append(" > ");
+            }
+            cheminLabel.setText(chemin.toString());
+        }
     }
 }

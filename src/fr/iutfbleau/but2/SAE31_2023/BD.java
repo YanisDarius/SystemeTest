@@ -11,12 +11,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * La classe BD (Base de Données) gère la connexion à une base de données MariaDB,
+ * récupère des données à partir de requêtes SQL, et effectue des opérations sur la base de données.
+ */
 public class BD {
 
+    /** La connexion à la base de données */
     private Connection cnx;
+
+    /** La déclaration préparée pour les requêtes SQL */
     private PreparedStatement pst;
+
+    /** Liste des actions récupérées depuis la base de données */
     private ArrayList<Object> actionList = new ArrayList<Object>();;
 
+    /**
+     * Constructeur de la classe BD. Initialise la connexion à la base de données
+     * en utilisant les informations de connexion stockées dans un fichier.
+     */
     public BD() {
 
         String cheminFichier = "src/fr/iutfbleau/but2/SAE31_2023/login.txt";
@@ -30,16 +43,18 @@ public class BD {
         try {
             Class.forName("org.mariadb.jdbc.Driver");
             cnx = DriverManager.getConnection(url, user, password);
+
+            // Initialisation de la liste des actions en récupérant les données depuis la table 'menu'
             pst = cnx.prepareStatement("SELECT * FROM `menu` ORDER BY `menu`.`idmenu` ASC, `menu`.`idpere` ASC, `menu`.`poids` ASC");
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
 
                 ArrayList<Object> act = new ArrayList<Object>();
 
-                act.add(rs.getInt(1));      // id 
-                act.add(rs.getString(2));   // titre
-                act.add(rs.getInt(3));      // pid
-                act.add(rs.getInt(4));      // poids
+                act.add(rs.getInt(1)); // id 
+                act.add(rs.getString(2)); // titre
+                act.add(rs.getInt(3)); // pid
+                act.add(rs.getInt(4)); // poids
 
                 actionList.add(act);
             }
@@ -49,6 +64,12 @@ public class BD {
         }
     }
 
+    /**
+     * Lit les informations de connexion à la base de données à partir d'un fichier et retourne les informations.
+     *
+     * @param cheminFichier Le chemin du fichier contenant les informations de connexion.
+     * @return Une liste contenant l'URL, le nom d'utilisateur et le mot de passe.
+     */
     public static List<String> lireValeurLogin(String cheminFichier) {
 
         File fichier = new File(cheminFichier);
@@ -65,6 +86,11 @@ public class BD {
         return valeur;
     }
 
+    /**
+     * Récupère la liste des protocoles depuis la table 'protocole'.
+     *
+     * @return Une liste d'objets représentant les protocoles (titre et description du protocole ainsi que l'ID du fichier a tester).
+     */
     public ArrayList<Object> getProtocole() {
 
         ArrayList<Object> protocoleListe = new ArrayList<Object>();
@@ -88,11 +114,16 @@ public class BD {
         } catch (Exception e) {
             System.out.printf("erreur getProtocole :" + e);
         }
-
         return protocoleListe;
-
     }
 
+    /**
+     * Insère un test dans la table 'test' avec les références spécifiées.
+     *
+     * @param ref La référence du test.
+     * @param idMenu L'ID du menu associé au test.
+     * @return L'ID généré lors de l'insertion du test.
+     */
     public int setTest(int ref, int idMenu) {
 
         ArrayList<Integer> tabIdTest = new ArrayList<Integer>();
@@ -118,7 +149,6 @@ public class BD {
             }
 
         } catch (SQLIntegrityConstraintViolationException e) {
-
             try {
                 pst = cnx.prepareStatement("SELECT idMenu FROM `test`");
                 ResultSet rs = pst.executeQuery();
@@ -153,15 +183,19 @@ public class BD {
             } catch (Exception ex) {
                 System.out.println(ex);
             }
-
         } catch (Exception e) {
             System.out.printf("Erreur fonction setTest : \n" + e);
         }
-
         return insertion;
     }
 
-
+    /**
+     * Insère une entrée dans la table 'historique'.
+     *
+     * @param idTest L'ID du test.
+     * @param idMenu L'ID du menu associé.
+     * @param rank Le rang de l'historique.
+     */
     public void setHistorique(int idTest, int idMenu, int rank) {
         try {
             pst = cnx.prepareStatement("INSERT INTO `historique` (`idhist`, `idtest`, `idmenu`, `rank`) VALUES (NULL, ?, ?, ?)");
@@ -176,6 +210,9 @@ public class BD {
         }
     }
 
+    /**
+     * Ferme la connexion à la base de données.
+     */
     public void fermerRessource() {
 
         try {
@@ -185,33 +222,13 @@ public class BD {
             System.out.printf("erreur fonction fermerRessource :\n" + e);
         }
     } 
-    /*
-    public Noeud getFils(int id) {
-        Noeud root = null;
-        try {
-            // recup la racine
-            PreparedStatement pst = this.cnx.prepareStatement("SELECT * FROM `menu` WHERE idMenu = ? ORDER BY poids;");
-            pst.setInt(1, id);
-            ResultSet rs = pst.executeQuery();
-
-            if (rs.next()) {
-                // recup les enfants
-                root = new Noeud(rs.getInt(1), rs.getString(2), rs.getInt(4));
-                PreparedStatement pst2 = cnx.prepareStatement("SELECT * FROM `menu` WHERE idPere = ? ORDER BY poids;");
-                pst2.setInt(1, id);
-                ResultSet rs2 = pst2.executeQuery();
-                while (rs2.next()) {
-                    Noeud fils = getFils(rs2.getInt(1));
-                    root.ajouterEnfant(fils);
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("Erreur fonction getFils :\n" + e);
-        }
-        return root;
-    }
-     */
     
+    /**
+     * Récupère les nœuds fils d'un nœud donné à partir de la liste des actions.
+     *
+     * @param idRacine L'ID du nœud racine.
+     * @return Le nœud racine avec ses enfants.
+     */
     public Noeud getFils(int idRacine) {
         Noeud racine = null;
         Map<Integer, Noeud> mapNoeuds = new HashMap<>();        //dico id/noeud
@@ -241,5 +258,45 @@ public class BD {
     
         return racine;
     }
+
+    public ArrayList<Integer> getTest(int refProt)
+    {
+        ArrayList<Integer> testRes = new ArrayList<Integer>();
+
+        try {
+            //recup de tous les test du protocole choisie
+            pst = cnx.prepareStatement("SELECT * FROM `test` WHERE ref = ? ORDER BY `test`.`idmenu`;");
+            pst.setInt(1, refProt);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                //ajout de l'id de l'action chosie a la fin du test
+                testRes.add(rs.getInt(3));
+            }
+
+        } catch (Exception e) {
+            System.out.printf("erreur getTest :" + e);
+        }
+        return testRes;
+    }
+
+    public String getActionLabel(int idAction)
+    {
+        String label = "erreur";
+        
+        try {
+            //recup de tous les test du protocole choisie
+            pst = cnx.prepareStatement("SELECT nom FROM `menu` where idmenu = ?;");
+            pst.setInt(1, idAction);
+            ResultSet rs = pst.executeQuery();
+            label = rs.getString(1);
+
+        } catch (Exception e) {
+            System.out.printf("erreur getTest :" + e);
+        }
+
+        return label;
+    }
+
 
 }
