@@ -7,25 +7,26 @@ import java.util.ArrayList;
 public class Noeud {
 
     /** L'identifiant unique du nœud */
-    int ID;
+    private int ID;
 
     /** Le nom du nœud */
-    String name;
+    private String name;
 
     /** Le rang du nœud */
-    int rang;
+    private int rang;
 
     /** La liste des enfants du nœud */
-    ArrayList<Noeud> enfants;
+    private ArrayList<Noeud> enfants;
 
     /**
      * Constructeur de la classe Noeud.
      *
-     * @param ID L'identifiant unique du nœud.
-     * @param nom Le nom du nœud.
+     * @param ID   L'identifiant unique du nœud.
+     * @param nom  Le nom du nœud.
      * @param rang Le rang du nœud.
      */
     public Noeud(int ID, String nom, int rang) {
+
         this.ID = ID;
         this.name = nom;
         this.rang = rang;
@@ -46,7 +47,7 @@ public class Noeud {
      *
      * @return La liste des enfants du nœud.
      */
-    public ArrayList<Noeud> getEnfant() {
+    public ArrayList<Noeud> getEnfants() {
         return enfants;
     }
 
@@ -68,5 +69,4 @@ public class Noeud {
     public String toString() {
         return name;
     }
-
 }

@@ -15,9 +15,6 @@ public class EcranOption {
     /** La hauteur de l'écran */
     private int screenHeight;
 
-    
-    
-
     /**
      * Obtient la largeur de l'écran.
      *
@@ -41,12 +38,12 @@ public class EcranOption {
      * Initialise la largeur et la hauteur de l'écran en utilisant les dimensions de l'écran par défaut.
      */
     public EcranOption() {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        screenWidth = (int) screenSize.getWidth()/2;
-        screenHeight = (int) screenSize.getHeight()/2;
 
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        screenWidth = (int) screenSize.getWidth() / 2;
+        screenHeight = (int) screenSize.getHeight() / 2;
     }
-    
+
     /**
      * Définit le mode plein écran pour le cadre spécifié.
      *
@@ -55,5 +52,4 @@ public class EcranOption {
     public void setFullScreen(JFrame frame) {
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
-
 }

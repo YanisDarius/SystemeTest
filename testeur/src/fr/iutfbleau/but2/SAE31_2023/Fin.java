@@ -18,9 +18,9 @@ public class Fin extends JPanel {
      * Constructeur de la classe Fin.
      *
      * @param ecran L'instance de la classe Ecran utilisée pour la gestion des écrans.
-     * 
      */
     public Fin(Ecran ecran) {
+        
         setLayout(new GridBagLayout());
 
         // Ajoutez une étiquette de remerciement
@@ -38,7 +38,6 @@ public class Fin extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Ferme la connexion à la base de données et passe à l'écran de fin
-                
                 ecran.ecranSuivant("TERMINER");
             }
         });

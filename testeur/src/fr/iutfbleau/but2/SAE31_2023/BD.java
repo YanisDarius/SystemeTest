@@ -1,11 +1,13 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLIntegrityConstraintViolationException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +26,7 @@ public class BD {
     private PreparedStatement pst;
 
     /** Liste des actions récupérées depuis la base de données */
-    private ArrayList<Object> actionList = new ArrayList<Object>();;
+    private ArrayList<Object> actionList = new ArrayList<Object>();
 
     /**
      * Constructeur de la classe BD. Initialise la connexion à la base de données
@@ -33,7 +35,6 @@ public class BD {
     public BD() {
 
         String cheminFichier = "src/fr/iutfbleau/but2/SAE31_2023/login.txt";
-
         List<String> valeurLogin = lireValeurLogin(cheminFichier);
 
         String url = valeurLogin.get(0);
@@ -48,17 +49,13 @@ public class BD {
             pst = cnx.prepareStatement("SELECT * FROM `menu` ORDER BY `menu`.`idmenu` ASC, `menu`.`idpere` ASC, `menu`.`poids` ASC");
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-
                 ArrayList<Object> act = new ArrayList<Object>();
-
                 act.add(rs.getInt(1)); // id 
                 act.add(rs.getString(2)); // titre
                 act.add(rs.getInt(3)); // pid
                 act.add(rs.getInt(4)); // poids
-
                 actionList.add(act);
             }
-
         } catch (Exception e) {
             System.out.printf("Pas de connexion" + e);
         }
@@ -96,22 +93,17 @@ public class BD {
         ArrayList<Object> protocoleListe = new ArrayList<Object>();
 
         try {
-
             pst = cnx.prepareStatement("SELECT * FROM `protocole`;");
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
-
                 ArrayList<Object> protocole = new ArrayList<Object>();
-
                 protocole.add(rs.getInt(2)); // id du menu
                 protocole.add(rs.getString(3)); // titre du protocole
                 protocole.add(rs.getString(4)); // description du protocole
                 protocole.add(rs.getInt(1));// id protocole
-
                 protocoleListe.add(protocole);
             }
-
         } catch (Exception e) {
             System.out.printf("erreur getProtocole :" + e);
         }
@@ -132,7 +124,6 @@ public class BD {
         int insertion = -1;
 
         try {
-
             pst = cnx.prepareStatement("INSERT INTO test (IdTest, ref, idMenu) Values (null, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             pst.setInt(1, ref);
             pst.setInt(2, idMenu);
@@ -158,7 +149,6 @@ public class BD {
                 ResultSet rs2 = pst.executeQuery();
 
                 while (rs.next()) {
-
                     tabIdTest.add(rs.getInt("idMenu"));
                 }
 
@@ -194,18 +184,19 @@ public class BD {
      * Insère une entrée dans la table 'historique'.
      *
      * @param idTest L'ID du test.
-     * @param idMenu L'ID du menu associé.
+     * @param
+
+ idMenu L'ID du menu associé.
      * @param rank Le rang de l'historique.
      */
     public void setHistorique(int idTest, int idMenu, int rank) {
+
         try {
             pst = cnx.prepareStatement("INSERT INTO `historique` (`idhist`, `idtest`, `idmenu`, `rank`) VALUES (NULL, ?, ?, ?)");
             pst.setInt(1, idTest);
             pst.setInt(2, idMenu);
             pst.setInt(3, rank);
-
             pst.executeUpdate();
-
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -223,7 +214,7 @@ public class BD {
             System.out.printf("erreur fonction fermerRessource :\n" + e);
         }
     } 
-    
+
     /**
      * Récupère les nœuds fils d'un nœud donné à partir de la liste des actions.
      *
@@ -231,6 +222,7 @@ public class BD {
      * @return Le nœud racine avec ses enfants.
      */
     public Noeud getFils(int idRacine) {
+
         Noeud racine = null;
         Map<Integer, Noeud> mapNoeuds = new HashMap<>();        //dico id/noeud
     
@@ -256,12 +248,6 @@ public class BD {
                 }
             }
         }
-    
         return racine;
     }
-
-    
-    
-
-
 }

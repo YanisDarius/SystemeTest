@@ -22,6 +22,7 @@ public class Arbre extends JTree {
      * @param racine Le nœud racine de l'arbre.
      */
     public Arbre(Noeud racine) {
+        
         root = racine;
         ConstruireArbre rootNode = convertToTreeNode(root);
         DefaultTreeModel treeModel = new DefaultTreeModel(rootNode);
@@ -36,17 +37,20 @@ public class Arbre extends JTree {
 
         // Personnalisation des icônes des nœuds
         URL customIconURL = Menu.class.getResource("custom_icon.png");
+
         if (customIconURL != null) {
             ImageIcon customIcon = new ImageIcon(customIconURL);
             renderer.setLeafIcon(customIcon);
             renderer.setOpenIcon(customIcon);
             renderer.setClosedIcon(customIcon);
         }
+
         this.setCellRenderer(renderer);
     }
-    
+
     /**
-     * Convertit un nœud de type Noeud en un nœud de type ConstruireArbre pour la construction de l'arbre graphique.
+     * Convertit un nœud de type Noeud en un nœud de type ConstruireArbre pour la
+     * construction de l'arbre graphique.
      *
      * @param node Le nœud de type Noeud à convertir.
      * @return Le nœud de type ConstruireArbre correspondant.
@@ -56,7 +60,9 @@ public class Arbre extends JTree {
         if (node == null) {
             return null;
         }
-        ConstruireArbre treeNode = new ConstruireArbre(node.name,node.ID);
+
+        ConstruireArbre treeNode = new ConstruireArbre(node.name, node.ID);
+
         for (Noeud child : node.enfants) {
             treeNode.add(convertToTreeNode(child));
         }

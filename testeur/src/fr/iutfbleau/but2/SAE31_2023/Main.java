@@ -11,22 +11,20 @@ public class Main {
      * @param args Les arguments de la ligne de commande (non utilisés dans cet exemple).
      */
     public static void main(String[] args) {
-       
+
         // Initialise la base de données (BD) et l'écran principal (Ecran)
         BD bdd = new BD();
         Ecran ecran = new Ecran(bdd);
 
         // Initialise le protocole et l'écran de fin
-        Protocole protocole = new Protocole(ecran, bdd);       
+        Protocole protocole = new Protocole(ecran, bdd);
         Fin fin = new Fin(ecran);
-        
+
         // Ajoute le protocole et l'écran de fin à l'écran principal
-        ecran.ajouterEcran(protocole, "protocole");     
+        ecran.ajouterEcran(protocole, "protocole");
         ecran.ajouterEcran(fin, "fin");
 
         // Affiche l'écran principal
         ecran.revelationEcran();
-       
-
     }
 }

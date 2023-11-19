@@ -8,8 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- * La classe Ecran gère la création d'une interface graphique Swing avec la possibilité
- * de basculer entre différents écrans (panneaux) à l'aide d'un CardLayout.
+ * La classe Ecran gère la création d'une interface graphique Swing avec la
+ * possibilité de basculer entre différents écrans (panneaux) à l'aide d'un
+ * CardLayout.
  */
 public class Ecran {
 
@@ -27,9 +28,11 @@ public class Ecran {
     /**
      * Constructeur de la classe Ecran.
      *
-     * @param bdd Une instance de la classe BD pour la gestion de la base de données.
+     * @param bdd Une instance de la classe BD pour la gestion de la base de
+     *            données.
      */
     public Ecran(BD bdd) {
+        
         cardPanel = new JPanel();
         cardLayout = new CardLayout();
         cardPanel.setLayout(cardLayout);
@@ -47,8 +50,7 @@ public class Ecran {
         });
         frame.setSize(ecran.getWidth(), ecran.getHeight());
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.setBackground(new Color(220,220,220));
-
+        frame.setBackground(new Color(220, 220, 220));
     }
 
     /**
@@ -82,11 +84,10 @@ public class Ecran {
      * Ajoute un écran (panneau) au cardPanel avec un nom spécifié.
      *
      * @param ajoutDesComponent Le composant à ajouter (écran/panneau).
-     * @param nomComponent Le nom associé à l'écran.
+     * @param nomComponent      Le nom associé à l'écran.
      */
     public void ajouterEcran(Component ajoutDesComponent, String nomComponent) {
         cardPanel.add(ajoutDesComponent, nomComponent);
-
     }
 
     /**
@@ -104,12 +105,12 @@ public class Ecran {
      * @param nomEcran Le nom de l'écran à afficher.
      */
     public void ecranSuivant(String nomEcran) {
+
         this.getCardLayout().show(this.getCardJPanel(), nomEcran);
 
-        if (nomEcran == "TERMINER") {
+        if ("TERMINER".equals(nomEcran)) {
             bdd.fermerRessource();
             this.Frame().dispose();
-            
         }
     }
 
@@ -117,24 +118,21 @@ public class Ecran {
      * Rafraîchit le cadre en validant et redessinant tous ses composants.
      */
     public void rafraichirEcran() {
+
         frame.revalidate();
         frame.repaint();
     }
 
-  
-
     public String obtenirEcranActuel() {
+
         Component[] composants = cardPanel.getComponents();
         for (Component composant : composants) {
             if (composant.isVisible() && cardPanel.getComponentZOrder(composant) != -1) {
-                    return cardLayout.toString();
-                } else {
-                    return null;
-                }
+                return cardLayout.toString();
+            } else {
+                return null;
             }
-            return null;
         }
-        
+        return null;
     }
-
-
+}

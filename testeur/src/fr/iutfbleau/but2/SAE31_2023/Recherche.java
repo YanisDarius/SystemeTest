@@ -26,7 +26,4 @@ public class Recherche extends JTextField {
 
         return listeFiltree;
     }
-
-
-    
 }
