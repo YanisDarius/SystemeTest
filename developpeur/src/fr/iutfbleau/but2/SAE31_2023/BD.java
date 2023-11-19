@@ -107,6 +107,7 @@ public class BD {
                 protocole.add(rs.getInt(2)); // id du menu
                 protocole.add(rs.getString(3)); // titre du protocole
                 protocole.add(rs.getString(4)); // description du protocole
+                protocole.add(rs.getInt(5));    // id de l'action correcte    
 
                 protocoleListe.add(protocole);
             }
@@ -223,41 +224,6 @@ public class BD {
         }
     } 
     
-    /**
-     * Récupère les nœuds fils d'un nœud donné à partir de la liste des actions.
-     *
-     * @param idRacine L'ID du nœud racine.
-     * @return Le nœud racine avec ses enfants.
-     */
-    public Noeud getFils(int idRacine) {
-        Noeud racine = null;
-        Map<Integer, Noeud> mapNoeuds = new HashMap<>();        //dico id/noeud
-    
-        for (Object action : actionList) {
-            if (action instanceof ArrayList) {
-                ArrayList<Object> act = (ArrayList<Object>) action;
-                //les cast parce que c'est dans des Objects
-                int id = (int) act.get(0);
-                String titre = (String) act.get(1);
-                int pid = (int) act.get(2);
-                int poids = (int) act.get(3);
-    
-                Noeud noeud = new Noeud(id, titre, poids);
-                mapNoeuds.put(id, noeud);
-    
-                if (id == idRacine) {
-                    racine = noeud;
-                } else {                        //enfant
-                    Noeud parent = mapNoeuds.get(pid);
-                    if (parent != null) {
-                        parent.ajouterEnfant(noeud);
-                    }
-                }
-            }
-        }
-    
-        return racine;
-    }
 
     public ArrayList<Integer> getTest(int refProt)
     {
