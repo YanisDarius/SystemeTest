@@ -114,5 +114,4 @@ public class Ecran {
         frame.revalidate();
         frame.repaint();
     }
-
 }

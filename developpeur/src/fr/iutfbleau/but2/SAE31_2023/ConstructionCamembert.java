@@ -1,18 +1,39 @@
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
 import java.util.Map;
 
+import javax.swing.JPanel;
+
+/**
+ * La classe ConstructionCamembert représente un panneau permettant de dessiner un diagramme camembert (ou pie chart)
+ * en utilisant les données fournies et les couleurs spécifiées.
+ */
 public class ConstructionCamembert extends JPanel {
 
+    /** Les données pour créer le diagramme camembert */
     private Map<String, Integer> donnee;
+
+    /** Les couleurs des segments du camembert */
     private Color[] couleurs; // Ajout d'un tableau de couleurs
 
+    /**
+     * Construit un objet ConstructionCamembert avec les données et les couleurs spécifiées.
+     *
+     * @param donnees Les données pour créer le diagramme camembert.
+     * @param couleurs Les couleurs des segments du camembert.
+     */
     public ConstructionCamembert(Map<String, Integer> donnee, Color[] couleurs) {
         this.donnee = donnee;
         this.couleurs = couleurs;
         setPreferredSize(new Dimension(400, 400));
     }
 
+    /**
+     * Dessine le diagramme camembert en utilisant les données fournies et les couleurs spécifiées.
+     *
+     * @param g L'objet Graphics utilisé pour dessiner.
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -41,12 +62,8 @@ public class ConstructionCamembert extends JPanel {
             g.setColor(couleurs[colorIndex]); // Utilisation de la couleur spécifiée
             g.fillArc(x, y, diameter, diameter, startAngle, arcAngle);
 
-            
-
             startAngle += arcAngle;
             colorIndex = (colorIndex + 1) % couleurs.length; // Passage à la couleur suivante
         }
     }
-
-   
 }

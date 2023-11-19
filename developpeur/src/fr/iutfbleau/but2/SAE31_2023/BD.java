@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,20 +121,26 @@ public class BD {
         } catch (Exception e) {
             System.out.printf("erreur fonction fermerRessource :\n" + e);
         }
-    } 
+    }
     
+    /**
+     * Récupère la liste des actions de test associées à un protocole.
+     *
+     * @param refProt L'identifiant du protocole.
+     * @return Une liste d'entiers représentant les actions de test associées au protocole.
+     */
     public ArrayList<Integer> getTest(int refProt)
     {
         ArrayList<Integer> testRes = new ArrayList<Integer>();
 
         try {
-            //recup de tous les test du protocole choisie
+            //Récupération de tous les tests du protocole choisi
             pst = cnx.prepareStatement("SELECT * FROM `test` WHERE ref = ? ORDER BY `test`.`idmenu`;");
             pst.setInt(1, refProt);
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
-                //ajout de l'id de l'action chosie a la fin du test
+                //Ajout de l'id de l'action chosi à la fin du test
                 testRes.add(rs.getInt(3));
             }
 
@@ -145,18 +150,24 @@ public class BD {
         return testRes;
     }
 
+    /**
+     * Récupère la liste des actions de test effectuées pour un protocole.
+     *
+     * @param refProt L'identifiant du protocole.
+     * @return Une liste d'entiers représentant les actions de test effectuées pour le protocole.
+     */
     public ArrayList<Integer> getHist(int refProt)
     {
         ArrayList<Integer> histRes = new ArrayList<Integer>();
 
         try {
-            //recup de tous les test du protocole choisie
+            //Récupération de tous les tests du protocole choisi
             pst = cnx.prepareStatement("SELECT h.idmenu FROM historique h JOIN test t ON t.idtest = h.idtest where ref = ?;");
             pst.setInt(1, refProt);
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
-                //ajout de l'id de tout les different click a travers les test
+                //Ajout de l'id de tous les différents click à travers les tests
                 histRes.add(rs.getInt(3));
             }
 
@@ -166,12 +177,18 @@ public class BD {
         return histRes;
     }
 
+    /**
+     * Récupère le libellé d'une action à partir de son identifiant.
+     *
+     * @param idAction L'identifiant de l'action.
+     * @return Le libellé de l'action correspondant à l'identifiant.
+     */
     public String getActionLabel(int idAction)
     {
         String label = "erreur";
         
         try {
-            //recup de tous les test du protocole choisie
+            //Récupération de tous les tests du protocole choisi
             pst = cnx.prepareStatement("SELECT nom FROM `menu` where idmenu = ?;");
             pst.setInt(1, idAction);
             ResultSet rs = pst.executeQuery();
@@ -184,6 +201,4 @@ public class BD {
 
         return label;
     }
-
-
 }
