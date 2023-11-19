@@ -15,8 +15,8 @@ public class Protocole extends JPanel {
     private RessourcesProtocol ressources;
     private JTextField recherche;
     private JComboBox<String> protocolComboBox;
-    private int id ;
-    private int idchoise;
+    private int id = 1 ;
+    private int idchoise ;
     private Ecran ecran;
     private BD bdd;
 
