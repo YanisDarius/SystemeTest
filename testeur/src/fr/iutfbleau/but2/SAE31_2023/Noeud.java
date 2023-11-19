@@ -7,16 +7,16 @@ import java.util.ArrayList;
 public class Noeud {
 
     /** L'identifiant unique du nœud */
-    private int ID;
+    public int ID;
 
     /** Le nom du nœud */
-    private String name;
+    public String name;
 
     /** Le rang du nœud */
-    private int rang;
+    public int rang;
 
     /** La liste des enfants du nœud */
-    private ArrayList<Noeud> enfants;
+    public ArrayList<Noeud> enfants;
 
     /**
      * Constructeur de la classe Noeud.

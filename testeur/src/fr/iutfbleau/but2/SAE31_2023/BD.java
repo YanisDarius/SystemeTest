@@ -34,12 +34,9 @@ public class BD {
      */
     public BD() {
 
-        String cheminFichier = "src/fr/iutfbleau/but2/SAE31_2023/login.txt";
-        List<String> valeurLogin = lireValeurLogin(cheminFichier);
-
-        String url = valeurLogin.get(0);
-        String user = valeurLogin.get(1);
-        String password = valeurLogin.get(2);
+        String url = "jdbc:mariadb://dwarves.iut-fbleau.fr/sayebabu";
+        String user = "sayebabu";
+        String password = "kjrzB5S4kqKAwdT";
 
         try {
             Class.forName("org.mariadb.jdbc.Driver");
