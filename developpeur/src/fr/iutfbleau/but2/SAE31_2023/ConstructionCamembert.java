@@ -12,20 +12,17 @@ import javax.swing.JPanel;
 public class ConstructionCamembert extends JPanel {
 
     /** Les données pour créer le diagramme camembert */
-    private Map<String, Integer> donnee;
+    private Map<String, Object[]> donnee;
 
     /** Les couleurs des segments du camembert */
-    private Color[] couleurs; // Ajout d'un tableau de couleurs
 
     /**
      * Construit un objet ConstructionCamembert avec les données et les couleurs spécifiées.
      *
      * @param donnees Les données pour créer le diagramme camembert.
-     * @param couleurs Les couleurs des segments du camembert.
      */
-    public ConstructionCamembert(Map<String, Integer> donnee, Color[] couleurs) {
+    public ConstructionCamembert(Map<String, Object[]> donnee) {
         this.donnee = donnee;
-        this.couleurs = couleurs;
         setPreferredSize(new Dimension(400, 400));
     }
 
@@ -49,21 +46,30 @@ public class ConstructionCamembert extends JPanel {
         int x = (width - diameter) / 2;
         int y = (height - diameter) / 2;
 
-        int total = donnee.values().stream().mapToInt(Integer::intValue).sum();
+        int total = this.total();
         int startAngle = 0;
 
-        int colorIndex = 0; // Indice pour parcourir le tableau de couleurs
-
-        for (Map.Entry<String, Integer> entry : donnee.entrySet()) {
+        for (Object[] entry : this.donnee.values()) {
             
-            int value = entry.getValue();
+            int value = (Integer) entry[0];
             int arcAngle = (int) Math.round((double) value / total * 360);
 
-            g.setColor(couleurs[colorIndex]); // Utilisation de la couleur spécifiée
+            g.setColor((Color) entry[1]); // Utilisation de la couleur spécifiée
             g.fillArc(x, y, diameter, diameter, startAngle, arcAngle);
 
             startAngle += arcAngle;
-            colorIndex = (colorIndex + 1) % couleurs.length; // Passage à la couleur suivante
         }
+    }
+
+    private int total()
+    {
+        int total = 0;
+        for (Object[] tab: this.donnee.values())
+        {
+            if (tab[0] instanceof Integer) {
+                total += (Integer) tab[0];
+            }
+        }
+        return total;
     }
 }
