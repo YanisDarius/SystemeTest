@@ -36,7 +36,7 @@ public class Donnee {
         this.titreprotocole = (String) bdddonnee.get(0);
         this.descriptionprotocole = (String) bdddonnee.get(1);
         this.reponse = (int) bdddonnee.get(2);
-        System.out.println(reponse);
+        System.out.println("la reponse du protocole est : " +reponse);
         this.reponsetest=bdd.getTest(id);
     }
 
@@ -53,10 +53,13 @@ public class Donnee {
         data.put("réussie",reussie);
         data.put("échoue",echoue);
         for (Integer element : reponsetest ) {
+            System.out.println(element);
             if( element == reponse ) {
-                data.put("réussie",reussie++);
+                data.put("réussie",++reussie);
+                System.out.println(reussie);
             }else{
-                data.put("échoue", echoue++);
+                data.put("échoue", ++echoue);
+                System.out.println(echoue);
             }
         }
         return data;
