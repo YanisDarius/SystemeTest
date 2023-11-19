@@ -39,8 +39,8 @@ public class EcranOption {
      */
     public EcranOption() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        screenWidth = (int) screenSize.getWidth()/2;
-        screenHeight = (int) screenSize.getHeight()/2;
+        screenWidth = (int) screenSize.getWidth()/2 +50;
+        screenHeight = (int) screenSize.getHeight()/2 +50;
 
     }
     

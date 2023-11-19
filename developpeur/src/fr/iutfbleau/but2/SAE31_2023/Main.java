@@ -32,9 +32,11 @@ public class Main {
 
                 // Création de l'instance de réussite
                 Reussite reussite = new Reussite(ecran, donnee);
+                Historique historique = new Historique(ecran, donnee);
 
                 // Ajout de la réussite à l'écran
-                ecran.ajouterEcran(reussite, "reussite");
+                ecran.ajouterEcran(reussite, "réussite");
+                ecran.ajouterEcran(historique, "historique");
 
                 // Révélation de l'écran
                 ecran.revelationEcran();

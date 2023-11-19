@@ -4,11 +4,12 @@ import java.util.Map;
 import java.awt.Color;
 
 /**
- * La classe Donnee représente les données associées à un protocole, notamment son identifiant, son titre, sa description,
+ * La classe Donnee représente les données associées à un protocole, notamment
+ * son identifiant, son titre, sa description,
  * la réponse attendue, ainsi que les résultats des tests effectués.
  */
 public class Donnee {
-    
+
     /** L'identifiant du protocole */
     private int idprotocole;
 
@@ -24,13 +25,17 @@ public class Donnee {
     /** Les résultats des tests effectués pour le protocole */
     private ArrayList<Integer> reponsetest;
 
+    private ArrayList<Integer> reponsehistorique;
+
     private BD bdd;
 
     /**
-     * Construit un objet Donnee en récupérant les informations associées à un protocole depuis la base de données.
+     * Construit un objet Donnee en récupérant les informations associées à un
+     * protocole depuis la base de données.
      *
-     * @param bdd La base de données à partir de laquelle les informations sont récupérées.
-     * @param id L'identifiant du protocole.
+     * @param bdd La base de données à partir de laquelle les informations sont
+     *            récupérées.
+     * @param id  L'identifiant du protocole.
      */
     public Donnee(BD bdd, int id) {
         ArrayList<Object> bdddonnee = bdd.getProtocole(id);
@@ -39,39 +44,63 @@ public class Donnee {
         this.titreprotocole = (String) bdddonnee.get(0);
         this.descriptionprotocole = (String) bdddonnee.get(1);
         this.reponse = (int) bdddonnee.get(2);
-        System.out.println("la reponse du protocole est : " +reponse);
-        this.reponsetest=bdd.getTest(id);
+        System.out.println("la reponse du protocole est : " + reponse);
+        this.reponsetest = bdd.getTest(id);
+        this.reponsehistorique = bdd.getHist(id);
+
+    }
+
+    private Map<String, Object[]> historique(ArrayList<Integer> reponsehistorique, BD bdd) {
+        Map<String, Object[]> data = new HashMap<>();
+        int val = 0;
+
+        for (Integer element : reponsehistorique) {
+            System.out.println(element);
+
+            System.out.println(val);
+
+            if (data.containsKey(bdd.getActionLabel(element))) {
+                int temp = (Integer) data.get(bdd.getActionLabel(element))[0];
+                temp++;
+                Object[] echoue = { temp, generateRandomColor("") };
+                data.replace(bdd.getActionLabel(element), echoue);
+            } else {
+                Object[] echoue = { 1, generateRandomColor("") };
+                data.put(bdd.getActionLabel(element), echoue);
+            }
+        }
+        return data;
     }
 
     /**
-     * Calcule la répartition des résultats des tests en termes de réussites et d'échecs.
+     * Calcule la répartition des résultats des tests en termes de réussites et
+     * d'échecs.
      *
      * @param reponsetest Les résultats des tests.
-     * @return Une carte (Map) avec les clés "réussie" et "échoue" associées au nombre correspondant de réussites et d'échecs.
+     * @return Une carte (Map) avec les clés "réussie" et "échoue" associées au
+     *         nombre correspondant de réussites et d'échecs.
      */
-    private Map<String, Object[]> reussite(ArrayList<Integer> reponsetest,BD bdd) {
-        Map<String,Object[]> data = new HashMap<>();
+    private Map<String, Object[]> reussite(ArrayList<Integer> reponsetest, BD bdd) {
+        Map<String, Object[]> data = new HashMap<>();
         int val = 0;
-        Object[] reussie = {val,Color.green};
-        data.put("réussie",reussie);
-      
-        for (Integer element : reponsetest ) {
+        Object[] reussie = { val, Color.green };
+        data.put("réussie", reussie);
+
+        for (Integer element : reponsetest) {
             System.out.println(element);
-            if( element == reponse ) {
+            if (element == reponse) {
                 val++;
                 reussie[0] = val;
-                data.put("réussie",reussie);
+                data.put("réussie", reussie);
                 System.out.println(val);
-            }else{
+            } else {
                 if (data.containsKey(bdd.getActionLabel(element))) {
                     int temp = (Integer) data.get(bdd.getActionLabel(element))[0];
                     temp++;
-                    Object[] echoue = {temp,generateRandomColor()};
-                    data.replace(bdd.getActionLabel(element),echoue);
-                }
-                else
-                {
-                    Object[] echoue = {1,generateRandomColor()};
+                    Object[] echoue = { temp, generateRandomColor() };
+                    data.replace(bdd.getActionLabel(element), echoue);
+                } else {
+                    Object[] echoue = { 1, generateRandomColor() };
                     data.put(bdd.getActionLabel(element), echoue);
                 }
             }
@@ -87,14 +116,24 @@ public class Donnee {
     private Color generateRandomColor() {
         return new Color((int) (Math.random() * 256), (int) (Math.random() * 50), (int) (Math.random() * 256));
     }
+    
+    private Color generateRandomColor(String change) {
+        return new Color((int) (Math.random() * 256), (int) (Math.random() * 256), (int) (Math.random() * 256));
+    }
 
     /**
-     * Obtient la répartition des résultats des tests en termes de réussites et d'échecs.
+     * Obtient la répartition des résultats des tests en termes de réussites et
+     * d'échecs.
      *
-     * @return Une carte (Map) avec les clés "réussie" et "échoue" associées au nombre correspondant de réussites et d'échecs.
+     * @return Une carte (Map) avec les clés "réussie" et "échoue" associées au
+     *         nombre correspondant de réussites et d'échecs.
      */
     public Map<String, Object[]> getReussite() {
-        return reussite(reponsetest,bdd);
+        return reussite(reponsetest, bdd);
+    }
+
+     public Map<String, Object[]> getHistorique() {
+        return historique(reponsehistorique, bdd);
     }
 
     /**

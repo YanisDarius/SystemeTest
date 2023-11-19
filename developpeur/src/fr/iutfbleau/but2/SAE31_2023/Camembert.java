@@ -21,7 +21,7 @@ public class Camembert extends JPanel {
      *
      * @param donnees Les données pour créer le diagramme camembert.
      */
-    public Camembert(Map<String, Object[]> donnee,Color[] couleurs) {
+    public Camembert(Map<String, Object[]> donnee) {
         setLayout(new GridBagLayout());
               
 

@@ -13,7 +13,7 @@ public class PiedDePage extends JPanel {
         JButton reussite = new JButton("réussite") ;
         JButton historique = new JButton("historique");
         
-        setBackground(new Color(192,192,192));
+        
         setLayout(new BorderLayout());
         JPanel flowPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JPanel flowPane2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -21,20 +21,19 @@ public class PiedDePage extends JPanel {
         reussite.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!"réussite".equals(ecran.obtenirEcranActuel())) {
-                    ecran.ecranSuivant("historique");
-                }
+                System.out.println("Bouton Réussite cliqué");
+                    ecran.ecranSuivant("réussite");
             }
         });
         
         historique.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!"historique".equals(ecran.obtenirEcranActuel())) {
-                    ecran.ecranSuivant("réussite");
-                }
+                System.out.println("Bouton Historique cliqué");
+                ecran.ecranSuivant("historique");
             }
         });
+        
         
         
 
