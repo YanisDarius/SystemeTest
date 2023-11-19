@@ -15,8 +15,6 @@ public class EcranOption {
     /** La hauteur de l'écran */
     private int screenHeight;
 
-   
-
     /**
      * Obtient la largeur de l'écran.
      *
@@ -54,5 +52,4 @@ public class EcranOption {
     public void setFullScreen(JFrame frame) {
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
-
 }
