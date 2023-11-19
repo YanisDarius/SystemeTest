@@ -1,4 +1,5 @@
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -21,6 +22,8 @@ public class Ecran {
     /** Le gestionnaire de mise en page pour le cardPanel */
     private CardLayout cardLayout;
 
+    private BD bdd;
+
     /**
      * Constructeur de la classe Ecran.
      *
@@ -30,6 +33,7 @@ public class Ecran {
         cardPanel = new JPanel();
         cardLayout = new CardLayout();
         cardPanel.setLayout(cardLayout);
+        this.bdd = bdd;
 
         // Définition de l'écran grâce à l'option écran
         EcranOption ecran = new EcranOption();
@@ -43,6 +47,7 @@ public class Ecran {
         });
         frame.setSize(ecran.getWidth(), ecran.getHeight());
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frame.setBackground(new Color(220,220,220));
 
     }
 
@@ -81,6 +86,7 @@ public class Ecran {
      */
     public void ajouterEcran(Component ajoutDesComponent, String nomComponent) {
         cardPanel.add(ajoutDesComponent, nomComponent);
+
     }
 
     /**
@@ -101,7 +107,9 @@ public class Ecran {
         this.getCardLayout().show(this.getCardJPanel(), nomEcran);
 
         if (nomEcran == "TERMINER") {
+            bdd.fermerRessource();
             this.Frame().dispose();
+            
         }
     }
 
@@ -113,4 +121,20 @@ public class Ecran {
         frame.repaint();
     }
 
-}
+  
+
+    public String obtenirEcranActuel() {
+        Component[] composants = cardPanel.getComponents();
+        for (Component composant : composants) {
+            if (composant.isVisible() && cardPanel.getComponentZOrder(composant) != -1) {
+                    return cardLayout.toString();
+                } else {
+                    return null;
+                }
+            }
+            return null;
+        }
+        
+    }
+
+

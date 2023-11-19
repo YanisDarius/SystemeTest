@@ -1,6 +1,7 @@
 
 
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridBagLayout;
 
@@ -21,14 +22,17 @@ public class Reussite extends JPanel {
      * @param donnee Les données associées au protocole pour afficher la réussite.
      */
     public Reussite(Ecran ecran, Donnee donnee) {
-        
-        setLayout(new GridBagLayout());
+
+        setLayout(new BorderLayout());
+
+        JPanel jpanel = new  JPanel();
+        jpanel.setLayout(new GridBagLayout());
         
         // Construction du titre avec le nom du protocole et son ID
         StringBuilder titretext = new StringBuilder("Voici le graphique des reusssite du protocole  ");
         titretext.append(donnee.getTitreprotocole()).append("    | ID :").append(donnee.getIdprotocole());
         Titre titre = new Titre(titretext.toString());
-        add(titre,titre.getContraint());
+        jpanel.add(titre,titre.getContraint());
 
 
        
@@ -36,7 +40,15 @@ public class Reussite extends JPanel {
         // Créer le  camembert
         Color[] couleurs= {Color.GREEN};
         Camembert camembert = new Camembert(donnee.getReussite(),couleurs);
-        add(camembert, camembert.getConstraints());
+        jpanel.add(camembert, camembert.getConstraints());
+
+        //ajout du pied de page
+        PiedDePage pieddepage = new PiedDePage(ecran);
+        
+        add(jpanel);
+        add(pieddepage);
+
+        
 
 
     }
